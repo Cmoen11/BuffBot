@@ -1,3 +1,3 @@
 # BuffBot
 
-This wil be a os bot for Discord. Create issues to request features. 
+This wil be a os bot for Discord. Create issue to request features. 
