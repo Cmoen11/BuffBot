@@ -12,7 +12,7 @@ Command | What it does | Who can do it?
 `!summon` | Bot will join your channel if you're in a voice channel | Restricted
 `!leaveChannel` | Bot will leave your channel | Restricted
 
-Usergroups | What it does mean |
+Usergroups | # |
 --- | ---
 Everyone | Everyone in the channel, default usergroup
 Restricted | Restricted accsess. default the owner of the bot
