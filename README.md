@@ -16,3 +16,5 @@ Feel free to fork and commit your own features!
 ## Rules for pullrequests
 * All code should be documentented
 * New features shall always be included in unit-testing.
+* New features should be explained in detail in the wiki-page
+
