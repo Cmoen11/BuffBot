@@ -11,10 +11,15 @@ Command | What it does | Who can do it?
 `!math` | Can do nearly everything you want in math | Everyone
 
 
-
+<br>
 ## Features
 
 stuff will be added
+
+<br>
+
+## Install quide
+Stuff will be added here
 
 <br>
 ## Open Source
