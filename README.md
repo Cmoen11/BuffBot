@@ -4,6 +4,14 @@ This wil be a os bot for Discord. We're open for requests, please submit a issue
 
 <br><br>
 
+## Commands
+Command | What it does | Who can do it?
+--- | --- | ---
+`!help` | Gives a list of all of the commands | Everyone
+`!math` | Can do nearly everything you want in math | Everyone
+
+
+
 ## Features
 
 stuff will be added
