@@ -1,6 +1,10 @@
 # BuffBot
 
-This wil be a os bot for Discord. Create issue to request features. 
+This wil be a os bot for Discord. We're open for requests for features, please add a issue to request features. 
+
+## Features
+
+stuff will be added
 
 <br><br>
 
