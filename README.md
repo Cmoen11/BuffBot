@@ -1,6 +1,6 @@
 # BuffBot
 
-This wil be a os bot for Discord. We're open for requests, please submit a issue to request a feature. 
+This wil be a os bot for Discord written in Python. We're open for requests, please submit a issue to request a feature. 
 
 <br><br>
 
@@ -31,3 +31,7 @@ Feel free to fork and commit your own features!
 * New features shall always be included in unit-testing.
 * New features should be explained in detail in the wiki-page
 
+<br>
+
+### Credits for open repositiories
+- https://github.com/Rapptz/discord.py
