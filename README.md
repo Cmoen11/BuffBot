@@ -9,6 +9,8 @@ Command | What it does | Who can do it?
 --- | --- | ---
 `!help` | Gives a list of all of the commands | Everyone
 `!math` | Can do nearly everything you want in math | Everyone
+`!summon` | Bot will join your channel if you're in a voice channel | Restricted
+`!leaveChannel` | Bot will leave your channel \ Restricted
 
 
 <br>
