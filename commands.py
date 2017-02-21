@@ -2,17 +2,18 @@ from discord.ext import commands
 from simpleeval import simple_eval
 import math
 import random
+import datetime
 
 
 class Command:
     def __init__(self, bot):
         self.bot = bot
-        self.owner = "85431603408420864"
+        self.owner = ["85431603408420864", "235892294857916417"]
         self.voice = None
 
     @commands.command(name="bye", pass_context=True)
     async def bye(self, ctx):
-        if ctx.message.author.id == self.owner:
+        if ctx.message.author.id in self.owner:
             await self.bot.say("Bye bye!")
             await self.bot.logout()
 
@@ -25,7 +26,6 @@ class Command:
 
         except Exception:
             result = "Read the fucking manual"
-
         await self.respond(result, ctx.message.author.mention)
 
     @commands.command(name="doStuff", pass_context=True)
@@ -61,6 +61,10 @@ class Command:
 
     async def respond(self, msg, author):
         await self.bot.say(f"{msg}, {author}")
+
+    @commands.command(name="isErlendSmall")
+    async def erlendSize(self):
+        await self.bot.say("Erlend is still small {} one day, he might become a big guy as Wiklem".format(datetime.datetime.now()))
 
 
 def get_random_line(file):

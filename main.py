@@ -24,5 +24,5 @@ if __name__ == '__main__':
             exc = '{}: {}'.format(type(e).__name__, e)
             print('Failed to load extension {}\n{}'.format(ext, exc))
 
-        bot.run('')
+        bot.run('MjgzMzUwNjMxMTY1NTkxNTUz.C42j2w.IrlvonwqlxBVQP0v4MyDKCv6TJE')
 
