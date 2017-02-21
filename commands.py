@@ -8,12 +8,12 @@ import random
 class Command:
     def __init__(self, bot):
         self.bot = bot
-        self.owner = "85431603408420864"
+        self.owners = ["85431603408420864", "235892294857916417", "269919583899484160"]
         self.voice = None
 
     @commands.command(name="bye", pass_context=True)
     async def bye(self, ctx):
-        if ctx.message.author.id == self.owner:
+        if ctx.message.author.id in self.owners:
             await self.bot.say("Bye bye!")
             await self.bot.logout()
 
@@ -62,46 +62,49 @@ class Command:
 
     @commands.command(name="patrol", pass_context=True)
     async def kick_non_gamers(self, ctx):
-        good_members = []
-        jail = None
-        #########
-        # Collect the jail channel, if no channel found -> create one.
-        #########
-        for channel in ctx.message.server.channels:
-            if channel.name == "Jail":
-                jail = channel
-                break
-        if jail is None:  # if no jail exists
-            await self.bot.create_channel(name="Jail", server=ctx.message.server, type='voice')  # create jail
+        if ctx.message.author.id in self.owners:
+            good_members = []
+            jail = None
+            #########
+            # Collect the jail channel, if no channel found -> create one.
+            #########
             for channel in ctx.message.server.channels:
                 if channel.name == "Jail":
                     jail = channel
                     break
+            if jail is None:  # if no jail exists
+                await self.bot.create_channel(name="Jail", server=ctx.message.server, type='voice')  # create jail
+                for channel in ctx.message.server.channels:
+                    if channel.name == "Jail":
+                        jail = channel
+                        break
 
-        #########
-        # Patrols voice channels
-        #########
-        for channel in ctx.message.server.channels:
-            if channel != jail:
-                # If this returns 0, it means that either the room is empty or it isn't a voice channel
-                if len(channel.voice_members) != 0:
-                    voice_members = channel.voice_members
+            #########
+            # Patrols voice channels
+            #########
+            for channel in ctx.message.server.channels:
+                if channel != jail:
+                    # If this returns 0, it means that either the room is empty or it isn't a voice channel
+                    if len(channel.voice_members) != 0:
+                        voice_members = channel.voice_members
 
-                    for member in voice_members:                        # for each member in the channel
-                        if member.game is None:                         # Check if the member is playing
-                            await self.bot.move_member(member, jail)    # -> jail the user if not
-                        else:
-                            good_members.append(member.display_name)    # append the good guys on the good guys list.
+                        for member in voice_members:                        # for each member in the channel
+                            if member.game is None:                         # Check if the member is playing
+                                await self.bot.move_member(member, jail)    # -> jail the user if not
+                            else:
+                                good_members.append(member.display_name)    # append the good guys on the good guys list.
 
-        #########
-        # Give out info about the good boys.
-        #########
-        if len(good_members) == 0:
-            await self.bot.say("You're all bad boys!")
-        elif len(good_members) == 1:
-            await self.bot.say("{} is a good boy, the rest of you I will now kick!".format(good_members[0]))
+            #########
+            # Give out info about the good boys.
+            #########
+            if len(good_members) == 0:
+                await self.bot.say("You're all bad boys!")
+            elif len(good_members) == 1:
+                await self.bot.say("{} is a good boy, the rest of you I will now kick!".format(good_members[0]))
+            else:
+                await self.bot.say("{} are good boys, the rest I will now kick!".format(", ".join(good_members)))
         else:
-            await self.bot.say("{} are good boys, the rest I will now kick!".format(", ".join(good_members)))
+            await self.bot.say("You're not a big guy.")
 
     async def respond(self, msg, author):
         await self.bot.say(f"{msg}, {author}")
