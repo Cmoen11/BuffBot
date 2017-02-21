@@ -80,6 +80,7 @@ We're open for new features, but keep in mind the scope and relevance of the Buf
 * All code should be documentented
 * New features should be explained in detail in the wiki-page
 <br>
+
 Her må det legges til hvordan folk kan gjennomføre pullrequests. Skal de forke? osv. @Moen
 
 
