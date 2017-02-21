@@ -35,6 +35,7 @@ Command | What it does | Who can do it?
 `!math` | Can do nearly everything you want in math | Everyone
 `!summon` | Bot will join your channel if you're in a voice channel | Restricted
 `!leaveChannel` | Bot will leave your channel | Restricted
+`!patrol` | Bot will set people in jail if they do not currently play a game | Restricted
 
 Usergroups | # |
 --- | ---
