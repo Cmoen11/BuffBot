@@ -73,6 +73,10 @@ class Command:
                 break
         if jail is None:  # if no jail exists
             await self.bot.create_channel(name="Jail", server=ctx.message.server, type='voice')  # create jail
+            for channel in ctx.message.server.channels:
+                if channel.name == "Jail":
+                    jail = channel
+                    break
 
         #########
         # Patrols voice channels
