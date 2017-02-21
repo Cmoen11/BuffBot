@@ -63,7 +63,7 @@ class Command:
     @commands.command(name="patrol", pass_context=True)
     async def kick_non_gamers(self, ctx):
         good_members = []
-
+        jail = None
         #########
         # Collect the jail channel, if no channel found -> create one.
         #########
@@ -72,7 +72,7 @@ class Command:
                 jail = channel
                 break
         if jail is None:  # if no jail exists
-            await self.bot.create_channel("Jail", type='voice')  # create jail
+            await self.bot.create_channel(name="Jail", server=ctx.message.server, type='voice')  # create jail
 
         #########
         # Patrols voice channels
