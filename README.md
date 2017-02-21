@@ -65,6 +65,7 @@ Issues <3
 
 <br>
 ## Licence
+[GPL3.0](https://github.com/Cmoen11/BuffBot/blob/master/LICENSE)
 Feel free to fork and commit your own features! 
 
 <br>
