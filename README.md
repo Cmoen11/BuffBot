@@ -87,8 +87,6 @@ Her må det legges til hvordan folk kan gjennomføre pullrequests. Skal de forke
 <br>
 ## Licence
 [GPL3.0](https://github.com/Cmoen11/BuffBot/blob/master/LICENSE)
-<br>
-Feel free to fork and commit your own features! 
 
 <br>
 
