@@ -4,7 +4,7 @@ This wil be an os bot for Discord written in Python 3.6. We're open for requests
 
 ## Table of contents
 
-* [Quick start](http://github.com/Cmoen11/BuffBot/README.md#quick-start)
+* [Quick start](#quick-start)
 * [Commands](http://github.com/Cmoen11/BuffBot/README.md#commands)
 * [Documentation](http://github.com/Cmoen11/BuffBot/README.md#documentation)
 * [Features](http://github.com/Cmoen11/BuffBot/README.md#features)
