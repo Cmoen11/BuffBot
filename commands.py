@@ -19,7 +19,7 @@ class Command:
     @commands.command(name="math", pass_context=True)
     async def math(self, ctx, *, params):
         try:
-            result = simple_eval(f"{params}", names={"e": math.e, "pi": math.pi, "lol": "retard"},
+            result = simple_eval(f"{params}", names={"e": math.e, "pi": math.pi},
                                  functions={"log": math.log, "sqrt": math.sqrt, "cos": math.cos, "sin":math.sin,
                                             "tan":math.tan})
 
