@@ -5,13 +5,13 @@ This wil be an os bot for Discord written in Python 3.6. We're open for requests
 ## Table of contents
 
 * [Quick start](#quick-start)
-* [Commands](http://github.com/Cmoen11/BuffBot/README.md#commands)
-* [Documentation](http://github.com/Cmoen11/BuffBot/README.md#documentation)
-* [Features](http://github.com/Cmoen11/BuffBot/README.md#features)
-* [Bugs and feature requests](http://github.com/Cmoen11/BuffBot/README.md#bugs-and-feature-requests)
-* [Contribution](http://github.com/Cmoen11/BuffBot/README.md#contribution)
-* [Licence](http://github.com/Cmoen11/BuffBot/README.md#licence)
-* [Credits](http://github.com/Cmoen11/BuffBot/README.md#credits)
+* [Commands](#commands)
+* [Documentation](#documentation)
+* [Features](#features)
+* [Bugs and feature requests](#bugs-and-feature-requests)
+* [Contribution](#contribution)
+* [Licence](#licence)
+* [Credits](#credits)
 
 
 <br>
