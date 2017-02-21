@@ -8,7 +8,7 @@ import random
 class Command:
     def __init__(self, bot):
         self.bot = bot
-        self.owners = ["85431603408420864", "235892294857916417", "269919583899484160"]
+        self.owners = ["85431603408420864", "235892294857916417", "269919583899484160", "95596654194855936"]
         self.voice = None
 
     @commands.command(name="bye", pass_context=True)
@@ -60,6 +60,11 @@ class Command:
     async def playAudio(self, ctx):
         pass
 
+    @commands.command(name="flagChan", pass_context=True, help="Flag channels for games only. If you enter free, there is no restriction on the selected channel")
+    async def flag_channel(self, ctx, game_title):
+
+        pass
+
     @commands.command(name="patrol", pass_context=True)
     async def kick_non_gamers(self, ctx):
         if ctx.message.author.id in self.owners:
@@ -74,7 +79,7 @@ class Command:
                     break
             if jail is None:  # if no jail exists
                 await self.bot.create_channel(name="Jail", server=ctx.message.server, type='voice')  # create jail
-                for channel in ctx.message.server.channels:
+                for channel in ctx.message.server.channels:   # find the new channel
                     if channel.name == "Jail":
                         jail = channel
                         break
@@ -92,19 +97,19 @@ class Command:
                             if member.game is None:                         # Check if the member is playing
                                 await self.bot.move_member(member, jail)    # -> jail the user if not
                             else:
-                                good_members.append(member.display_name)    # append the good guys on the good guys list.
+                                good_members.append(member.mention)         # Add member too good boy list
 
             #########
             # Give out info about the good boys.
             #########
             if len(good_members) == 0:
-                await self.bot.say("You're all bad boys!")
+                await self.bot.say("You're all bad boys! :wink: ")
             elif len(good_members) == 1:
                 await self.bot.say("{} is a good boy, the rest of you I will now kick!".format(good_members[0]))
             else:
                 await self.bot.say("{} are good boys, the rest I will now kick!".format(", ".join(good_members)))
         else:
-            await self.bot.say("You're not a big guy.")
+            await self.bot.say("You're not a big guy. :thinking: ")
 
     async def respond(self, msg, author):
         await self.bot.say(f"{msg}, {author}")
