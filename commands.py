@@ -2,6 +2,7 @@ from discord.ext import commands
 from simpleeval import simple_eval
 import asyncio
 import math
+import os
 import random
 
 
@@ -10,6 +11,8 @@ class Command:
         self.bot = bot
         self.owners = ["85431603408420864", "235892294857916417", "269919583899484160", "95596654194855936"]
         self.voice = None
+        self.player = None
+        self.volume = 1.0
 
     @commands.command(name="bye", pass_context=True)
     async def bye(self, ctx):
@@ -56,14 +59,62 @@ class Command:
     async def whoIsTheBuffest(self, ctx):
         await self.respond("Wiklem", ctx.message.author.mention)
 
-    @commands.command(name="play", pass_context=True)
-    async def playAudio(self, ctx):
-        pass
+    @commands.command(name="play", pass_context=True, help="Play some music!")
+    async def play_audio(self, ctx, link):
+        # Get the voice channel the commanding user is in
+        trigger_channel = ctx.message.author.voice.voice_channel
+        # Return with a message if the user is not in a voice channel
+        if trigger_channel == None:
+            await self.bot.say("You're not in a voice channel right now")
+            return
+        if self.voice:
+            if self.voice.channel.id != trigger_channel.id:
+                # If the bot is in voice, but not in the same channel, move to the commanding user
+                await self.voice.move_to(trigger_channel)
+        else:
+            # If the bot is not in a voice channel, join the commanding user
+            self.voice = await self.bot.join_voice_channel(trigger_channel)
+        # Stop the player if it is running, to make room for the next one
+        if self.player:
+            self.player.stop()
+        # Create a StreamPlayer with the requested link
+        self.player = await self.voice.create_ytdl_player(link)
+        # Set the volume to the bot's volume value
+        self.player.volume = self.volume
+        self.player.start()
+
+    @commands.command(name="stop", help="Stop the audio player")
+    async def stop_audio(self):
+        if self.player:
+            self.player.stop()
+        else:
+            await self.bot.say("I'm not playing anything right now")
+
+    @commands.command(name="setvolume", help="Set the bot's volume (in percent)")
+    async def set_volume(self, volume: int):
+        # Ensure the volume argument is between 0 and 100.
+        if 0 > volume > 100:
+            await self.bot.say("I don't want to blow out your ears")
+            return
+        # Set the bot's volume value
+        self.volume = float(volume/100)
+        if self.player:
+            # Set the volume to the player if it exists
+            self.player.volume = self.volume
+        else:
+            await self.bot.say("I'm not playing anything right now, but I set the volume to {}% for next time".format(volume))
 
     @commands.command(name="flagChan", pass_context=True, help="Flag channels for games only. If you enter free, there is no restriction on the selected channel")
     async def flag_channel(self, ctx, game_title):
 
         pass
+
+    @commands.command(name="smug", pass_context=True)
+    async def smug(self, ctx):
+        path = 'smug-anime-faces' # The folder in which smug anime face images are contained
+        face = os.path.join(path, random.choice(os.listdir(path))) # Generate path to a random face
+        # Send the image to the channel where the smug command was triggered
+        await self.bot.send_file(ctx.message.channel, face)
 
     @commands.command(name="patrol", pass_context=True)
     async def kick_non_gamers(self, ctx):
