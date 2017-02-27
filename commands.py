@@ -4,12 +4,13 @@ import asyncio
 import math
 import os
 import random
+import dataset
 
 
 class Command:
     def __init__(self, bot):
         self.bot = bot
-        self.owners = ["85431603408420864", "235892294857916417", "269919583899484160", "95596654194855936"]
+        self.owners = ["85431603408420864", "235892294857916417", "269919583899484160", "95596654194855936", "125307006260084736"]
         self.voice = None
         self.player = None
         self.volume = 1.0
@@ -24,9 +25,8 @@ class Command:
     async def math(self, ctx, *, params):
         try:
             result = simple_eval(f"{params}", names={"e": math.e, "pi": math.pi},
-                                 functions={"log": math.log, "sqrt": math.sqrt, "cos": math.cos, "sin":math.sin,
-                                            "tan":math.tan})
-
+                                 functions={"log": math.log, "sqrt": math.sqrt, "cos": math.cos, "sin": math.sin,
+                                            "tan": math.tan})
         except Exception:
             result = "Read the fucking manual"
 
@@ -61,6 +61,8 @@ class Command:
 
     @commands.command(name="play", pass_context=True, help="Play some music!")
     async def play_audio(self, ctx, link):
+        if ctx.message.author.id not in self.owners:
+            return None
         # Get the voice channel the commanding user is in
         trigger_channel = ctx.message.author.voice.voice_channel
         # Return with a message if the user is not in a voice channel
@@ -83,8 +85,10 @@ class Command:
         self.player.volume = self.volume
         self.player.start()
 
-    @commands.command(name="stop", help="Stop the audio player")
-    async def stop_audio(self):
+    @commands.command(name="stop", pass_context=True, help="Stop the audio player")
+    async def stop_audio(self, ctx):
+        if ctx.message.author.id not in self.owners:
+            return None
         if self.player:
             self.player.stop()
         else:
@@ -173,7 +177,6 @@ def get_random_line(file):
             if random.randrange(num + 2): continue
             line = a
     return line.rstrip()
-
 
 
 def setup(bot):
