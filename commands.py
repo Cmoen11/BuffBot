@@ -93,7 +93,7 @@ class Command:
     @commands.command(name="setvolume", help="Set the bot's volume (in percent)")
     async def set_volume(self, volume: int):
         # Ensure the volume argument is between 0 and 100.
-        if 0 > volume > 100:
+        if 0 > volume || volume > 100:
             await self.bot.say("I don't want to blow out your ears")
             return
         # Set the bot's volume value
