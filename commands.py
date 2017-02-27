@@ -94,10 +94,12 @@ class Command:
         else:
             await self.bot.say("I'm not playing anything right now")
 
-    @commands.command(name="setvolume", help="Set the bot's volume (in percent)")
-    async def set_volume(self, volume: int):
+    @commands.command(name="setvolume", pass_context=True, help="Set the bot's volume (in percent)")
+    async def set_volume(self, ctx, volume: int):
+        if ctx.message.author.id not in self.owners:
+            return None
         # Ensure the volume argument is between 0 and 100.
-        if 0 > volume || volume > 100:
+        if 0 > volume or volume > 100:
             await self.bot.say("I don't want to blow out your ears")
             return
         # Set the bot's volume value
