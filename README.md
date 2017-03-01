@@ -17,6 +17,9 @@ BuffBot is an open source bot for Discord written in Python 3.6. We'd love your 
 <br>
 
 ## Quick start
+apt install python3 python3-pip libffi-dev ffmpeg
+pip3 install discord.py[voice] youtube-dl dataset simpleeval
+
 1. You'll need atleast to have Python 3.x installed
 2. You'll also need to install the Discord API wrapper. Do this by run the following command.
 python3 -m pip install -U https://github.com/Rapptz/discord.py/archive/master.zip#egg=discord.py[voice]
