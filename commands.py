@@ -24,7 +24,7 @@ class Command:
     @commands.command(name="math", pass_context=True)
     async def math(self, ctx, *, params):
         try:
-            result = simple_eval(f"{params}", names={"e": math.e, "pi": math.pi},
+            result = simple_eval("{}".format(params), names={"e": math.e, "pi": math.pi},
                                  functions={"log": math.log, "sqrt": math.sqrt, "cos": math.cos, "sin": math.sin,
                                             "tan": math.tan})
         except Exception:
@@ -169,7 +169,7 @@ class Command:
             await self.bot.say("You're not a big guy. :thinking: ")
 
     async def respond(self, msg, author):
-        await self.bot.say(f"{msg}, {author}")
+        await self.bot.say("{}, {}".format(msg, author))
 
 
 def get_random_line(file):
