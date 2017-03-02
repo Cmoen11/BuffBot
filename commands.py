@@ -5,7 +5,7 @@ import math
 import os
 import random
 import dataset
-from PIL import Image
+import urllib
 
 class Command:
     def __init__(self, bot):
@@ -120,10 +120,10 @@ class Command:
         randomNr = random.randrange(5000,1000000)
         filetitle = "smug-"
         filetitle =+ randomNr
+        filetitle =+ ".jpg"
         path = "/smug-anime-faces/"
-        path =+ filetitle
-        path =+ ".jpg"
-        img.save(path, 'JPEG')
+        file = urllib.URLopener()
+        file.retrieve(path, filetitle)
         
         
         
