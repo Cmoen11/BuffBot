@@ -117,7 +117,7 @@ class Command:
     
     @commands.command(name="smugadd", pass_context=True)
     async def add_smug(self, ctx, path):
-        randomNr = random.randrange(5000,1000000)
+        randomNr = str(random.randrange(5000,1000000))
         filetitle = "smug-"
         filetitle =+ randomNr
         filetitle =+ ".jpg"
