@@ -5,7 +5,7 @@ import math
 import os
 import random
 import dataset
-
+from PIL import Image
 
 class Command:
     def __init__(self, bot):
@@ -114,7 +114,20 @@ class Command:
     async def flag_channel(self, ctx, game_title):
 
         pass
-
+    
+    @commands.command(name="smugadd", pass_context=True)
+    async def add_smug(self, ctx, path):
+        randomNr = random.randrange(5000,1000000)
+        filetitle = "smug-"
+        filetitle =+ randomNr
+        path = "/smug-anime-faces/"
+        path =+ filetitle
+        path =+ ".jpg"
+        img.save(path, 'JPEG')
+        
+        
+        
+    
     @commands.command(name="smug", pass_context=True)
     async def smug(self, ctx):
         path = 'smug-anime-faces' # The folder in which smug anime face images are contained
