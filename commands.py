@@ -116,10 +116,10 @@ class Command:
         pass
     
     @commands.command(name="smugadd", pass_context=True)
-    async def add_smug(self, ctx, path):
+    async def add_smug(self, ctx, url):
         filetitle = "smug-" + str(random.randrange(5000,1000000)) + ".jpg"
         path = "/smug-anime-faces/"
-        file = urllib.URLopener()
+        file = urllib.URLopener(url)
         file.retrieve(path, filetitle)
         
         
