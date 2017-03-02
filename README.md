@@ -35,15 +35,15 @@ python3 -m pip install -U https://github.com/Rapptz/discord.py/archive/master.zi
 Command | What it does | Who can do it?
 --- | --- | ---
 `!help` | Gives a list of all of the commands | Everyone
-`!math` | Can do nearly everything you want in math | Everyone
+`!math <math question>` | Can do nearly everything you want in math | Everyone
 `!summon` | Bot will join your channel if you're in a voice channel | Restricted
 `!leaveChannel` | Bot will leave your channel | Restricted
 `!patrol` | Bot will set people in jail if they do not currently play a game | Restricted
-`!play` | Bot will join your channel and start playing fine tunes. It require a link to the music source. | Restricted
+`!play <music link> ` | Bot will join your channel and start playing fine tunes. It require a link to the music source. | Restricted
 `!stop` | Bot will stop playing music. | Restricted
-`!setvolume`| Bot will change the volume to the given prosent | Restricted 
+`!setvolume <a number between 0 - 100>`| Bot will change the volume to the given prosent | Restricted 
 `!smug`| Bot will reply with a smug image | Everyone
-`!smugadd` | needs link to a image, and will add it to the smug list | Restricted
+`!smugadd <a http link to image that are to be added>` | needs link to a image, and will add it to the smug list | Restricted
 
 Usergroups | # |
 --- | ---
