@@ -39,6 +39,11 @@ Command | What it does | Who can do it?
 `!summon` | Bot will join your channel if you're in a voice channel | Restricted
 `!leaveChannel` | Bot will leave your channel | Restricted
 `!patrol` | Bot will set people in jail if they do not currently play a game | Restricted
+`!play` | Bot will join your channel and start playing fine tunes. It require a link to the music source. | Restricted
+`!stop` | Bot will stop playing music. | Restricted
+`!setvolume`| Bot will change the volume to the given prosent | Restricted 
+`!smug`| Bot will reply with a smug image | Everyone
+`!smugadd` | needs link to a image, and will add it to the smug list | Restricted
 
 Usergroups | # |
 --- | ---
