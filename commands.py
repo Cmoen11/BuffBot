@@ -5,7 +5,8 @@ import math
 import os
 import random
 import dataset
-import urllib
+import aiohttp
+import hashlib
 
 class Command:
     def __init__(self, bot):
@@ -116,12 +117,21 @@ class Command:
         pass
     
     @commands.command(name="smugadd", pass_context=True)
-    async def add_smug(self, ctx, url):
-        filetitle = "smug-" + str(random.randrange(5000,1000000)) + ".jpg"
-        path = "/smug-anime-faces/"
-        file = urllib.URLopener(url)
-        file.retrieve(path, filetitle)
-        
+    async def add_smug(self, ctx, path):
+        allowed_content = {'image/jpeg': 'jpg', 'image/png': 'png', 'image/gif': 'gif'}
+        async with aiohttp.get(path) as r:
+            if r.status == 200:
+                file = await r.content.read()
+                type = r.headers['Content-Type']
+        if type not in allowed_content:
+            await self.bot.say("That kind of file is not allowed")
+            return
+        else:
+            hash = hashlib.md5(file).hexdigest()
+            filename = "smug-anime-faces/{}.{}".format(hash, allowed_content[type])
+            with open(filename, 'wb') as f:
+                f.write(file)
+            await self.bot.say("Smugness levels increased")
         
         
     
