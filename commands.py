@@ -5,7 +5,8 @@ import math
 import os
 import random
 import dataset
-
+import aiohttp
+import hashlib
 
 class Command:
     def __init__(self, bot):
@@ -24,7 +25,7 @@ class Command:
     @commands.command(name="math", pass_context=True)
     async def math(self, ctx, *, params):
         try:
-            result = simple_eval(f"{params}", names={"e": math.e, "pi": math.pi},
+            result = simple_eval("{}".format(params), names={"e": math.e, "pi": math.pi},
                                  functions={"log": math.log, "sqrt": math.sqrt, "cos": math.cos, "sin": math.sin,
                                             "tan": math.tan})
         except Exception:
@@ -114,7 +115,26 @@ class Command:
     async def flag_channel(self, ctx, game_title):
 
         pass
-
+    
+    @commands.command(name="smugadd", pass_context=True)
+    async def add_smug(self, ctx, path):
+        allowed_content = {'image/jpeg': 'jpg', 'image/png': 'png', 'image/gif': 'gif'}
+        async with aiohttp.get(path) as r:
+            if r.status == 200:
+                file = await r.content.read()
+                type = r.headers['Content-Type']
+        if type not in allowed_content:
+            await self.bot.say("That kind of file is not allowed")
+            return
+        else:
+            hash = hashlib.md5(file).hexdigest()
+            filename = "smug-anime-faces/{}.{}".format(hash, allowed_content[type])
+            with open(filename, 'wb') as f:
+                f.write(file)
+            await self.bot.say("Smugness levels increased")
+        
+        
+    
     @commands.command(name="smug", pass_context=True)
     async def smug(self, ctx):
         path = 'smug-anime-faces' # The folder in which smug anime face images are contained
@@ -169,7 +189,7 @@ class Command:
             await self.bot.say("You're not a big guy. :thinking: ")
 
     async def respond(self, msg, author):
-        await self.bot.say(f"{msg}, {author}")
+        await self.bot.say("{}, {}".format(msg, author))
 
 
 def get_random_line(file):

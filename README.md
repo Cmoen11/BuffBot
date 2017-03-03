@@ -17,6 +17,9 @@ BuffBot is an open source bot for Discord written in Python 3.6. We'd love your 
 <br>
 
 ## Quick start
+apt install python3 python3-pip libffi-dev ffmpeg
+pip3 install discord.py[voice] youtube-dl dataset simpleeval
+
 1. You'll need atleast to have Python 3.x installed
 2. You'll also need to install the Discord API wrapper. Do this by run the following command.
 python3 -m pip install -U https://github.com/Rapptz/discord.py/archive/master.zip#egg=discord.py[voice]
@@ -32,10 +35,15 @@ python3 -m pip install -U https://github.com/Rapptz/discord.py/archive/master.zi
 Command | What it does | Who can do it?
 --- | --- | ---
 `!help` | Gives a list of all of the commands | Everyone
-`!math` | Can do nearly everything you want in math | Everyone
+`!math <math question>` | Can do nearly everything you want in math | Everyone
 `!summon` | Bot will join your channel if you're in a voice channel | Restricted
 `!leaveChannel` | Bot will leave your channel | Restricted
 `!patrol` | Bot will set people in jail if they do not currently play a game | Restricted
+`!play <music link> ` | Bot will join your channel and start playing fine tunes. It require a link to the music source. | Restricted
+`!stop` | Bot will stop playing music. | Restricted
+`!setvolume <a number between 0 - 100>`| Bot will change the volume to the given prosent | Restricted 
+`!smug`| Bot will reply with a smug image | Everyone
+`!smugadd <a http link to image that are to be added>` | needs link to a image, and will add it to the smug list | Restricted
 
 Usergroups | # |
 --- | ---
