@@ -1,12 +1,12 @@
 from discord.ext import commands
 from simpleeval import simple_eval
-import asyncio
 import math
 import os
 import random
-import dataset
 import aiohttp
 import hashlib
+import database
+
 
 class Command:
     def __init__(self, bot):
@@ -15,6 +15,7 @@ class Command:
         self.voice = None
         self.player = None
         self.volume = 1.0
+        self.database = database.Database()
 
     @commands.command(name="bye", pass_context=True)
     async def bye(self, ctx):
@@ -112,8 +113,8 @@ class Command:
             await self.bot.say("I'm not playing anything right now, but I set the volume to {}% for next time".format(volume))
 
     @commands.command(name="flagChan", pass_context=True, help="Flag channels for games only. If you enter free, there is no restriction on the selected channel")
-    async def flag_channel(self, ctx, game_title):
-
+    async def flag_channel(self, ctx):
+        self.database.flag_gaming_channel(ctx.message.author.voice.voice_channel.id, ctx.message.author.game, 1)
         pass
     
     @commands.command(name="smugadd", pass_context=True)
@@ -133,8 +134,7 @@ class Command:
                 f.write(file)
             await self.bot.say("Smugness levels increased")
         
-        
-    
+
     @commands.command(name="smug", pass_context=True)
     async def smug(self, ctx):
         path = 'smug-anime-faces' # The folder in which smug anime face images are contained
@@ -171,7 +171,9 @@ class Command:
                         voice_members = channel.voice_members
 
                         for member in voice_members:                        # for each member in the channel
-                            if member.game is None:                         # Check if the member is playing
+                            print(self.database.get_flagged_games(channel.id))
+
+                            if member.game not in self.database.get_flagged_games(channel.id):
                                 await self.bot.move_member(member, jail)    # -> jail the user if not
                             else:
                                 good_members.append(member.mention)         # Add member too good boy list
