@@ -79,6 +79,27 @@ Definition of a bug: A bug is an error, failure or fault in the program caused b
 * Search through the [issue tracker](https://github.com/Cmoen11/BuffBot/issues) for the bug or feature you wish to submit. Duplication of requests like these takes time from developers, we'd rather spend on developing the bot.
 * Pull the latest 'master' or 'development branch to check if the bug is fixed.
 * Isolate the problem. One issue equals one bug.
+* Please use the following format: 
+<br>
+<b> Long story short </b>
+<br>
+<i> ... </i>
+<br>
+<b> Expected behaviour </b>
+<br>
+<i> ... </i>
+<br>
+<b> Actual Behaviour </b>
+<br>
+<i> ... </i>
+<br>
+<b> Steps to reproduce </b>
+<br>
+<i> ... </i>
+<br>
+<b> Your enviroment </b>
+<br>
+<i> OS, ptyhon version and more if neccesarily </i>
 
 ### Feature requests
 We're open for new features, but keep in mind the scope and relevance of the BuffBot. E.g. We will not implement changes in Discord's UI beyond what's already in the Discord API, as it neither is relevant nor in the scope of this project.
