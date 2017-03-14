@@ -6,6 +6,7 @@ import random
 import aiohttp
 import hashlib
 import database
+import playlist as p
 
 
 class Command:
@@ -16,6 +17,7 @@ class Command:
         self.player = None
         self.volume = 1.0
         self.database = database.Database()
+        self.playlist = None
 
     @commands.command(name="bye", pass_context=True)
     async def bye(self, ctx):
@@ -192,6 +194,20 @@ class Command:
 
     async def respond(self, msg, author):
         await self.bot.say("{}, {}".format(msg, author))
+
+    @commands.command(name="queue", pass_context=True)
+    async def add_to_queue(self, link):
+        if self.playlist is None:
+            self.playlist = p.Node(link)
+        else:
+            self.playlist.queue_next(link)
+        print(self.playlist.get_song())
+
+    @commands.command(name="next", pass_context=True)
+    async def play_next(self):
+        if self.playlist.next is not None:
+            self.player = await self.voice.create_ytdl_player(self.playlist.current.get_next())
+
 
 
 def get_random_line(file):
