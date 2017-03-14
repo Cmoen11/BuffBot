@@ -1,5 +1,4 @@
 import discord
-import asyncio
 from discord.ext import commands
 
 client = discord.Client()
@@ -25,4 +24,5 @@ if __name__ == '__main__':
             print('Failed to load extension {}\n{}'.format(ext, exc))
 
         bot.run('MjgzMzUwNjMxMTY1NTkxNTUz.C42j2w.IrlvonwqlxBVQP0v4MyDKCv6TJE')
+
 
