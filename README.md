@@ -24,9 +24,8 @@ pip3 install discord.py[voice] youtube-dl dataset simpleeval
 2. You'll also need to install the Discord API wrapper. Do this by run the following command.
 python3 -m pip install -U https://github.com/Rapptz/discord.py/archive/master.zip#egg=discord.py[voice]
 3. Download the zipped project
-4. Open main.py in your favorite text-editor
-5. Locate last row at bot.run('')
-6. Inside '' write your bot token, this you'll get from [Discord development page](https://discordapp.com/developers/applications/me/) You'll need to create a new application and add a bot to recive your bot token.
+4. in the root of your project, add a file called key.txt
+6. Inside key.txt, write your bot token, this you'll get from [Discord development page](https://discordapp.com/developers/applications/me/) You'll need to create a new application and add a bot to recive your bot token.
 7. Save the file and open your terminal
 8. navigate to your bot-files and write `Pyhton3 main.py`
 

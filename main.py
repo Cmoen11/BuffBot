@@ -14,7 +14,7 @@ async def on_ready():
     print(bot.user.id)
     print('------')
 
-@bot.event(pass_context=True)
+@bot.event
 async def on_voice_state_update(before):
     connected = []
     if checkconnected(before):
@@ -42,5 +42,7 @@ if __name__ == '__main__':
             exc = '{}: {}'.format(type(e).__name__, e)
             print('Failed to load extension {}\n{}'.format(ext, exc))
 
-        bot.run('')
+        # To run: Make a file called key.text in root
+        file = open("key.txt", "r")
+        bot.run(file.read())
 

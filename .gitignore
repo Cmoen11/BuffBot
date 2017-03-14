@@ -150,3 +150,6 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# keys
+key.txt

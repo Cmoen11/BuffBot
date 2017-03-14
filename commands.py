@@ -145,7 +145,7 @@ class Command:
     @commands.command(name="coin", pass_context=True)
     async def coin(self, ctx):
         # return coin status of the one who executes the command
-        await self.bot.say("You have" + self.database.get_coin_count(ctx.message.author.id) + "BuffCoins")
+        await self.bot.say("You have $" + str(self.database.get_coin_count(ctx.message.author.id)) + " BuffCoins")
 
     @commands.command(name="patrol", pass_context=True)
     async def kick_non_gamers(self, ctx):
