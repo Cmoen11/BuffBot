@@ -14,13 +14,9 @@ hs_err_pid*
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and Webstorm
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
 
-
 # User-specific stuff:
 .idea/**/workspace.xml
 .idea/**/tasks.xml
-.idea/**/untitled1.iml
-.idea/**/misc.xml
-
 
 # Sensitive or high-churn files:
 .idea/**/dataSources/
@@ -126,7 +122,6 @@ instance/
 docs/_build/
 
 # PyBuilder
-*.pyc
 target/
 
 # Jupyter Notebook
@@ -154,5 +149,3 @@ ENV/
 
 # Rope project settings
 .ropeproject
-
-# 
