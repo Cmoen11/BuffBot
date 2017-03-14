@@ -27,4 +27,7 @@ class Database():
         self.conn.close()
         return flagged_games
 
+    def get_coin_count(self, user_id):
+        return 0
+
 

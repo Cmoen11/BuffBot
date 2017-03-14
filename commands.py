@@ -142,6 +142,11 @@ class Command:
         # Send the image to the channel where the smug command was triggered
         await self.bot.send_file(ctx.message.channel, face)
 
+    @commands.command(name="coin", pass_context=True)
+    async def coin(self, ctx):
+        # return coin status of the one who executes the command
+        await self.bot.say("You have" + self.database.get_coin_count(ctx.message.author.id) + "BuffCoins")
+
     @commands.command(name="patrol", pass_context=True)
     async def kick_non_gamers(self, ctx):
         if ctx.message.author.id in self.owners:

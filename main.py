@@ -14,6 +14,25 @@ async def on_ready():
     print(bot.user.id)
     print('------')
 
+@bot.event(pass_context=True)
+async def on_voice_state_update(before):
+    connected = []
+    if checkconnected(before):
+        connected.append(before)
+        bot.say("added")
+    else:
+        connected.remove(before)
+        bot.say("removed")
+    #before, if the user who triggered is not in the list add him
+
+async def checkconnected(before):
+    for channel in before.server.channels:
+        if before in channel.voice_members:
+            return True
+
+    # Make list of currently connected
+    # Update list everytime on_voice_state_update is invoked
+
 
 if __name__ == '__main__':
     for ext in startup_extensions:
