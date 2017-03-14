@@ -3,23 +3,16 @@ from simpleeval import simple_eval
 import math
 import os
 import random
-<<<<<<< HEAD
-import datetime
-=======
 import aiohttp
 import hashlib
 import database
->>>>>>> unitTests
 
 
 class Command:
     def __init__(self, bot):
         self.bot = bot
-<<<<<<< HEAD
-        self.owner = ["85431603408420864", "235892294857916417"]
-=======
-        self.owners = ["85431603408420864", "235892294857916417", "269919583899484160", "95596654194855936", "125307006260084736", "209397846959456256"]
->>>>>>> unitTests
+        self.owners = ["85431603408420864", "235892294857916417", "269919583899484160", "95596654194855936",
+                       "125307006260084736", "209397846959456256", "284417274373341184"]
         self.voice = None
         self.player = None
         self.volume = 1.0
@@ -27,11 +20,7 @@ class Command:
 
     @commands.command(name="bye", pass_context=True)
     async def bye(self, ctx):
-<<<<<<< HEAD
-        if ctx.message.author.id in self.owner:
-=======
         if ctx.message.author.id in self.owners:
->>>>>>> unitTests
             await self.bot.say("Bye bye!")
             await self.bot.logout()
 
@@ -43,6 +32,7 @@ class Command:
                                             "tan": math.tan})
         except Exception:
             result = "Read the fucking manual"
+
         await self.respond(result, ctx.message.author.mention)
 
     @commands.command(name="doStuff", pass_context=True)
@@ -116,18 +106,20 @@ class Command:
             await self.bot.say("I don't want to blow out your ears")
             return
         # Set the bot's volume value
-        self.volume = float(volume/100)
+        self.volume = float(volume / 100)
         if self.player:
             # Set the volume to the player if it exists
             self.player.volume = self.volume
         else:
-            await self.bot.say("I'm not playing anything right now, but I set the volume to {}% for next time".format(volume))
+            await self.bot.say(
+                "I'm not playing anything right now, but I set the volume to {}% for next time".format(volume))
 
-    @commands.command(name="flagChan", pass_context=True, help="Flag channels for games only. If you enter free, there is no restriction on the selected channel")
+    @commands.command(name="flagChan", pass_context=True,
+                      help="Flag channels for games only. If you enter free, there is no restriction on the selected channel")
     async def flag_channel(self, ctx):
         self.database.flag_gaming_channel(ctx.message.author.voice.voice_channel.id, ctx.message.author.game, 1)
         pass
-    
+
     @commands.command(name="smugadd", pass_context=True)
     async def add_smug(self, ctx, path):
         allowed_content = {'image/jpeg': 'jpg', 'image/png': 'png', 'image/gif': 'gif'}
@@ -144,12 +136,11 @@ class Command:
             with open(filename, 'wb') as f:
                 f.write(file)
             await self.bot.say("Smugness levels increased")
-        
 
     @commands.command(name="smug", pass_context=True)
     async def smug(self, ctx):
-        path = 'smug-anime-faces' # The folder in which smug anime face images are contained
-        face = os.path.join(path, random.choice(os.listdir(path))) # Generate path to a random face
+        path = 'smug-anime-faces'  # The folder in which smug anime face images are contained
+        face = os.path.join(path, random.choice(os.listdir(path)))  # Generate path to a random face
         # Send the image to the channel where the smug command was triggered
         await self.bot.send_file(ctx.message.channel, face)
 
@@ -167,7 +158,7 @@ class Command:
                     break
             if jail is None:  # if no jail exists
                 await self.bot.create_channel(name="Jail", server=ctx.message.server, type='voice')  # create jail
-                for channel in ctx.message.server.channels:   # find the new channel
+                for channel in ctx.message.server.channels:  # find the new channel
                     if channel.name == "Jail":
                         jail = channel
                         break
@@ -181,13 +172,13 @@ class Command:
                     if len(channel.voice_members) != 0:
                         voice_members = channel.voice_members
 
-                        for member in voice_members:                        # for each member in the channel
+                        for member in voice_members:  # for each member in the channel
                             print(self.database.get_flagged_games(channel.id))
 
                             if member.game not in self.database.get_flagged_games(channel.id):
-                                await self.bot.move_member(member, jail)    # -> jail the user if not
+                                await self.bot.move_member(member, jail)  # -> jail the user if not
                             else:
-                                good_members.append(member.mention)         # Add member too good boy list
+                                good_members.append(member.mention)  # Add member too good boy list
 
             #########
             # Give out info about the good boys.
@@ -203,10 +194,6 @@ class Command:
 
     async def respond(self, msg, author):
         await self.bot.say("{}, {}".format(msg, author))
-
-    @commands.command(name="isErlendSmall")
-    async def erlendSize(self):
-        await self.bot.say("Erlend is still small {} one day, he might become a big guy as Wiklem".format(datetime.datetime.now()))
 
 
 def get_random_line(file):
