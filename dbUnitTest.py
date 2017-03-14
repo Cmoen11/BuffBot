@@ -1,18 +1,26 @@
 import unittest
+import sqlite3
 from database import Database
-db = Database()
 
-
-# test flag_gaming channel
-# sql  connect  test
-# sql insert into test
 
 class DatabaseTest(unittest.TestCase):
+    # Prepare the relevant table for testing by deleting all rows in it.
+    def emptyTable(self, table):
+        self.conn = sqlite3.connect('test123.db')
+        sql = 'delete from {} '.format(table)
+        self.conn.execute(sql)
+        self.conn.commit()
+        self.conn.close()
+
+    def setUp(self):
+        self.emptyTable("game_restriction")
+        # Create a Database object we can call functions on.
+        self.db = Database()
+        # Insert dummy data into the database.
+        self.db.flag_gaming_channel("1", "Hearthstone", 1)
+
     def test_flagged_games(self):
-        #Problem: No channels exist in the static db. We would need to run the bot and then get the real channels OR
-        # create fake channels
-        self.flag_gaming_channel("Jail", "Rocker Leuge", 1)
-        self.assertEqual(db.get_flagged_games(), 0)
+        self.assertEqual(self.db.get_flagged_games("1"), ["Hearthstone"])
 
 
 if __name__ == '__main__':
