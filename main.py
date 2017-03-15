@@ -1,12 +1,11 @@
 import discord
 from discord.ext import commands
-import database
-import time
+from currency import Currency
 
 client = discord.Client()
-
+currency = Currency()
 bot = commands.Bot(command_prefix='!')
-startup_extensions = ['commands']
+startup_extensions = ['commands', 'currency']
 
 
 @bot.event
@@ -18,33 +17,9 @@ async def on_ready():
     print('------')
 
 
-def printtest(ctx):
-    print(ctx)
-
-# TODO: make new class and add database to on_voice_state_update
 @bot.event
 async def on_voice_state_update(before, after):
-    connected = []
-    if after not in connected:
-        if checkifconnected(after):
-            connected.append(after)
-            print(len(connected))
-
-
-    if len(connected) != 0:
-        for user in connected:
-            if not checkifconnected(before):
-                connected.remove(before)
-                # TODO: Why doesn't this run?
-                printtest("test")
-                break
-
-
-def checkifconnected(ctx):
-    for channel in ctx.server.channels:
-        if ctx in channel.voice_members:
-            return True
-
+    currency.checkLogin(before, after)
 
 if __name__ == '__main__':
     for ext in startup_extensions:
