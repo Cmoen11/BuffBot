@@ -39,7 +39,7 @@ class Database():
 
     @classmethod
     def set_coin_count_session_end(self, user_id, end_time, session_active):
-        self.conn = sqlite3.connect("test123s.db")
+        self.conn = sqlite3.connect("test123.db")
         sql = 'UPDATE coins SET (end_time = {}, session_active = {}) ' \
               'WHERE user_id = "{}"'.format(end_time, session_active, user_id)
 
@@ -48,14 +48,14 @@ class Database():
         self.conn.close()
 
     def get_coin_count(self, user_id):
-        # TODO: Implement total coin value in DB
+        # TODO: Implement total coin value in DB as separate row
         total_coins = 0
         self.conn = sqlite3.connect('test123.db')
         sessions = self.conn.execute("select start_time, end_time from coins where user_id = {} and session_active = 0"
                                   .format(user_id))
 
         for session in sessions:
-            # Gives 0.5 points for every minute
+            # Gives 0.5 points for every minute also
             total_coins += (session.start_time - session.end_time) / 60 * 0.5
 
         self.conn.close()
