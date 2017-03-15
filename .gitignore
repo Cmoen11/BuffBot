@@ -19,7 +19,6 @@ hs_err_pid*
 .idea/**/tasks.xml
 
 # Sensitive or high-churn files:
-.idea/
 .idea/**/dataSources/
 .idea/**/dataSources.ids
 .idea/**/dataSources.xml
