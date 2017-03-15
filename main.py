@@ -19,7 +19,7 @@ async def on_ready():
 
 @bot.event
 async def on_voice_state_update(before, after):
-    currency.checkLogin(before, after)
+    currency.register_activity(before, after)
 
 if __name__ == '__main__':
     for ext in startup_extensions:

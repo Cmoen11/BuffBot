@@ -8,27 +8,24 @@ class Currency:
         self.name = 0
 
 
-    def checkLogin(self, before, after):
+    def register_activity(self, before, after):
         connected = []
-        if after not in connected:
-            if checkifconnected(after):
-                connected.append(after)
-                print(len(connected))
-        elif after in connected:
-            if not checkifconnected(before):
-                connected.remove(before)
-                # TODO: Why does this not run?
-                printtest("test")
+
+        if check_if_connected(after):
+            print("in")
+        else:
+            print("out")
 
 
-def printtest(ctx):
-    print(ctx)
-
-
-def checkifconnected(ctx):
+def check_if_connected(ctx):
     for channel in ctx.server.channels:
-        if ctx in channel.voice_members:
-            return True
+        if len(channel.voice_members) != 0:
+            voice_members = channel.voice_members
+            for member in voice_members:
+                if ctx == member:
+                    return True
+                else:
+                    break
 
 
 def setup(bot):
