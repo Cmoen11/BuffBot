@@ -13,8 +13,9 @@ class Currency:
 
         if check_if_connected(after):
             print("in")
+            database.Database.set_coin_count_session_start(after.id, time.gmtime(), 0, 1)
         else:
-            print("out")
+            database.Database.set_coin_count_session_end(before.id, time.gmtime(), 0)
 
 
 def check_if_connected(ctx):

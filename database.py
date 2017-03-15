@@ -27,6 +27,7 @@ class Database():
         self.conn.close()
         return flagged_games
 
+    @classmethod
     def set_coin_count_session_start(self, user_id, start_time, end_time, session_active):
         self.conn = sqlite3.connect("test123.db")
         sql = 'insert into coins (user_id, start_time, end_time, session_active) ' \
@@ -36,11 +37,11 @@ class Database():
         self.conn.commit()
         self.conn.close()
 
+    @classmethod
     def set_coin_count_session_end(self, user_id, end_time, session_active):
-        self.conn = sqlite3.connect("test123.db")
+        self.conn = sqlite3.connect("test123s.db")
         sql = 'UPDATE coins SET (end_time = {}, session_active = {}) ' \
               'WHERE user_id = "{}"'.format(end_time, session_active, user_id)
-
 
         self.conn.execute(sql)
         self.conn.commit()
