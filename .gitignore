@@ -154,3 +154,4 @@ ENV/
 
 # keys
 key.txt
+*.pyc
