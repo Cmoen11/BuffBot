@@ -1,19 +1,21 @@
 from discord.ext import commands
 from simpleeval import simple_eval
-import asyncio
 import math
 import os
 import random
-import dataset
+import aiohttp
+import hashlib
+import database
 
 
 class Command:
     def __init__(self, bot):
         self.bot = bot
-        self.owners = ["85431603408420864", "235892294857916417", "269919583899484160", "95596654194855936", "125307006260084736"]
+        self.owners = ["85431603408420864", "235892294857916417", "269919583899484160", "95596654194855936", "125307006260084736", "209397846959456256"]
         self.voice = None
         self.player = None
         self.volume = 1.0
+        self.database = database.Database()
 
     @commands.command(name="bye", pass_context=True)
     async def bye(self, ctx):
@@ -111,9 +113,27 @@ class Command:
             await self.bot.say("I'm not playing anything right now, but I set the volume to {}% for next time".format(volume))
 
     @commands.command(name="flagChan", pass_context=True, help="Flag channels for games only. If you enter free, there is no restriction on the selected channel")
-    async def flag_channel(self, ctx, game_title):
-
+    async def flag_channel(self, ctx):
+        self.database.flag_gaming_channel(ctx.message.author.voice.voice_channel.id, ctx.message.author.game, 1)
         pass
+    
+    @commands.command(name="smugadd", pass_context=True)
+    async def add_smug(self, ctx, path):
+        allowed_content = {'image/jpeg': 'jpg', 'image/png': 'png', 'image/gif': 'gif'}
+        async with aiohttp.get(path) as r:
+            if r.status == 200:
+                file = await r.content.read()
+                type = r.headers['Content-Type']
+        if type not in allowed_content:
+            await self.bot.say("That kind of file is not allowed")
+            return
+        else:
+            hash = hashlib.md5(file).hexdigest()
+            filename = "smug-anime-faces/{}.{}".format(hash, allowed_content[type])
+            with open(filename, 'wb') as f:
+                f.write(file)
+            await self.bot.say("Smugness levels increased")
+        
 
     @commands.command(name="smug", pass_context=True)
     async def smug(self, ctx):
@@ -151,7 +171,9 @@ class Command:
                         voice_members = channel.voice_members
 
                         for member in voice_members:                        # for each member in the channel
-                            if member.game is None:                         # Check if the member is playing
+                            print(self.database.get_flagged_games(channel.id))
+
+                            if member.game not in self.database.get_flagged_games(channel.id):
                                 await self.bot.move_member(member, jail)    # -> jail the user if not
                             else:
                                 good_members.append(member.mention)         # Add member too good boy list
