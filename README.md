@@ -51,21 +51,21 @@ Restricted | Restricted accsess. default the owner of the bot
 
 
 <br>
-## Documentation
+<h2> Documentation</h2>
 Grundig forklaring av installasjon og bruk.
 
 
 <br>
-## Features
+<h2> Features </h2>
 stuff will be added
 
 <br>
-## Contribution
+<h2> Contribution</h2>
 Would you also like to contribute to BuffBot? Please follow our guidelines for reporting bugs and wanted features, in addition to
 how you can contribute through pull requests.
 These guidelines helps you communicate to us in an efficient way, that hopefully will improve the project.
 <br>
-### Bugs and feature requests
+<h2> Bugs and feature requests</h2>
 If you've got a bug or feature request, please respect these restrictions:
 * Keep the discussion on topic.
 * Do not open issues if there are segment(s) of code you do not understand. This is <br> not </br> the purpose of these requests.
