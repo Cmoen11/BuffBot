@@ -155,3 +155,5 @@ ENV/
 # keys
 key.txt
 *.pyc
+
+_config\.yml
