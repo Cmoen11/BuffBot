@@ -4,14 +4,12 @@ Overriding in this file means replacing bot.say("x") with return statements.
 Moreover, the logic in these functions will neither require an instance of a bot nor a client.
 
 """
-from database import Database
 from simpleeval import simple_eval
 import math
 
 
 class Commands:
     def __init__(self):
-        self.db = Database()
         self.owners = ["85431603408420864", "235892294857916417", "269919583899484160", "95596654194855936",
                        "125307006260084736", "209397846959456256"]
         self.validMsgs = ["!bye", "!math", "!8ball", "!whoIsTheBuffest", "!flagChan", "!smugAdd", "!smug", "!patrol"]

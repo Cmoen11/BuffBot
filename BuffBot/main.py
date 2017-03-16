@@ -1,10 +1,14 @@
 import discord
 from discord.ext import commands
+import botconfig
+from currency import Currency
 
 client = discord.Client()
 
 bot = commands.Bot(command_prefix='!')
-startup_extensions = ['commands']
+currency = Currency()
+startup_extensions = ['commands', 'voice', 'currency']
+
 
 @bot.event
 async def on_ready():
@@ -15,6 +19,11 @@ async def on_ready():
     print('------')
 
 
+@bot.event
+async def on_voice_state_update(before, after):
+    currency.register_activity(before, after)
+
+
 if __name__ == '__main__':
     for ext in startup_extensions:
         try:
@@ -22,7 +31,5 @@ if __name__ == '__main__':
         except Exception as e:
             exc = '{}: {}'.format(type(e).__name__, e)
             print('Failed to load extension {}\n{}'.format(ext, exc))
-
-        bot.run('MjgzMzUwNjMxMTY1NTkxNTUz.C6smOw.UM88iw3At6aC9aTg7DXuOU1dXI8')
-
+    bot.run(botconfig.token)
 
