@@ -6,7 +6,9 @@ import random
 import aiohttp
 import hashlib
 import database
+import playlist as p
 import botconfig
+
 
 
 class Voice:
@@ -17,6 +19,7 @@ class Voice:
         self.player = None
         self.volume = 1.0
         self.database = database.Database()
+        self.playlist = None
 
     @commands.command(name="summon", pass_context=True)
     async def summon(self, ctx):
@@ -35,29 +38,7 @@ class Voice:
 
     @commands.command(name="play", pass_context=True, help="Play some music!")
     async def play_audio(self, ctx, link):
-        if ctx.message.author.id not in self.owners:
-            return None
-        # Get the voice channel the commanding user is in
-        trigger_channel = ctx.message.author.voice.voice_channel
-        # Return with a message if the user is not in a voice channel
-        if trigger_channel == None:
-            await self.bot.say("You're not in a voice channel right now")
-            return
-        if self.voice:
-            if self.voice.channel.id != trigger_channel.id:
-                # If the bot is in voice, but not in the same channel, move to the commanding user
-                await self.voice.move_to(trigger_channel)
-        else:
-            # If the bot is not in a voice channel, join the commanding user
-            self.voice = await self.bot.join_voice_channel(trigger_channel)
-        # Stop the player if it is running, to make room for the next one
-        if self.player:
-            self.player.stop()
-        # Create a StreamPlayer with the requested link
-        self.player = await self.voice.create_ytdl_player(link)
-        # Set the volume to the bot's volume value
-        self.player.volume = self.volume
-        self.player.start()
+        self.play_music(ctx, link)
 
     @commands.command(name="stop", pass_context=True, help="Stop the audio player")
     async def stop_audio(self, ctx):
@@ -139,6 +120,56 @@ class Voice:
 
     async def respond(self, msg, author):
         await self.bot.say("{}, {}".format(msg, author))
+
+    @commands.command(name="queue", pass_context=True)
+    async def add_to_queue(self, link):
+        # TODO: find better solution for extracting link from message
+        song = link.message.content[7:]
+        if self.playlist is None:
+            self.playlist = p.Queue(song)
+            print("Added:" + self.playlist.current.get_song())
+        else:
+            self.playlist.current.queue_next(self.playlist.current, song)
+
+    @commands.command(name="next", pass_context=True)
+    async def play_next(self, ctx):
+        if self.playlist.current.has_next():
+            self.play_music(ctx, self.playlist.pop())
+
+    @commands.command(name="start", pass_context=True)
+    async def start_queue(self, ctx):
+        if self.playlist is None:
+            await self.respond("Nothing added to queue", ctx.message.author)
+            return
+        else:
+            link = self.playlist.pop()
+            await self.play_music(ctx, link)
+
+    async def play_music(self, ctx, link):
+        if ctx.message.author.id not in self.owners:
+            return None
+        # Get the voice channel the commanding user is in
+        trigger_channel = ctx.message.author.voice.voice_channel
+        # Return with a message if the user is not in a voice channel
+        if trigger_channel is None:
+            await self.bot.say("You're not in a voice channel right now")
+            return
+        if self.voice:
+            if self.voice.channel.id != trigger_channel.id:
+                # If the bot is in voice, but not in the same channel, move to the commanding user
+                await self.voice.move_to(trigger_channel)
+        else:
+            # If the bot is not in a voice channel, join the commanding user
+            self.voice = await self.bot.join_voice_channel(trigger_channel)
+        # Stop the player if it is running, to make room for the next one
+        if self.player:
+            self.player.stop()
+        # Create a StreamPlayer with the requested link
+        self.player = await self.voice.create_ytdl_player(link)
+        # Set the volume to the bot's volume value
+        self.player.volume = self.volume
+        self.player.start()
+
 
 
 
