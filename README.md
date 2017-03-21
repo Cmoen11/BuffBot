@@ -1,4 +1,4 @@
-# BuffBot
+﻿# BuffBot
 
 BuffBot is an open source bot for Discord written in Python 3.6. We'd love your help, wheter you've got a bug or a feature you'd  like fixed, or if you'd like to contribute through developing the BuffBot yourself. <b>However</b>, please read and respect the [Contribution](#contribution) first.
 
@@ -43,6 +43,9 @@ Command | What it does | Who can do it?
 `!setvolume <a number between 0 - 100>`| Bot will change the volume to the given prosent | Restricted
 `!smug`| Bot will reply with a smug image | Everyone
 `!smugadd <a http link to image that are to be added>` | needs link to a image, and will add it to the smug list | Restricted
+`!queue <music link>` | Add a song to the queue | Everyone
+`!next` | If the queue is not empty, the next song will be prepared| Everyone
+`!start` | Playes the song at the front of the queue | Everyone
 
 Usergroups | # |
 --- | ---
