@@ -82,6 +82,8 @@ wheels/
 .installed.cfg
 *.egg
 
+# configuration files
+
 # PyInstaller
 #  Usually these files are written by a python script from a template
 #  before PyInstaller builds the exe, so as to inject date/other infos into it.
@@ -149,3 +151,9 @@ ENV/
 
 # Rope project settings
 .ropeproject
+
+# keys
+key.txt
+*.pyc
+
+_config\.yml

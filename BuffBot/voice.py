@@ -7,38 +7,19 @@ import aiohttp
 import hashlib
 import database
 import playlist as p
+import botconfig
 
 
-class Command:
+
+class Voice:
     def __init__(self, bot):
         self.bot = bot
-        self.owners = ["85431603408420864", "235892294857916417", "269919583899484160", "95596654194855936", "125307006260084736", "209397846959456256"]
+        self.owners = botconfig.owners
         self.voice = None
         self.player = None
         self.volume = 1.0
         self.database = database.Database()
         self.playlist = None
-
-    @commands.command(name="bye", pass_context=True)
-    async def bye(self, ctx):
-        if ctx.message.author.id in self.owners:
-            await self.bot.say("Bye bye!")
-            await self.bot.logout()
-
-    @commands.command(name="math", pass_context=True)
-    async def math(self, ctx, *, params):
-        try:
-            result = simple_eval("{}".format(params), names={"e": math.e, "pi": math.pi},
-                                 functions={"log": math.log, "sqrt": math.sqrt, "cos": math.cos, "sin": math.sin,
-                                            "tan": math.tan})
-        except Exception:
-            result = "Read the fucking manual"
-
-        await self.respond(result, ctx.message.author.mention)
-
-    @commands.command(name="doStuff", pass_context=True)
-    async def do_stuff(self, ctx):
-        pass
 
     @commands.command(name="summon", pass_context=True)
     async def summon(self, ctx):
@@ -55,39 +36,9 @@ class Command:
         await self.voice.disconnect()
         self.voice = None
 
-    @commands.command(name="8ball", help="you may or may not get a yes or a no answer")
-    async def eightball(self):
-        await self.bot.say(get_random_line('8ballresponses.txt'))
-
-    @commands.command(name="whoIsTheBuffest", pass_context=True)
-    async def whoIsTheBuffest(self, ctx):
-        await self.respond("Wiklem", ctx.message.author.mention)
-
     @commands.command(name="play", pass_context=True, help="Play some music!")
     async def play_audio(self, ctx, link):
-        if ctx.message.author.id not in self.owners:
-            return None
-        # Get the voice channel the commanding user is in
-        trigger_channel = ctx.message.author.voice.voice_channel
-        # Return with a message if the user is not in a voice channel
-        if trigger_channel == None:
-            await self.bot.say("You're not in a voice channel right now")
-            return
-        if self.voice:
-            if self.voice.channel.id != trigger_channel.id:
-                # If the bot is in voice, but not in the same channel, move to the commanding user
-                await self.voice.move_to(trigger_channel)
-        else:
-            # If the bot is not in a voice channel, join the commanding user
-            self.voice = await self.bot.join_voice_channel(trigger_channel)
-        # Stop the player if it is running, to make room for the next one
-        if self.player:
-            self.player.stop()
-        # Create a StreamPlayer with the requested link
-        self.player = await self.voice.create_ytdl_player(link)
-        # Set the volume to the bot's volume value
-        self.player.volume = self.volume
-        self.player.start()
+        self.play_music(ctx, link)
 
     @commands.command(name="stop", pass_context=True, help="Stop the audio player")
     async def stop_audio(self, ctx):
@@ -118,31 +69,6 @@ class Command:
     async def flag_channel(self, ctx):
         self.database.flag_gaming_channel(ctx.message.author.voice.voice_channel.id, ctx.message.author.game, 1)
         pass
-    
-    @commands.command(name="smugadd", pass_context=True)
-    async def add_smug(self, ctx, path):
-        allowed_content = {'image/jpeg': 'jpg', 'image/png': 'png', 'image/gif': 'gif'}
-        async with aiohttp.get(path) as r:
-            if r.status == 200:
-                file = await r.content.read()
-                type = r.headers['Content-Type']
-        if type not in allowed_content:
-            await self.bot.say("That kind of file is not allowed")
-            return
-        else:
-            hash = hashlib.md5(file).hexdigest()
-            filename = "smug-anime-faces/{}.{}".format(hash, allowed_content[type])
-            with open(filename, 'wb') as f:
-                f.write(file)
-            await self.bot.say("Smugness levels increased")
-        
-
-    @commands.command(name="smug", pass_context=True)
-    async def smug(self, ctx):
-        path = 'smug-anime-faces' # The folder in which smug anime face images are contained
-        face = os.path.join(path, random.choice(os.listdir(path))) # Generate path to a random face
-        # Send the image to the channel where the smug command was triggered
-        await self.bot.send_file(ctx.message.channel, face)
 
     @commands.command(name="patrol", pass_context=True)
     async def kick_non_gamers(self, ctx):
@@ -206,15 +132,18 @@ class Command:
             self.playlist.current.queue_next(self.playlist.current, song)
 
     @commands.command(name="next", pass_context=True)
-    async def play_next(self):
+    async def play_next(self, ctx):
         if self.playlist.current.has_next():
-            self.play_music(self.playlist.pop())
-            # self.player = await self.voice.create_ytdl_player(self.playlist.pop())
+            self.play_music(ctx, self.playlist.pop())
 
     @commands.command(name="start", pass_context=True)
     async def start_queue(self, ctx):
-        link = self.playlist.pop()
-        await self.play_music(ctx, link)
+        if self.playlist is None:
+            await self.respond("Nothing added to queue", ctx.message.author)
+            return
+        else:
+            link = self.playlist.pop()
+            await self.play_music(ctx, link)
 
     async def play_music(self, ctx, link):
         if ctx.message.author.id not in self.owners:
@@ -243,14 +172,6 @@ class Command:
 
 
 
-def get_random_line(file):
-    with open(file, 'r') as f:
-        line = next(f)
-        for num, a in enumerate(f):
-            if random.randrange(num + 2): continue
-            line = a
-    return line.rstrip()
-
 
 def setup(bot):
-    bot.add_cog(Command(bot))
+    bot.add_cog(Voice(bot))
