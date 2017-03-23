@@ -4,6 +4,7 @@ Overriding in this file means replacing bot.say("x") with return statements.
 Moreover, the logic in these functions will neither require an instance of a bot nor a client.
 
 """
+from .commands import get_random_line
 from simpleeval import simple_eval
 import math
 
@@ -34,10 +35,14 @@ class Commands:
             result = simple_eval("{}".format(params), names={"e": math.e, "pi": math.pi},
                                  functions={"log": math.log, "sqrt": math.sqrt, "cos": math.cos, "sin": math.sin,
                                             "tan": math.tan})
-            return print(result)
+            return result
         except Exception:
             result = "Read the fucking manual"
-            return print(result)
+            return result
+
+    def eightBall(self, msg, clientID):
+        self.checkOwnerAndMsg(msg, clientID)
+        return get_random_line('..8ballresponse.txt')
 
 
 if __name__ == "__main__":
