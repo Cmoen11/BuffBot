@@ -4,9 +4,10 @@ Overriding in this file means replacing bot.say("x") with return statements.
 Moreover, the logic in these functions will neither require an instance of a bot nor a client.
 
 """
-from .commands import get_random_line
 from simpleeval import simple_eval
 import math
+from BuffBot.commands import get_random_line
+
 
 
 class Commands:
