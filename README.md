@@ -111,6 +111,8 @@ We're open for new features, but keep in mind the scope and relevance of the Buf
 <h2> Pull requests </h2>
 * All code should be documentented
 * New features should be explained in detail in the wiki-page
+* All code, except command functions that does not have a return value, must have unittests. These must be implemented in the unitTests folder. 
+* All modules must declare the if__name__ == "__main__":. Sharing is caring!  
 <br>
 
 Her må det legges til hvordan folk kan gjennomføre pullrequests. Skal de forke? osv. @Moen
