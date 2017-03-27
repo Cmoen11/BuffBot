@@ -7,7 +7,6 @@ import aiohttp
 import hashlib
 from BuffBot import botconfig
 
-
 class Command:
     def __init__(self, bot):
         self.bot = bot
