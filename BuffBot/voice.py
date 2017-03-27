@@ -39,7 +39,7 @@ class Voice:
 
     @commands.command(name="play", pass_context=True, help="Play some music!")
     async def play_audio(self, ctx, link):
-        self.play_music(ctx, link)
+        await self.play_music(ctx, link)
 
     @commands.command(name="stop", pass_context=True, help="Stop the audio player")
     async def stop_audio(self, ctx):
@@ -91,15 +91,6 @@ class Voice:
                     -> check if listed game is in the database
                         -> if not: move player to move queue.
                         -> if it is: Do nothing.
-                
-                Move queue
-                this is a queue for members that need to be moved to other channels because their has broken the game
-                rule. 
-                    -> For each item of the move queue. Grab the game title and check it up with the database.
-                        -> if no game match
-                            -> move to jail.
-                        -> if game match one channel..
-                            -> move member to that channel.    
         '''
 
         if ctx.message.author.id not in self.owners:                       # Check if user is authorised to perform command.
@@ -140,8 +131,15 @@ class Voice:
 
 
     async def sort_members_to_channels(self, members, jail):
-        '''
-        for handling the move queue for patrol_channels..
+        '''For handling the move queue for patrol_channels..
+           Move queue
+           this is a queue for members that need to be moved to other channels because their has broken the game rule. 
+                -> For each item of the move queue. Grab the game title and check it up with the database.
+                    -> if no game match
+                        -> move to jail.
+                    -> if game match one channel..
+                        -> move member to that channel.    
+                            
         :param members:     The move queue
         :param jail:        Jail channel
         :return:            amount of moved members.
