@@ -120,7 +120,8 @@ class Voice:
                     voice_members = channel.voice_members
 
                     for member in voice_members:                        # for each member in the channel
-                        if (self.database.get_flagged_games(channel_id=channel.id)[0] == "free"):
+                        if (len(self.database.get_flagged_games(channel_id=channel.id)) > 0) \
+                        and self.database.get_flagged_games(channel_id=channel.id)[0] == "free":
                             #member is allowed.
                             pass
                         else :
