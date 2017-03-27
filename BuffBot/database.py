@@ -25,8 +25,14 @@ class Database():
         for game in games:
             flagged_games.append(game[0])
 
+        self.conn.commit()
         self.conn.close()
         return flagged_games
+
+    def remove_flagged_games(self, channel_id):
+        self.conn = sqlite3.connect(self.DB_NAME)
+        self.conn.execute("delete from game_restriction WHERE channel_id = '{}';".format(channel_id))
+        self.conn.close()
 
     def get_game_channel(self, title):
         channels = []
@@ -37,6 +43,7 @@ class Database():
         for game in games:
             channels.append(game[0])
 
+        self.conn.commit()
         self.conn.close()
         return channels
 

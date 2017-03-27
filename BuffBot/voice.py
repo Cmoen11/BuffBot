@@ -67,9 +67,22 @@ class Voice:
             await self.bot.say("I'm not playing anything right now, but I set the volume to {}% for next time".format(volume))
 
     @commands.command(name="flagChan", pass_context=True, help="Flag channels for games only. If you enter free, there is no restriction on the selected channel")
-    async def flag_channel(self, ctx):
-        self.database.flag_gaming_channel(ctx.message.author.voice.voice_channel.id, ctx.message.author.game, 1)
+    async def flag_channel(self, ctx, free=None):
+        if (free == "free") :
+            # remove all restriction on selected channel and parse in free.
+            self.database.remove_flagged_games(ctx.message.author.voice.voice_channel.id)
+
+            # add free in as a title.
+            self.database.flag_gaming_channel(ctx.message.author.voice.voice_channel.id, "free", 1)
+            pass
+
+        else :
+            self.database.flag_gaming_channel(ctx.message.author.voice.voice_channel.id, ctx.message.author.game, 1)
         pass
+
+    @commands.command(name="removeFlags", pass_context=True)
+    async def remove_channel_flags(self, ctx):
+        self.database.remove_flagged_games(ctx.message.author.voice.voice_channel.id)
 
     @commands.command(name="patrol", pass_context=True)
     async def patrol_channels(self, ctx):
@@ -107,15 +120,20 @@ class Voice:
                     voice_members = channel.voice_members
 
                     for member in voice_members:                        # for each member in the channel
-                        print(self.database.get_flagged_games(channel.id))
+                        if (self.database.get_flagged_games(channel_id=channel.id)[0] == "free"):
+                            #member is allowed.
+                            pass
+                        else :
+                            print(self.database.get_flagged_games(channel.id))
 
-                        if member.game not in self.database.get_flagged_games(channel.id):
-                            if (not move_queue.__contains__(member)) :
-                                move_queue.append(member)
-                                print("added to move")
+                            if member.game not in self.database.get_flagged_games(channel.id):
 
-                        else:
-                            good_members.append(member.mention)         # Add member too good boy list
+                                if (not move_queue.__contains__(member)) :
+                                    move_queue.append(member)
+                                    print("added to move")
+
+                            else:
+                                good_members.append(member.mention)         # Add member too good boy list
 
         await self.sort_members_to_channels(members= move_queue, jail=jail)
 
