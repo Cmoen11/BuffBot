@@ -11,6 +11,7 @@ import botconfig
 
 
 
+
 class Voice:
     def __init__(self, bot):
         self.bot = bot
@@ -71,52 +72,58 @@ class Voice:
         pass
 
     @commands.command(name="patrol", pass_context=True)
-    async def kick_non_gamers(self, ctx):
-        if ctx.message.author.id in self.owners:
-            good_members = []
-            jail = None
-            #########
-            # Collect the jail channel, if no channel found -> create one.
-            #########
-            for channel in ctx.message.server.channels:
-                if channel.name == "Jail":
-                    jail = channel
-                    break
-            if jail is None:  # if no jail exists
-                await self.bot.create_channel(name="Jail", server=ctx.message.server, type='voice')  # create jail
-                for channel in ctx.message.server.channels:   # find the new channel
-                    if channel.name == "Jail":
-                        jail = channel
-                        break
+    async def patrol_channels(self, ctx):
+        '''Patrol all voice channels from the calling channel.
+                This method will go trough every channel and check each user. 
+                    -> check if listed game is in the database
+                        -> if not: move player to move queue.
+                        -> if it is: Do nothing.
+                
+                Move queue
+                this is a queue for members that need to be moved to other channels because their has broken the game
+                rule. 
+                    -> For each item of the move queue. Grab the game title and check it up with the database.
+                        -> if no game match
+                            -> move to jail.
+                        -> if game match one channel..
+                            -> move member to that channel.    
+        '''
 
-            #########
-            # Patrols voice channels
-            #########
-            for channel in ctx.message.server.channels:
-                if channel != jail:
-                    # If this returns 0, it means that either the room is empty or it isn't a voice channel
-                    if len(channel.voice_members) != 0:
-                        voice_members = channel.voice_members
-
-                        for member in voice_members:                        # for each member in the channel
-                            print(self.database.get_flagged_games(channel.id))
-
-                            if member.game not in self.database.get_flagged_games(channel.id):
-                                await self.bot.move_member(member, jail)    # -> jail the user if not
-                            else:
-                                good_members.append(member.mention)         # Add member too good boy list
-
-            #########
-            # Give out info about the good boys.
-            #########
-            if len(good_members) == 0:
-                await self.bot.say("You're all bad boys! :wink: ")
-            elif len(good_members) == 1:
-                await self.bot.say("{} is a good boy, the rest of you I will now kick!".format(good_members[0]))
-            else:
-                await self.bot.say("{} are good boys, the rest I will now kick!".format(", ".join(good_members)))
-        else:
+        if ctx.message.author.id in self.owners:                       # Check if user is authorised to perform command.
             await self.bot.say("You're not a big guy. :thinking: ")
+            return None
+
+        # User is authorised to perform command.. -> now perform actions.
+
+        good_members = []
+        move_queue = []                                            # to store the queue for later to move them.
+        jail = self.get_jail(ctx)                                  # grab the jail, if not jail.. create one.
+
+        # start to check channels.
+        for channel in ctx.message.server.channels:
+            if channel != jail:
+                # If this returns 0, it means that either the room is empty or it isn't a voice channel
+                if len(channel.voice_members) != 0:
+                    voice_members = channel.voice_members
+
+                    for member in voice_members:                        # for each member in the channel
+                        print(self.database.get_flagged_games(channel.id))
+
+                        if member.game not in self.database.get_flagged_games(channel.id):
+                            await self.bot.move_member(member, jail)    # -> jail the user if not
+                        else:
+                            good_members.append(member.mention)         # Add member too good boy list
+
+        #########
+        # Give out info about the good boys.
+        #########
+        if len(good_members) == 0:
+            await self.bot.say("You're all bad boys! :wink: ")
+        elif len(good_members) == 1:
+            await self.bot.say("{} is a good boy, the rest of you I will now kick!".format(good_members[0]))
+        else:
+            await self.bot.say("{} are good boys, the rest I will now kick!".format(", ".join(good_members)))
+
 
     async def respond(self, msg, author):
         await self.bot.say("{}, {}".format(msg, author))
@@ -170,8 +177,23 @@ class Voice:
         self.player.volume = self.volume
         self.player.start()
 
-
-
+    # To check if the channel got a jail, return the channel. If channel do not have a jail voice channel.. create one.
+    def get_jail (self, ctx) :
+        #########
+        # Collect the jail channel, if no channel found -> create one.
+        #########
+        jail = None
+        for channel in ctx.message.server.channels:
+            if channel.name == "Jail":
+                jail = channel
+                break
+        if jail is None:  # if no jail exists
+            self.bot.create_channel(name="Jail", server=ctx.message.server, type='voice')  # create jail
+            for channel in ctx.message.server.channels:  # find the new channel
+                if channel.name == "Jail":
+                    jail = channel
+                    break
+        return jail
 
 def setup(bot):
     bot.add_cog(Voice(bot))
