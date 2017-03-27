@@ -173,7 +173,7 @@ class Voice:
     @commands.command(name="next", pass_context=True)
     async def play_next(self, ctx):
         if self.playlist.current.has_next():
-            self.play_music(ctx, self.playlist.pop())
+            await self.play_music(ctx, self.playlist.pop())
 
     @commands.command(name="start", pass_context=True)
     async def start_queue(self, ctx):
@@ -202,7 +202,7 @@ class Voice:
             self.voice = await self.bot.join_voice_channel(trigger_channel)
         # Stop the player if it is running, to make room for the next one
         if self.player:
-            self.player.stop()
+            await self.player.stop()
         # Create a StreamPlayer with the requested link
         self.player = await self.voice.create_ytdl_player(link)
         # Set the volume to the bot's volume value
