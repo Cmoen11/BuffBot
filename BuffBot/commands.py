@@ -5,7 +5,7 @@ import os
 import random
 import aiohttp
 import hashlib
-import botconfig
+from BuffBot import botconfig
 
 
 class Command:

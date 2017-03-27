@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
-import botconfig
-from currency import Currency
+from BuffBot import botconfig
+from BuffBot.currency import Currency
 
 client = discord.Client()
 

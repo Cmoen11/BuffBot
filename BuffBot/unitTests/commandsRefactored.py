@@ -8,8 +8,6 @@ from simpleeval import simple_eval
 import math
 from BuffBot.commands import get_random_line
 
-
-
 class Commands:
     def __init__(self):
         self.owners = ["85431603408420864", "235892294857916417", "269919583899484160", "95596654194855936",
@@ -44,6 +42,10 @@ class Commands:
     def eightBall(self, msg, clientID):
         self.checkOwnerAndMsg(msg, clientID)
         return get_random_line('..8ballresponse.txt')
+
+    def whoIsTheBuffest(self, msg, clientID):
+        self.checkOwnerAndMsg(msg, clientID)
+        return "Wiklem"
 
 
 if __name__ == "__main__":
