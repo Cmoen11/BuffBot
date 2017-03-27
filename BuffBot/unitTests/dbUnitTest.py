@@ -1,12 +1,12 @@
 import unittest
 import sqlite3
-from database import Database
+from BuffBot.database import Database
 
 
 class DatabaseTest(unittest.TestCase):
     # Prepare the relevant table for testing by deleting all rows in it.
     def emptyTable(self, table):
-        self.conn = sqlite3.connect('test123.db')
+        self.conn = sqlite3.connect(Database.self.DB_NAME)
         sql = 'delete from {} '.format(table)
         self.conn.execute(sql)
         self.conn.commit()

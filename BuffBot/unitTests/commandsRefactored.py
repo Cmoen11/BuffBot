@@ -4,6 +4,9 @@ Overriding in this file means replacing bot.say("x") with return statements.
 Moreover, the logic in these functions will neither require an instance of a bot nor a client.
 
 """
+import hashlib
+
+from aiohttp import ClientSession
 from simpleeval import simple_eval
 import math
 from BuffBot.commands import get_random_line
@@ -42,15 +45,35 @@ class Commands:
 
     def eightBall(self, msg, clientID):
         self.checkOwnerAndMsg(msg, clientID)
-        return get_random_line('..8ballresponse.txt')
+        return get_random_line('8ballresponses.txt')
+
 
     def whoIsTheBuffest(self, msg, clientID):
         self.checkOwnerAndMsg(msg, clientID)
         return "Wiklem"
 
+    def smugAdd(self, path):
+        allowed_content = {'image/jpeg': 'jpg', 'image/png': 'png', 'image/gif': 'gif'}
+        with ClientSession().get(path) as r:
+            if r.status == 200:
+                file = r.content.read()
+                type = r.headers['Content-Type']
+            if type not in allowed_content:
+                print("Illegal filetype")
+                return
+            else:
+                hash = hashlib.md5(file).hexdigest()
+                filename = "smug-anime-faces/{}.{}".format(hash, allowed_content[type])
+                with open(filename, 'wb') as f:
+                    f.write(file)
+                return f
 
+
+
+
+"""
 if __name__ == "__main__":
     obj = Commands()
     obj.bye("!bye", "85431603408420864")
     obj.math("!math", "85431603408420864", params=4 * 4)
-
+"""

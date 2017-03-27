@@ -82,3 +82,4 @@ class Database():
         return total_coins
 
 
+obj = Database()
