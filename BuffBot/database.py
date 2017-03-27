@@ -18,8 +18,8 @@ class Database():
 
     def get_flagged_games(self, channel_id):
         flagged_games = []
-        self.conn = sqlite3.connect(self.databaseName)
-        games = self.conn.execute("select title from game_restriction where channel_ID = {} and allowed = 1"
+        self.conn = sqlite3.connect(self.DB_NAME)
+        games = self.conn.execute("select title from game_restriction where channel_ID = '{}' and allowed = 1"
                                   .format(channel_id))
 
         for game in games:
@@ -27,6 +27,18 @@ class Database():
 
         self.conn.close()
         return flagged_games
+
+    def get_game_channel(self, title):
+        channels = []
+        self.conn = sqlite3.connect(self.DB_NAME)
+        games = self.conn.execute("select channel_ID from game_restriction where title = '{}' and allowed = 1"
+                                  .format(title))
+
+        for game in games:
+            channels.append(game[0])
+
+        self.conn.close()
+        return channels
 
     @classmethod
     def set_coin_count_session_start(self, user_id, start_time, end_time, session_active):

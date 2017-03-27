@@ -89,8 +89,8 @@ class Voice:
                             -> move member to that channel.    
         '''
 
-        if ctx.message.author.id in self.owners:                       # Check if user is authorised to perform command.
-            await self.bot.say("You're not a big guy. :thinking: ")
+        if ctx.message.author.id not in self.owners:                       # Check if user is authorised to perform command.
+            self.bot.say("You're not a big guy. :thinking: ")
             return None
 
         # User is authorised to perform command.. -> now perform actions.
@@ -110,19 +110,34 @@ class Voice:
                         print(self.database.get_flagged_games(channel.id))
 
                         if member.game not in self.database.get_flagged_games(channel.id):
-                            await self.bot.move_member(member, jail)    # -> jail the user if not
+                            if (not move_queue.__contains__(member)) :
+                                move_queue.append(member)
+                                print("added to move")
+
                         else:
                             good_members.append(member.mention)         # Add member too good boy list
 
-        #########
-        # Give out info about the good boys.
-        #########
-        if len(good_members) == 0:
-            await self.bot.say("You're all bad boys! :wink: ")
-        elif len(good_members) == 1:
-            await self.bot.say("{} is a good boy, the rest of you I will now kick!".format(good_members[0]))
-        else:
-            await self.bot.say("{} are good boys, the rest I will now kick!".format(", ".join(good_members)))
+        await self.sort_members_to_channels(members= move_queue, jail=jail)
+
+
+    async def sort_members_to_channels(self, members, jail):
+        '''
+        for handling the move queue for patrol_channels..
+        :param members:     The move queue
+        :param jail:        Jail channel
+        :return:            amount of moved members.
+        '''
+        for member in members :
+            print("Handling " + member.mention)
+            channel = self.database.get_game_channel(title=member.game)
+            if (len(channel) == 0) :
+                await self.bot.move_member(member, jail)
+            else :
+                await self.bot.move_member(member, self.bot.get_channel(channel[0]))
+        pass
+
+
+
 
 
     async def respond(self, msg, author):
