@@ -81,5 +81,3 @@ class Database():
         self.conn.close()
         return total_coins
 
-
-obj = Database()

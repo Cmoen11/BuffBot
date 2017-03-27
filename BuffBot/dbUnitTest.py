@@ -6,7 +6,7 @@ from BuffBot.database import Database
 class DatabaseTest(unittest.TestCase):
     # Prepare the relevant table for testing by deleting all rows in it.
     def emptyTable(self, table):
-        self.conn = sqlite3.connect(Database.self.DB_NAME)
+        self.conn = sqlite3.connect('test123.db')
         sql = 'delete from {} '.format(table)
         self.conn.execute(sql)
         self.conn.commit()
@@ -21,6 +21,8 @@ class DatabaseTest(unittest.TestCase):
 
     def test_flagged_games(self):
         self.assertEqual(self.db.get_flagged_games("1"), ["Hearthstone"])
+
+    #TODO: Test all coin functions when they are fully implemented
 
 
 if __name__ == '__main__':

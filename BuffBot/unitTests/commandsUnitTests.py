@@ -6,6 +6,7 @@ class CommandsTest(unittest.TestCase):
 
     def setUp(self):
         self.commands = Commands()
+        self.path = '../smug-anime-faces'
 
     def test_bye(self):
         self.assertEqual(self.commands.bye("!bye", "85431603408420864"), "Bye bye!")
@@ -18,8 +19,13 @@ class CommandsTest(unittest.TestCase):
     def test_whoIsTheBuffest(self):
         self.assertEqual(self.commands.whoIsTheBuffest("!whoIsTheBuffest", "85431603408420864"), "Wiklem")
 
-    def test_smugAdd(self):
-        self.assertEqual(self.commands.smugAdd('https://static.pexels.com/photos/24353/pexels-photo.jpg'), )
+    def test_eightBall(self):
+        self.assertIn(self.commands.eightBall("!8ball", "85431603408420864"), self.commands.eightBallReader())
+
+    def test_smug(self):
+        self.assertIn(self.commands.smug("!smug", "85431603408420864"), self.commands.smugList())
+
+
 
 if __name__ == '__main__':
     unittest.main(exit=False)
