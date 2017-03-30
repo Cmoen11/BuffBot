@@ -5,8 +5,7 @@ import os
 import random
 import aiohttp
 import hashlib
-import botconfig
-import database
+from BuffBot import botconfig
 
 class Command:
     def __init__(self, bot):
@@ -74,7 +73,7 @@ class Command:
     @commands.command(name="coin", pass_context=True)
     async def coin(self, ctx):
         # return coin status of the one who executes the command
-        await self.bot.say("You have $" + str(database.Database.get_coin_count(ctx.message.author.id)) + " BuffCoins")
+        await self.bot.say("You have $" + str(self.database.get_coin_count(ctx.message.author.id)) + " BuffCoins")
 
 
     async def respond(self, msg, author):
@@ -92,3 +91,9 @@ def get_random_line(file):
 
 def setup(bot):
     bot.add_cog(Command(bot))
+
+
+if __name__ == "__main__":
+    print("hello main!")
+
+

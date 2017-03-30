@@ -88,4 +88,3 @@ class Database():
         self.conn.close()
         return format_2_dec(total_coins)
 
-
