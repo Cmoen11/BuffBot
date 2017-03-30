@@ -11,19 +11,21 @@ class Currency:
 
         if check_if_connected(after) and not member_in_channel("AFK", after):
             print("You're in", after.name)
-            # TODO These database calls does not currently work
-            # Epochtime
-            time_now = time.mktime(datetime.datetime.now().timetuple()) * 1000
-            print("This is epoch time: " + str(time_now))
-            database.Database.set_coin_count_session_start(after.id, time_now, 0, 1)
+            print(time.time())
+            database.Database.set_coin_count_session_start(after.id, time_now(), 0, 1)
         elif not member_in_channel("AFK", after):
             print("You're out", after.name)
-            # database.Database.set_coin_count_session_end(before.id, time.gmtime(), 0)
+            database.Database.set_coin_count_session_end(before.id, time_now(), 0)
 
         # If user is in a channel named AFK, end session. IE: not get coins for being afk
         if member_in_channel("AFK", after):
             print("You're afk")
             # database.Database.set_coin_count_session_end(before.id, time.gmtime(), 0)
+
+
+def time_now():
+    # Epochtime
+    return time.time()
 
 
 def member_in_channel(channel_name, member):
