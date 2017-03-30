@@ -47,10 +47,10 @@ class Voice:
             await self.bot.repond("You've already voted to skip this song", ctx.message.author.mention)
         else:
             self.people_voted.append(ctx.message.author.id)
-            if len(self.people_voted) == len((self.bot.channel + 2 // 2) // 2):  # (n + d // 2) // d
+            if len(self.people_voted) == len((self.bot.channel // 2) + 1):
                 await self.next
             else:
-                await self.bot.say(len(self.bot.channel + 2 // 2) // 2 - len(self.people_voted),
+                await self.bot.say(len((self.bot.channel // 2) + 1) - len(self.people_voted),
                                        " more votes needed")
 
     @commands.command(name="stop", pass_context=True, help="Stop the audio player")
