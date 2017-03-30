@@ -41,6 +41,18 @@ class Voice:
     async def play_audio(self, ctx, link):
         await self.play_music(ctx, link)
 
+    @commands.command(name="votenext", pass_context=True)
+    async def vote_next_song(self, ctx):
+        if ctx.message.author.id in self.people_voted:
+            await self.bot.repond("You've already voted to skip this song", ctx.message.author.mention)
+        else:
+            self.people_voted.append(ctx.message.author.id)
+            if len(self.people_voted) == len((self.bot.channel // 2) + 1):
+                await self.next
+            else:
+                await self.bot.say(len((self.bot.channel // 2) + 1) - len(self.people_voted),
+                                       " more votes needed")
+
     @commands.command(name="stop", pass_context=True, help="Stop the audio player")
     async def stop_audio(self, ctx):
         if ctx.message.author.id not in self.owners:
