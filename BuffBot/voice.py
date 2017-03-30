@@ -6,7 +6,7 @@ import random
 import aiohttp
 import hashlib
 import database
-import playlist as p
+import playlist
 import botconfig
 
 
@@ -19,7 +19,7 @@ class Voice:
         self.player = None
         self.volume = 1.0
         self.database = database.Database()
-        self.playlist = None
+        self.playlist = playlist.Queue()
 
     @commands.command(name="summon", pass_context=True)
     async def summon(self, ctx):
@@ -38,7 +38,7 @@ class Voice:
 
     @commands.command(name="play", pass_context=True, help="Play some music!")
     async def play_audio(self, ctx, link):
-        self.play_music(ctx, link)
+        await self.play_music(ctx, link)
 
     @commands.command(name="stop", pass_context=True, help="Stop the audio player")
     async def stop_audio(self, ctx):
@@ -121,29 +121,32 @@ class Voice:
     async def respond(self, msg, author):
         await self.bot.say("{}, {}".format(msg, author))
 
-    @commands.command(name="queue", pass_context=True)
+    @commands.command(name="queue", pass_context=True, help="Add youtube link to music queue")
     async def add_to_queue(self, link):
         # TODO: find better solution for extracting link from message
         song = link.message.content[7:]
-        if self.playlist is None:
-            self.playlist = p.Queue(song)
-            print("Added:" + self.playlist.current.get_song())
-        else:
-            self.playlist.current.queue_next(self.playlist.current, song)
+        # link added to next field in current song
+        self.playlist.add_song(song)
 
-    @commands.command(name="next", pass_context=True)
+    @commands.command(name="next", pass_context=True, help="Skip to next song in music queue")
     async def play_next(self, ctx):
-        if self.playlist.current.has_next():
-            self.play_music(ctx, self.playlist.pop())
+        # if there is an item at the front of the queue, play it and get the next item
+        if self.playlist.current:
+            await self.play_music(ctx, self.playlist.pop())
+        # nothing in queue
+        elif self.playlist.current is None:
+            await self.respond("Queue is empty", ctx.message.author.mention)
 
-    @commands.command(name="start", pass_context=True)
+    @commands.command(name="start", pass_context=True, help="Start the music queue")
     async def start_queue(self, ctx):
-        if self.playlist is None:
-            await self.respond("Nothing added to queue", ctx.message.author)
-            return
+        if self.playlist.current is None:
+            await self.respond("Queue is empty", ctx.message.author.mention)
         else:
-            link = self.playlist.pop()
-            await self.play_music(ctx, link)
+            await self.play_music(ctx, self.playlist.pop())
+
+    @commands.command(name="peter", pass_context=True)
+    async def peter(self, ctx):
+        await self.play_music(ctx, self.playlist.peter())
 
     async def play_music(self, ctx, link):
         if ctx.message.author.id not in self.owners:
