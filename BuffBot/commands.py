@@ -5,8 +5,7 @@ import os
 import random
 import aiohttp
 import hashlib
-import botconfig
-
+from BuffBot import botconfig
 
 class Command:
     def __init__(self, bot):
@@ -92,3 +91,9 @@ def get_random_line(file):
 
 def setup(bot):
     bot.add_cog(Command(bot))
+
+
+if __name__ == "__main__":
+    print("hello main!")
+
+

@@ -1,4 +1,4 @@
-# BuffBot
+﻿# BuffBot
 
 BuffBot is an open source bot for Discord written in Python 3.6. We'd love your help, wheter you've got a bug or a feature you'd  like fixed, or if you'd like to contribute through developing the BuffBot yourself. <b>However</b>, please read and respect the [Contribution](#contribution) first.
 
@@ -17,17 +17,22 @@ BuffBot is an open source bot for Discord written in Python 3.6. We'd love your 
 <br>
 
 ## Quick start
-apt install python3 python3-pip libffi-dev ffmpeg
-pip3 install discord.py[voice] youtube-dl dataset simpleeval
+### Getting started, everything you need.
+- You need to have ffmpeg installed on your machine.. [Tutorial for FFmpeg(Windows)](http://www.hongkiat.com/blog/ffmpeg-guide/). <br> And for ubuntu and mac users.. [Tutorial for mac and ubuntu for FFmpeg ](https://medium.com/portfolio-of-bilash/install-ffmpeg-on-ubuntu-mac-os-98588f3251d7)
+- [You also need python 3.x.](https://www.python.org/downloads/)
+- Open terminal.. you have some pip install(s) to do!
+- pip install libffi-dev
+- pip install discord.py[voice]
+- pip install youtube-dl
+- pip install dataset
+- pip install simpleeval
+<br>
+Finally download the latest files from the project and open your terminal and write python main.py
 
-1. You'll need atleast to have Python 3.x installed
-2. You'll also need to install the Discord API wrapper. Do this by run the following command.
-python3 -m pip install -U https://github.com/Rapptz/discord.py/archive/master.zip#egg=discord.py[voice]
-3. Download the zipped project
-4. Rename the folder named `botconfig_example` to `botconfig`
-5. Open `botconfig/__init__.py` and insert your bot's token into the `token` variable, this you'll get from [Discord development page](https://discordapp.com/developers/applications/me/). You'll need to create a new application and add a bot to recive your bot token.
-7. Save the file and open your terminal
-8. navigate to your bot-files and write `python3 main.py`
+- Now add your bot token in the file located `botconfig/__init__.py`
+
+
+
 
 <br><br>
 ## Commands
@@ -43,6 +48,9 @@ Command | What it does | Who can do it?
 `!setvolume <a number between 0 - 100>`| Bot will change the volume to the given prosent | Restricted
 `!smug`| Bot will reply with a smug image | Everyone
 `!smugadd <a http link to image that are to be added>` | needs link to a image, and will add it to the smug list | Restricted
+`!queue <music link>` | Add a song to the queue | Everyone
+`!next` | If the queue is not empty, the next song will be prepared| Everyone
+`!start` | Playes the song at the front of the queue | Everyone
 
 Usergroups | # |
 --- | ---
@@ -108,6 +116,8 @@ We're open for new features, but keep in mind the scope and relevance of the Buf
 <h2> Pull requests </h2>
 * All code should be documentented
 * New features should be explained in detail in the wiki-page
+* All code, except command functions that does not have a return value, must have unittests. These must be implemented in the unitTests folder. 
+* All modules must declare the if__name__ == "__main__":. Sharing is caring!  
 <br>
 
 Her må det legges til hvordan folk kan gjennomføre pullrequests. Skal de forke? osv. @Moen

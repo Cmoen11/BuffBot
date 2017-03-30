@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
-import botconfig
-from currency import Currency
+from BuffBot import botconfig
+from BuffBot.currency import Currency
 
 client = discord.Client()
 
@@ -32,3 +32,4 @@ if __name__ == '__main__':
             exc = '{}: {}'.format(type(e).__name__, e)
             print('Failed to load extension {}\n{}'.format(ext, exc))
     bot.run(botconfig.token)
+
