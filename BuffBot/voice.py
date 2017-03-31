@@ -189,8 +189,8 @@ class Voice:
             await self.respond("Queue is empty", ctx.message.author.mention)
 
     @commands.command(name="start", pass_context=True, help="Start the music queue")
-        if self.playlist.current.has_next():
-            await self.play_music(ctx, self.playlist.pop())
+    #if self.playlist.current.has_next():
+    #        await self.play_music(ctx, self.playlist.pop())
     async def start_queue(self, ctx):
         if self.playlist.current is None:
             await self.respond("Queue is empty", ctx.message.author.mention)
