@@ -177,8 +177,6 @@ class Voice:
             await self.respond("Queue is empty", ctx.message.author.mention)
 
     @commands.command(name="start", pass_context=True, help="Start the music queue")
-        if self.playlist.current.has_next():
-            await self.play_music(ctx, self.playlist.pop())
     async def start_queue(self, ctx):
         if self.playlist.current is None:
             await self.respond("Queue is empty", ctx.message.author.mention)
@@ -207,7 +205,7 @@ class Voice:
             self.voice = await self.bot.join_voice_channel(trigger_channel)
         # Stop the player if it is running, to make room for the next one
         if self.player:
-            await self.player.stop()
+            self.player.stop()
         # Create a StreamPlayer with the requested link
         self.player = await self.voice.create_ytdl_player(link)
         # Set the volume to the bot's volume value

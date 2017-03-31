@@ -52,6 +52,7 @@ class Queue:
     def add_song(self, link):
         if self.current is None:
             self.current = Node(link)
+            print(self.current.song)
         else:
             self.current.queue_next(self.current, link)
 
