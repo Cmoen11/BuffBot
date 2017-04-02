@@ -21,6 +21,8 @@ class Voice:
         self.volume = 1.0
         self.database = database.Database()
         self.playlist = playlist.Queue()
+        self.people_voted = {}
+        
 
     @commands.command(name="summon", pass_context=True)
     async def summon(self, ctx):
@@ -47,6 +49,7 @@ class Voice:
             await self.bot.repond("You've already voted to skip this song", ctx.message.author.mention)
         else:
             self.people_voted.append(ctx.message.author.id)
+            self.people_voted.clear()
             if len(self.people_voted) == len((self.bot.channel // 2) + 1):
                 await self.play_next
             else:
