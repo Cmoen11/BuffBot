@@ -45,18 +45,22 @@ class Voice:
 
     @commands.command(name="votenext", pass_context=True)
     async def vote_next_song(self, ctx):
+        if self.voice.channel.id != ctx.message.author.voice.voice_channel.id:
+            await self.bot.respond("You're not in the required voice channel to request to skip song, lil boy.", ctx.message.author.mention)
+            return None
+        
         if ctx.message.author.id in self.people_voted:
             await self.bot.repond("You've already voted to skip this song", ctx.message.author.mention)
         else:
             self.people_voted.append(ctx.message.author.id)
             
-            if len(self.people_voted) == len((self.bot.voice_clients // 2) + 1):
+            if len(self.people_voted) == (len(self.voice.channel.voice_members) // 2) + 1):
                 self.people_voted.clear()
                 await self.play_next
             else:
-                await self.bot.say(len((self.bot.voice_clients // 2) + 1) - len(self.people_voted),
+                await self.bot.say(len(self.voice.channel.voice_members) // 2) + 1) - len(self.people_voted),
                                        " more votes needed")
-            
+
 
     @commands.command(name="stop", pass_context=True, help="Stop the audio player")
     async def stop_audio(self, ctx):
