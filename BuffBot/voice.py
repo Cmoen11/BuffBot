@@ -56,7 +56,12 @@ class Voice:
             
             if len(self.people_voted) == (len(self.voice.channel.voice_members) // 2) + 1:
                 self.people_voted.clear()
-                await self.play_next(ctx)
+                # if there is an item at the front of the queue, play it and get the next item
+                if self.playlist.current:
+                    await self.play_music(ctx, self.playlist.pop())
+                # nothing in queue
+                elif self.playlist.current is None:
+                    await self.respond("Queue is empty", ctx.message.author.mention)
             else:
                 number = (len(self.voice.channel.voice_members) // 2) + 1 - len(self.people_voted)
                 await self.bot.say(str(number) + " more votes needed")
