@@ -21,7 +21,7 @@ class Voice:
         self.volume = 1.0
         self.database = database.Database()
         self.playlist = playlist.Queue()
-        self.people_voted = {}
+        self.people_voted = []
         
 
     @commands.command(name="summon", pass_context=True)
