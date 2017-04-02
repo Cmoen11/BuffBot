@@ -199,6 +199,7 @@ class Voice:
         if self.playlist.current is None:
             await self.respond("Queue is empty", ctx.message.author.mention)
         else:
+            print(self.playlist[0])
             await self.play_music(ctx, self.playlist.pop())
 
     @commands.command(name="peter", pass_context=True)
