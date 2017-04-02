@@ -195,6 +195,7 @@ class Voice:
 
     @commands.command(name="next", pass_context=True, help="Skip to next song in music queue")
     async def play_next(self, ctx):
+        self.people_voted.clear()
         # if there is an item at the front of the queue, play it and get the next item
         if self.playlist.current:
             await self.play_music(ctx, self.playlist.pop())
@@ -204,6 +205,7 @@ class Voice:
 
     @commands.command(name="start", pass_context=True, help="Start the music queue")
     async def start_queue(self, ctx):
+        self.people_voted.clear()
         if self.playlist.current is None:
             await self.respond("Queue is empty", ctx.message.author.mention)
         else:
