@@ -46,11 +46,11 @@ class Voice:
     @commands.command(name="votenext", pass_context=True)
     async def vote_next_song(self, ctx):
         if self.voice.channel.id != ctx.message.author.voice.voice_channel.id:
-            await self.bot.respond("You're not in the required voice channel to request to skip song, lil boy.", ctx.message.author.mention)
+            await self.bot.say("You're not in the required voice channel to request to skip song, lil boy " + ctx.message.author.mention)
             return None
         
         if ctx.message.author.id in self.people_voted:
-            await self.bot.respond("You've already voted to skip this song", ctx.message.author.mention)
+            await self.bot.say("You've already voted to skip this song, " + ctx.message.author.mention)
         else:
             self.people_voted.append(ctx.message.author.id)
             
