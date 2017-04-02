@@ -50,7 +50,7 @@ class Voice:
             return None
         
         if ctx.message.author.id in self.people_voted:
-            await self.bot.repond("You've already voted to skip this song", ctx.message.author.mention)
+            await self.bot.respond("You've already voted to skip this song", ctx.message.author.mention)
         else:
             self.people_voted.append(ctx.message.author.id)
             
