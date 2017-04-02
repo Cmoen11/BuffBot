@@ -53,7 +53,7 @@ class Voice:
             if len(self.people_voted) == len((self.bot.channel // 2) + 1):
                 await self.play_next
             else:
-                await self.bot.say(len((self.bot.voice_clients.channel // 2) + 1) - len(self.people_voted),
+                await self.bot.say(len((self.bot.voice_clients.channel.voice_members // 2) + 1) - len(self.people_voted),
                                        " more votes needed")
 
     @commands.command(name="stop", pass_context=True, help="Stop the audio player")
