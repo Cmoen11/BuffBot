@@ -176,9 +176,9 @@ class Voice:
         await self.bot.say("{}, {}".format(msg, author))
 
     @commands.command(name="queue", pass_context=True, help="Add youtube link to music queue")
-    async def add_to_queue(self, link):
+    async def add_to_queue(self, ctx, link):
         # TODO: find better solution for extracting link from message
-        song = link.message.content[7:]
+        song = link
         # link added to next field in current song
         self.playlist.add_song(song)
 
