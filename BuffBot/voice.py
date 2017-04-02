@@ -54,11 +54,11 @@ class Voice:
         else:
             self.people_voted.append(ctx.message.author.id)
             
-            if len(self.people_voted) == (len(self.voice.channel.voice_members) // 2) + 1):
+            if len(self.people_voted) == (len(self.voice.channel.voice_members) // 2) + 1:
                 self.people_voted.clear()
-                await self.play_next
+                await self.play_next(ctx)
             else:
-                await self.bot.say(len(self.voice.channel.voice_members) // 2) + 1) - len(self.people_voted),
+                await self.bot.say((len(self.voice.channel.voice_members) // 2) + 1 - len(self.people_voted),
                                        " more votes needed")
 
 
