@@ -1,6 +1,7 @@
 import random
 class Node:
-
+    self.song
+    self.next
     def __init__(self, link):
         if self.is_youtubelink(link):
             self.song = link
