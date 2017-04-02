@@ -58,8 +58,8 @@ class Voice:
                 self.people_voted.clear()
                 await self.play_next(ctx)
             else:
-                await self.bot.say((len(self.voice.channel.voice_members) // 2) + 1 - len(self.people_voted),
-                                       " more votes needed")
+                number = (len(self.voice.channel.voice_members) // 2) + 1 - len(self.people_voted)
+                await self.bot.say(number, " more votes needed")
 
 
     @commands.command(name="stop", pass_context=True, help="Stop the audio player")
