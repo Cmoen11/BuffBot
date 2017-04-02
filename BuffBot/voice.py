@@ -220,7 +220,7 @@ class Voice:
             self.voice = await self.bot.join_voice_channel(trigger_channel)
         # Stop the player if it is running, to make room for the next one
         if self.player:
-            await self.player.stop()
+            self.player.stop()
         # Create a StreamPlayer with the requested link
         self.player = await self.voice.create_ytdl_player(link)
         # Set the volume to the bot's volume value
