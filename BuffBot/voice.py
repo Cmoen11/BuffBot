@@ -183,7 +183,7 @@ class Voice:
     async def play_next(self, ctx):
         
         # nothing in queue
-        if not self.playlist.current is None:
+        if self.playlist.current is None:
             await self.respond("Queue is empty", ctx.message.author.mention)
         # if there is an item at the front of the queue, play it and get the next item
         elif self.playlist.current:
