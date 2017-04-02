@@ -189,7 +189,8 @@ class Voice:
         if self.playlist.current is None:
             await self.respond("Queue is empty", ctx.message.author.mention)
         # if there is an item at the front of the queue, play it and get the next item
-        elif self.playlist.current:
+        else:
+            print(self.playlist[0])
             await self.play_music(ctx, self.playlist.pop())
 
     @commands.command(name="start", pass_context=True, help="Start the music queue")
