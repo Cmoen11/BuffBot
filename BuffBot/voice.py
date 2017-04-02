@@ -50,7 +50,7 @@ class Voice:
         else:
             self.people_voted.append(ctx.message.author.id)
             self.people_voted.clear()
-            if len(self.people_voted) == len((self.bot.channel // 2) + 1):
+            if len(self.people_voted) == len((self.bot.voice_clients.channel.voice_members // 2) + 1):
                 await self.play_next
             else:
                 await self.bot.say(len((self.bot.voice_clients.channel.voice_members // 2) + 1) - len(self.people_voted),
