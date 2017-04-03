@@ -5,6 +5,7 @@ import os
 import random
 import aiohttp
 import hashlib
+import database
 import botconfig
 
 class Command:
@@ -14,6 +15,7 @@ class Command:
         self.voice = None
         self.player = None
         self.volume = 1.0
+        self.database = database.Database()
 
     @commands.command(name="bye", pass_context=True)
     async def bye(self, ctx):
