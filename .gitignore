@@ -156,4 +156,4 @@ ENV/
 key.txt
 *.pyc
 
-_config\.yml
+_config\.yml.idea
