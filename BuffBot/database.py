@@ -49,7 +49,7 @@ class Database():
 
     @classmethod
     def set_coin_count_session_start(self, user_id, start_time, end_time, session_active):
-        self.conn = sqlite3.connect("test123.db")
+        self.conn = sqlite3.connect(self.DB_NAME)
         params = (user_id, start_time, end_time, session_active)
         sql = "INSERT INTO coins VALUES (?, ?, ?, ?)"
 
@@ -59,7 +59,7 @@ class Database():
 
     @classmethod
     def set_coin_count_session_end(self, user_id, end_time, session_active):
-        self.conn = sqlite3.connect("test123.db")
+        self.conn = sqlite3.connect(self.DB_NAME)
         params = (user_id, end_time, session_active)
         sql = "UPDATE coins SET user_id = ?, end_time = ?, session_active = ?" \
               "WHERE start_time = (SELECT MAX(start_time)  FROM coins);"
@@ -71,7 +71,7 @@ class Database():
     @classmethod
     def get_coin_count(self, user_id):
         # TODO: Implement total coin value in DB as separate row
-        self.conn = sqlite3.connect("test123.db")
+        self.conn = sqlite3.connect(self.DB_NAME)
         params = (user_id, 0)
         sql = "SELECT start_time, end_time FROM coins WHERE user_id =? and session_active = ?"
 
