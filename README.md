@@ -104,4 +104,4 @@ We're open for new features, but keep in mind the scope and relevance of the Buf
 
 
 ## Credits for open repositiories 
-- https://github.com/Rapptz/discord.py
+https://github.com/Rapptz/discord.py
