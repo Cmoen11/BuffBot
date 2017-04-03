@@ -41,7 +41,7 @@ Head over to the [documentation for commands](https://github.com/Cmoen11/BuffBot
 
 <br>
 <h2> Documentation</h2>
-[Complete documentation section](https://github.com/Cmoen11/BuffBot/wiki) 
+ [Complete documentation section](https://github.com/Cmoen11/BuffBot/wiki) 
 
 
 <br>
