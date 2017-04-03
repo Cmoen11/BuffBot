@@ -37,8 +37,8 @@ Finally download the latest files from the project and open your terminal and wr
 Head over to the [documentation for commands](https://github.com/Cmoen11/BuffBot/wiki/Commands) to see an extensive list of available commands.
 
 
-<br><br>
-<h2> Documentation</h2>
+<br>
+## Documentation
 https://github.com/Cmoen11/BuffBot/wiki 
 
 
