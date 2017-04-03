@@ -60,10 +60,10 @@ class Database():
     @classmethod
     def set_coin_count_session_end(self, user_id, end_time, session_active):
         self.conn = sqlite3.connect("test123.db")
-        params = (user_id, end_time, session_active)
-        sql = "UPDATE coins SET user_id = ?, end_time = ?, session_active = ?" \
-              "WHERE start_time = (SELECT MAX(start_time)  FROM coins);"
-
+        params = (end_time, session_active, user_id)
+        sql = "UPDATE coins SET end_time = ?, session_active = ?" \
+              "WHERE user_id = ? AND start_time = (SELECT MAX(start_time)  FROM coins);"
+        # TODO The above "where" clause is wrong when multiple users are online
         self.conn.execute(sql, params)
         self.conn.commit()
         self.conn.close()
