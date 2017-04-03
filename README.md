@@ -11,7 +11,7 @@ BuffBot is an open source bot for Discord written in Python 3.6. We'd love your 
 * [Bugs and feature requests](#bugs-and-feature-requests)
 * [Contribution](#contribution)
 * [Licence](#licence)
-* [Credits](#credits)
+* [Credits](#Credits-for-open-repositiories)
 
 <br>
 
@@ -57,7 +57,7 @@ If you've got a bug or feature request, please respect these restrictions:
 * Keep the discussion on topic.
 * Do not open issues if there are segment(s) of code you do not understand. This is <br> not </br> the purpose of these requests.
 More restrictions will be added as the project lifetime expands.
-<br>
+
 
 ### Bug reports
 Definition of a bug: A bug is an error, failure or fault in the program caused by the sourcecode in this repository, resulting the program to produce an incorrect or unexcepted result, or to behave in unintended ways.
