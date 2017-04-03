@@ -52,7 +52,7 @@ Would you also like to contribute to BuffBot? Please follow our guidelines for r
 how you can contribute through pull requests.
 These guidelines helps you communicate to us in an efficient way, that hopefully will improve the project.
 <br>
-### Bugs and feature requests
+## Bugs and feature requests
 If you've got a bug or feature request, please respect these restrictions:
 * Keep the discussion on topic.
 * Do not open issues if there are segment(s) of code you do not understand. This is <br> not </br> the purpose of these requests.
@@ -98,10 +98,10 @@ We're open for new features, but keep in mind the scope and relevance of the Buf
 * All code, except command functions that does not have a return value, must have unittests. These must be implemented in the unitTests folder. 
 * All modules must declare the if__name__ == "__main__":. Sharing is caring!  
 
-<br>
+
 ## Licence
 [GPL3.0](https://github.com/Cmoen11/BuffBot/blob/master/LICENSE)
 
-<br>
+
 ## Credits for open repositiories 
 - https://github.com/Rapptz/discord.py
