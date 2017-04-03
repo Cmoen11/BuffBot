@@ -11,13 +11,10 @@ BuffBot is an open source bot for Discord written in Python 3.6. We'd love your 
 * [Bugs and feature requests](#bugs-and-feature-requests)
 * [Contribution](#contribution)
 * [Licence](#licence)
-* [Credits](#credits)
+* [Credits](#credits-for-open-repositiories)
 
-
-<br>
 
 ## Quick start
-### Getting started, everything you need.
 - You need to have ffmpeg installed on your machine.. [Tutorial for FFmpeg(Windows)](http://www.hongkiat.com/blog/ffmpeg-guide/). <br> And for ubuntu and mac users.. [Tutorial for mac and ubuntu for FFmpeg ](https://medium.com/portfolio-of-bilash/install-ffmpeg-on-ubuntu-mac-os-98588f3251d7)
 - [You also need python 3.x.](https://www.python.org/downloads/)
 - Open terminal.. you have some pip install(s) to do!
@@ -28,57 +25,36 @@ BuffBot is an open source bot for Discord written in Python 3.6. We'd love your 
 - pip install simpleeval
 <br>
 Finally download the latest files from the project and open your terminal and write python main.py
-
 - Now add your bot token in the file located `botconfig/__init__.py`
-
 
 
 
 <br><br>
 ## Commands
-Command | What it does | Who can do it?
---- | --- | ---
-`!help` | Gives a list of all of the commands | Everyone
-`!math <math question>` | Can do nearly everything you want in math | Everyone
-`!summon` | Bot will join your channel if you're in a voice channel | Restricted
-`!leaveChannel` | Bot will leave your channel | Restricted
-`!patrol` | Bot will set people in jail if they do not currently play a game | Restricted
-`!play <music link> ` | Bot will join your channel and start playing fine tunes. It require a link to the music source. | Restricted
-`!stop` | Bot will stop playing music. | Restricted
-`!setvolume <a number between 0 - 100>`| Bot will change the volume to the given prosent | Restricted
-`!smug`| Bot will reply with a smug image | Everyone
-`!smugadd <a http link to image that are to be added>` | needs link to a image, and will add it to the smug list | Restricted
-`!queue <music link>` | Add a song to the queue | Everyone
-`!next` | If the queue is not empty, the next song will be prepared| Everyone
-`!start` | Playes the song at the front of the queue | Everyone
-
-Usergroups | # |
---- | ---
-Everyone | Everyone in the channel, default usergroup
-Restricted | Restricted accsess. default the owner of the bot
+Head over to the [documentation for commands](https://github.com/Cmoen11/BuffBot/wiki/Commands) to see an extensive list of available commands.
 
 
-<br>
-<h2> Documentation</h2>
-Grundig forklaring av installasjon og bruk.
+
+## Documentation
+https://github.com/Cmoen11/BuffBot/wiki 
 
 
-<br>
-<h2> Features </h2>
+
+## Features 
 stuff will be added
 
-<br>
-<h2> Contribution</h2>
+
+## Contribution
 Would you also like to contribute to BuffBot? Please follow our guidelines for reporting bugs and wanted features, in addition to
 how you can contribute through pull requests.
 These guidelines helps you communicate to us in an efficient way, that hopefully will improve the project.
 <br>
-<h2> Bugs and feature requests</h2>
+## Bugs and feature requests
 If you've got a bug or feature request, please respect these restrictions:
 * Keep the discussion on topic.
 * Do not open issues if there are segment(s) of code you do not understand. This is <br> not </br> the purpose of these requests.
 More restrictions will be added as the project lifetime expands.
-<br>
+
 
 ### Bug reports
 Definition of a bug: A bug is an error, failure or fault in the program caused by the sourcecode in this repository, resulting the program to produce an incorrect or unexcepted result, or to behave in unintended ways.
@@ -108,26 +84,21 @@ Definition of a bug: A bug is an error, failure or fault in the program caused b
 <br>
 <i> OS, ptyhon version and more if neccesarily </i>
 
-<h2> Feature requests </h2>
+### Feature requests
 We're open for new features, but keep in mind the scope and relevance of the BuffBot. E.g. We will not implement changes in Discord's UI beyond what's already in the Discord API, as it neither is relevant nor in the scope of this project.
 <br>Details<br> is heavily encouraged when opening a feature request, they make it much easier for the developers to understand the scope of the request.
 
 <br>
-<h2> Pull requests </h2>
+### Pull requests 
 * All code should be documentented
 * New features should be explained in detail in the wiki-page
 * All code, except command functions that does not have a return value, must have unittests. These must be implemented in the unitTests folder. 
 * All modules must declare the if__name__ == "__main__":. Sharing is caring!  
-<br>
-
-Her må det legges til hvordan folk kan gjennomføre pullrequests. Skal de forke? osv. @Moen
 
 
-<br>
-<h2>Licence </h2>
+## Licence
 [GPL3.0](https://github.com/Cmoen11/BuffBot/blob/master/LICENSE)
 
-<br>
 
-<h2> Credits for open repositiories </h2>
-- https://github.com/Rapptz/discord.py
+## Credits for open repositiories 
+https://github.com/Rapptz/discord.py

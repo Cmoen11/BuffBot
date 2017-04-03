@@ -6,7 +6,7 @@ import random
 import aiohttp
 import hashlib
 import database
-from BuffBot import botconfig
+import botconfig
 
 class Command:
     def __init__(self, bot):
