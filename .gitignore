@@ -160,4 +160,4 @@ key.txt
 *.pyc
 __init__.py
 
-_config\.yml
+_config\.yml.idea
