@@ -13,10 +13,8 @@ BuffBot is an open source bot for Discord written in Python 3.6. We'd love your 
 * [Licence](#licence)
 * [Credits](#credits-for-open-repositiories)
 
-<br>
 
 ## Quick start
-### Getting started, everything you need.
 - You need to have ffmpeg installed on your machine.. [Tutorial for FFmpeg(Windows)](http://www.hongkiat.com/blog/ffmpeg-guide/). <br> And for ubuntu and mac users.. [Tutorial for mac and ubuntu for FFmpeg ](https://medium.com/portfolio-of-bilash/install-ffmpeg-on-ubuntu-mac-os-98588f3251d7)
 - [You also need python 3.x.](https://www.python.org/downloads/)
 - Open terminal.. you have some pip install(s) to do!
@@ -27,7 +25,6 @@ BuffBot is an open source bot for Discord written in Python 3.6. We'd love your 
 - pip install simpleeval
 <br>
 Finally download the latest files from the project and open your terminal and write python main.py
-
 - Now add your bot token in the file located `botconfig/__init__.py`
 
 
