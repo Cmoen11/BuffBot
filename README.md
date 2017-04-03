@@ -13,7 +13,6 @@ BuffBot is an open source bot for Discord written in Python 3.6. We'd love your 
 * [Licence](#licence)
 * [Credits](#credits)
 
-
 <br>
 
 ## Quick start
@@ -33,14 +32,13 @@ Finally download the latest files from the project and open your terminal and wr
 
 
 
-
 <br><br>
 ## Commands
 Head over to the [documentation for commands](https://github.com/Cmoen11/BuffBot/wiki/Commands) to see an extensive list of available commands.
 
 
-<br>
-## Documentation
+<br><br>
+<h2> Documentation</h2>
 https://github.com/Cmoen11/BuffBot/wiki 
 
 
