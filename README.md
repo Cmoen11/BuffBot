@@ -42,17 +42,17 @@ Head over to the [documentation for commands](https://github.com/Cmoen11/BuffBot
 https://github.com/Cmoen11/BuffBot/wiki 
 
 
-<br>
-<h2> Features </h2>
+
+## Features 
 stuff will be added
 
-<br>
-<h2> Contribution</h2>
+
+## Contribution
 Would you also like to contribute to BuffBot? Please follow our guidelines for reporting bugs and wanted features, in addition to
 how you can contribute through pull requests.
 These guidelines helps you communicate to us in an efficient way, that hopefully will improve the project.
 <br>
-<h2> Bugs and feature requests</h2>
+### Bugs and feature requests
 If you've got a bug or feature request, please respect these restrictions:
 * Keep the discussion on topic.
 * Do not open issues if there are segment(s) of code you do not understand. This is <br> not </br> the purpose of these requests.
@@ -87,26 +87,21 @@ Definition of a bug: A bug is an error, failure or fault in the program caused b
 <br>
 <i> OS, ptyhon version and more if neccesarily </i>
 
-<h2> Feature requests </h2>
+### Feature requests
 We're open for new features, but keep in mind the scope and relevance of the BuffBot. E.g. We will not implement changes in Discord's UI beyond what's already in the Discord API, as it neither is relevant nor in the scope of this project.
 <br>Details<br> is heavily encouraged when opening a feature request, they make it much easier for the developers to understand the scope of the request.
 
 <br>
-<h2> Pull requests </h2>
+### Pull requests 
 * All code should be documentented
 * New features should be explained in detail in the wiki-page
 * All code, except command functions that does not have a return value, must have unittests. These must be implemented in the unitTests folder. 
 * All modules must declare the if__name__ == "__main__":. Sharing is caring!  
-<br>
-
-Her må det legges til hvordan folk kan gjennomføre pullrequests. Skal de forke? osv. @Moen
-
 
 <br>
-<h2>Licence </h2>
+## Licence
 [GPL3.0](https://github.com/Cmoen11/BuffBot/blob/master/LICENSE)
 
 <br>
-
-<h2> Credits for open repositiories </h2>
+## Credits for open repositiories 
 - https://github.com/Rapptz/discord.py
