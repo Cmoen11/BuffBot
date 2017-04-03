@@ -11,7 +11,7 @@ BuffBot is an open source bot for Discord written in Python 3.6. We'd love your 
 * [Bugs and feature requests](#bugs-and-feature-requests)
 * [Contribution](#contribution)
 * [Licence](#licence)
-* [Credits](#Credits-for-open-repositiories)
+* [Credits](#credits-for-open-repositiories)
 
 <br>
 
