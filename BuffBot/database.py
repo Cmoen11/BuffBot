@@ -70,7 +70,6 @@ class Database():
         self.conn = sqlite3.connect(self.DB_NAME)
         params = (user_id, 0)
         sql = "SELECT start_time, end_time FROM coins WHERE user_id =? and session_active = ?"
-
         sessions = self.conn.execute(sql, params)
 
         def format_2_dec(val):
