@@ -15,7 +15,7 @@ class Coin:
 
     @commands.command(name="coins", pass_context=True, help="Get your coin amount")
     async def get_coins(self, ctx):
-        await self.bot.say("You have {} coins".format(self.database.get_coins(ctx.message.author.id)))
+        await self.bot.say("{}, you have {} coins".format(ctx.message.author.mention, self.database.get_coins(ctx.message.author.id)))
 
     @commands.command(name="roll", pass_context=True, help="Gamble coins, reach over 50 in a random number between 0 - 100")
     async def roll_dice(self, ctx, amount):
