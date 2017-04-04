@@ -139,7 +139,7 @@ celerybeat-schedule
 *.sage.py
 
 # Database
-test123.db
+
 
 # dotenv
 .env
@@ -158,6 +158,6 @@ ENV/
 # keys
 key.txt
 *.pyc
-__init__.py
+
 
 _config\.yml.idea
