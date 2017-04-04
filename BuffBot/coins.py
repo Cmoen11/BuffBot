@@ -19,6 +19,10 @@ class Coin:
 
     @commands.command(name="roll", pass_context=True, help="Gamble coins, reach over 50 in a random number between 0 - 100")
     async def roll_dice(self, ctx, amount):
+        if float(amount) <= 0 :
+            await self.bot.say("{}, retard?".format(ctx.message.author.mention))
+            return None
+
         if self.database.get_coins(ctx.message.author.id) < float(amount) :
             await self.bot.say("{}, sorry buddy.. you do not have enough coins to do this bet.. You got {}"
                                .format(ctx.message.author.mention, self.database.get_coins(ctx.message.author.id)))
