@@ -10,7 +10,7 @@ class Coin:
         self.bot = bot                                  # The bot object.
         self.coinActive = True                          # If this is set to false, the coin interval is stopped.
         self.database = database.Database()             # database object -> used to update and get coin amount
-        self.COIN_AMOUNT = 0.1                          # amount of coins to be given every interval
+        self.COIN_AMOUNT = 1                            # amount of coins to be given every interval
         self.COIN_INTERVAL = 30                         # interval in seconds for sending out coins.
 
     @commands.command(name="coins", pass_context=True, help="Get your coin amount")
