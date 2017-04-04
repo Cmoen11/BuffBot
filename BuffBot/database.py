@@ -94,14 +94,28 @@ class Database():
         self.conn.commit()
         self.conn.close()
 
+    def remove_coins(self, userid, coins):
+        self.conn = sqlite3.connect(self.DB_NAME)
+        # first check if userid exist
+        sql = "INSERT OR IGNORE INTO coins2 (userid, coins) VALUES(?,0);"
+        self.conn.execute(sql, (userid,))
+        params = (coins, userid,)
+        sql = "UPDATE coins2 SET coins = coins - ? WHERE userid = ?;"
+        self.conn.execute(sql, params)
+        self.conn.commit()
+        self.conn.close()
+
     def get_coins(self, userid):
         self.conn = sqlite3.connect(self.DB_NAME)
         sql = "INSERT OR IGNORE INTO coins2 (userid, coins) VALUES(?,0);"
         self.conn.execute(sql, (userid,))
-        sql = "SELECT coins FROM coins2 WHERE userid = ?"
+        sql = "SELECT coins, userid FROM coins2 WHERE userid = ?"
         params = (userid,)
         result = self.conn.execute(sql, params)
-        output = "%d" %result.fetchone()
+        output = 0
+        for i in result :
+            output = output + i[0]
+
         self.conn.commit()
         self.conn.close()
 
