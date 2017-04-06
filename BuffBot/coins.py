@@ -56,20 +56,19 @@ class Coin:
                     await self.bot.say("{}, you donated {} coins to {}".format(ctx.message.author.mention, coins,
                                                                                member.mention))
 
-                else :
-                    await self.bot.say("{}, coins needs to be higher than 0.".format(ctx.message.author.mention))
-            else :
-                await self.bot.say("{}, not enough coins.".format(ctx.message.author.mention))
-        else:
-            await self.bot.say("Did not find member {}".format(toUser))
+                else: await self.bot.say("{}, coins needs to be higher than 0.".format(ctx.message.author.mention))
+            else: await self.bot.say("{}, not enough coins.".format(ctx.message.author.mention))
+        else: await self.bot.say("Did not find member {}".format(toUser))
 
     @commands.command(name="toplist", pass_context=False)
     async def get_toplist(self):
-        toplist = self.database.get_top_coin_holders();
         output = "On the coin top we got: \n \n"
         count = 1
-        for user in toplist :
-            if user["mention"] == None : user["mention"] = await self.bot.get_user_info(user["userid"])
+        for user in self.database.get_top_coin_holders() :
+            if user["mention"] == None :
+                user["mention"] = await self.bot.get_user_info(user["userid"])
+                user["mention"] = user["mention"].mention
+
             output += "#{} {} with {} coins \n".format(count, user["mention"], user["coins"])
             count += 1
         await self.bot.say(output)
