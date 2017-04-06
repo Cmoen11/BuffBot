@@ -110,6 +110,7 @@ class Database():
 
         self.conn.commit()
         self.conn.close()
+
     def get_coins(self, userid):
         self.conn = sqlite3.connect(self.DB_NAME)
         sql = "INSERT OR IGNORE INTO members (userid, coins) VALUES(?,0);"

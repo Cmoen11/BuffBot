@@ -21,7 +21,7 @@ class Coin:
     @commands.command(name="roll", pass_context=True, help="Gamble coins, reach over 50 - 100")
     async def roll_dice(self, ctx, amount):
         if float(amount) <= 0 :
-            await self.bot.say("{}, retard?".format(ctx.message.author.mention))
+            await self.bot.say("{}, please enter a valid amount?".format(ctx.message.author.mention))
             return None
 
         if not self.check_balance(ctx.message.author, float(amount)):
@@ -43,16 +43,13 @@ class Coin:
 
     @commands.command(name="donate", pass_context=True)
     async def donate_coins(self, ctx, toUser :discord.Member, coins):
-        server = ctx.message.server
         member = toUser
         if member is not None :
             if self.check_balance(ctx.message.author, float(coins)):
                 if float(coins) > 0 :
-                    # Remove coins from sender
-                    self.database.remove_coins(userid=ctx.message.author.id, coins=coins)
-                    # give coins to reciver
-                    self.database.insert_coins(userid=member.id, coins=coins)
 
+                    self.database.remove_coins(userid=ctx.message.author.id, coins=coins, mention=ctx.message.author.mention)
+                    self.database.insert_coins(userid=member.id, coins=coins, mention=ctx.message.author.mention)
                     await self.bot.say("{}, you donated {} coins to {}".format(ctx.message.author.mention, coins,
                                                                                member.mention))
 
@@ -65,7 +62,7 @@ class Coin:
         output = "On the coin top we got: \n \n"
         count = 1
         for user in self.database.get_top_coin_holders() :
-            if user["mention"] == None :
+            if user["mention"] == None :    # if for some reason mention is not in the db.. Then get it..
                 user["mention"] = await self.bot.get_user_info(user["userid"])
                 user["mention"] = user["mention"].mention
 
@@ -75,6 +72,12 @@ class Coin:
 
 
     def check_balance(self,user, requestedBalance):
+        '''
+        check if the user have enough coins to do the transaction 
+        :param user: 
+        :param requestedBalance: 
+        :return: 
+        '''
         if self.database.get_coins(user.id) < float(requestedBalance) :
             return False;
         return True;
