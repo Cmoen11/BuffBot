@@ -23,7 +23,7 @@ class Coin:
             await self.bot.say("{}, retard?".format(ctx.message.author.mention))
             return None
 
-        if self.check_balance(ctx.message.author, float(amount)):
+        if not self.check_balance(ctx.message.author, float(amount)):
             await self.bot.say("{}, sorry buddy.. you do not have enough coins to do this bet.. You got {}"
                                .format(ctx.message.author.mention, self.database.get_coins(ctx.message.author.id)))
             return None
