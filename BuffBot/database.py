@@ -1,5 +1,5 @@
 import sqlite3
-
+import discord
 
 class Database():
     def __init__(self):
@@ -83,28 +83,33 @@ class Database():
         self.conn.close()
         return format_2_dec(total_coins)
 
-    def insert_coins(self, userid, coins):
+    def insert_coins(self, userid, coins, mention=None):
         self.conn = sqlite3.connect(self.DB_NAME)
-        # first check if userid exist
-        sql = "INSERT OR IGNORE INTO coins2 (userid, coins) VALUES(?,0);"
-        self.conn.execute(sql, (userid,))
-        params = (coins, userid,)
-        sql = "UPDATE coins2 SET coins = coins + ? WHERE userid = ?;"
+
+        if mention == None : mention = discord.Client.get_user_info(userid)
+        sql = "INSERT OR IGNORE INTO coins2 (userid, coins, user_mention) VALUES(?,0,?);"
+        self.conn.execute(sql, (userid,mention,))
+
+        params = (coins, mention, userid,)
+        sql = "UPDATE coins2 SET coins = coins + ?, user_mention = ? WHERE userid = ?;"
         self.conn.execute(sql, params)
+
         self.conn.commit()
         self.conn.close()
 
-    def remove_coins(self, userid, coins):
+    def remove_coins(self, userid, coins, mention=None):
         self.conn = sqlite3.connect(self.DB_NAME)
-        # first check if userid exist
-        sql = "INSERT OR IGNORE INTO coins2 (userid, coins) VALUES(?,0);"
-        self.conn.execute(sql, (userid,))
-        params = (coins, userid,)
-        sql = "UPDATE coins2 SET coins = coins - ? WHERE userid = ?;"
+
+        if mention == None : mention = discord.Client.get_user_info(userid)
+        sql = "INSERT OR IGNORE INTO coins2 (userid, coins, user_mention) VALUES(?,0,?);"
+        self.conn.execute(sql, (userid,mention,))
+
+        params = (coins, mention, userid,)
+        sql = "UPDATE coins2 SET coins = coins - ?, user_mention = ? WHERE userid = ?;"
         self.conn.execute(sql, params)
+
         self.conn.commit()
         self.conn.close()
-
     def get_coins(self, userid):
         self.conn = sqlite3.connect(self.DB_NAME)
         sql = "INSERT OR IGNORE INTO coins2 (userid, coins) VALUES(?,0);"
@@ -124,9 +129,9 @@ class Database():
     def get_top_coin_holders(self):
         toplist = []
         self.conn = sqlite3.connect(self.DB_NAME)
-        sql = "SELECT userid, coins FROM coins2 ORDER BY coins DESC LIMIT 5;"
+        sql = "SELECT userid, coins, user_mention FROM coins2 ORDER BY coins DESC LIMIT 5;"
         result = self.conn.execute(sql)
         for user in result:
-            toplist.append({"userid" : user[0], "coins" : user[1]})
+            toplist.append({"userid" : user[0], "coins" : user[1], "mention" : user[2]})
         self.conn.close()
         return toplist

@@ -15,9 +15,10 @@ class Coin:
 
     @commands.command(name="coins", pass_context=True, help="Get your coin amount")
     async def get_coins(self, ctx):
-        await self.bot.say("{}, you have {} coins".format(ctx.message.author.mention, self.database.get_coins(ctx.message.author.id)))
+        await self.bot.say("{}, you have {} coins".format(ctx.message.author.mention,
+                                                          self.database.get_coins(ctx.message.author.id)))
 
-    @commands.command(name="roll", pass_context=True, help="Gamble coins, reach over 50 in a random number between 0 - 100")
+    @commands.command(name="roll", pass_context=True, help="Gamble coins, reach over 50 - 100")
     async def roll_dice(self, ctx, amount):
         if float(amount) <= 0 :
             await self.bot.say("{}, retard?".format(ctx.message.author.mention))
@@ -30,11 +31,12 @@ class Coin:
 
         rolled = random.randint(0,100)
         if rolled <= 50 :
-            self.database.remove_coins(ctx.message.author.id, amount)
-            await self.bot.say("{}, you lost.. you rolled {} and lost {} coins".format(ctx.message.author.mention, rolled, amount))
+            self.database.remove_coins(ctx.message.author.id, amount, ctx.message.author.mention)
+            await self.bot.say("{}, you lost.. you rolled {} and lost {} coins".format(
+                ctx.message.author.mention, rolled, amount))
             pass
         else :
-            self.database.insert_coins(ctx.message.author.id, amount)
+            self.database.insert_coins(ctx.message.author.id, amount, ctx.message.author.mention)
             await self.bot.say(
                 "{}, you won! you rolled {} and won {} coins".format(ctx.message.author.mention, rolled, amount))
             pass
@@ -51,7 +53,8 @@ class Coin:
                     # give coins to reciver
                     self.database.insert_coins(userid=member.id, coins=coins)
 
-                    await self.bot.say("{}, you donated {} coins to {}".format(ctx.message.author.mention, coins, member.mention))
+                    await self.bot.say("{}, you donated {} coins to {}".format(ctx.message.author.mention, coins,
+                                                                               member.mention))
 
                 else :
                     await self.bot.say("{}, coins needs to be higher than 0.".format(ctx.message.author.mention))
@@ -66,8 +69,8 @@ class Coin:
         output = "On the coin top we got: \n \n"
         count = 1
         for user in toplist :
-            user_obj = await self.bot.get_user_info(user["userid"])
-            output += "#{} {} with {} coins \n".format(count, user_obj.mention, user["coins"])
+            if user["mention"] == None : user["mention"] = await self.bot.get_user_info(user["userid"])
+            output += "#{} {} with {} coins \n".format(count, user["mention"], user["coins"])
             count += 1
         await self.bot.say(output)
 
@@ -85,7 +88,7 @@ class Coin:
             members = self.get_all_voice_members_except_in_afk()
 
             for m in members :
-                self.database.insert_coins(m.id, self.COIN_AMOUNT)
+                self.database.insert_coins(m.id, self.COIN_AMOUNT, m.mention)
             await asyncio.sleep(30)
 
 
