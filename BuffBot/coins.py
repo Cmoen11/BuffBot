@@ -60,6 +60,17 @@ class Coin:
         else:
             await self.bot.say("Did not find member {}".format(toUser))
 
+    @commands.command(name="toplist", pass_context=False)
+    async def get_toplist(self):
+        toplist = self.database.get_top_coin_holders();
+        await self.bot.say("On the coin top we got:")
+        count = 1
+        for user in toplist :
+            user_obj = await self.bot.get_user_info(user["userid"])
+            await self.bot.say("#{} {} with {} coins".format(count, user_obj.mention, user["coins"]))
+            count += 1
+
+
     def check_balance(self,user, requestedBalance):
         if self.database.get_coins(user.id) < float(requestedBalance) :
             return False;

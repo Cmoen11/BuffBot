@@ -120,3 +120,13 @@ class Database():
         self.conn.close()
 
         return output
+
+    def get_top_coin_holders(self):
+        toplist = []
+        self.conn = sqlite3.connect(self.DB_NAME)
+        sql = "SELECT userid, coins FROM coins2 ORDER BY coins DESC LIMIT 5;"
+        result = self.conn.execute(sql)
+        for user in result:
+            toplist.append({"userid" : user[0], "coins" : user[1]})
+        self.conn.close()
+        return toplist
