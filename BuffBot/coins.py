@@ -2,7 +2,7 @@ from discord.ext import commands
 import database
 import asyncio
 import random
-
+import discord
 
 
 class Coin:
@@ -23,7 +23,7 @@ class Coin:
             await self.bot.say("{}, retard?".format(ctx.message.author.mention))
             return None
 
-        if self.database.get_coins(ctx.message.author.id) < float(amount) :
+        if self.check_balance(ctx.message.author, float(amount)):
             await self.bot.say("{}, sorry buddy.. you do not have enough coins to do this bet.. You got {}"
                                .format(ctx.message.author.mention, self.database.get_coins(ctx.message.author.id)))
             return None
@@ -39,6 +39,31 @@ class Coin:
                 "{}, you won! you rolled {} and won {} coins".format(ctx.message.author.mention, rolled, amount))
             pass
 
+    @commands.command(name="donate", pass_context=True)
+    async def donate_coins(self, ctx, toUser :discord.Member, coins):
+        server = ctx.message.server
+        member = toUser
+        if member is not None :
+            if self.check_balance(ctx.message.author, float(coins)):
+                if float(coins) > 0 :
+                    # Remove coins from sender
+                    self.database.remove_coins(userid=ctx.message.author.id, coins=coins)
+                    # give coins to reciver
+                    self.database.insert_coins(userid=member.id, coins=coins)
+
+                    await self.bot.say("{}, you donated {} coins to {}".format(ctx.message.author.mention, coins, member.mention))
+
+                else :
+                    await self.bot.say("{}, coins needs to be higher than 0.".format(ctx.message.author.mention))
+            else :
+                await self.bot.say("{}, not enough coins.".format(ctx.message.author.mention))
+        else:
+            await self.bot.say("Did not find member {}".format(toUser))
+
+    def check_balance(self,user, requestedBalance):
+        if self.database.get_coins(user.id) < float(requestedBalance) :
+            return False;
+        return True;
 
     async def give_coin(self):
         '''
@@ -46,6 +71,7 @@ class Coin:
         '''
         while self.coinActive:
             members = self.get_all_voice_members_except_in_afk()
+
             for m in members :
                 self.database.insert_coins(m.id, self.COIN_AMOUNT)
             await asyncio.sleep(30)
