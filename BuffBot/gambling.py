@@ -102,15 +102,17 @@ class Gamble:
             return None
 
         player['cards'].append(self.drawCard())
-        output = "{}, you're selected draw.. \n".format(ctx.message.author.mention)
-        output += "{}, you've not these cards: {}. That's a total score of {}\n" \
-            .format(player['user'].mention, player['cards'][0].getStringSymbol() + player['cards'][0].getStringValue()
-                    + " " + player['cards'][1].getStringSymbol() + player['cards'][1].getStringValue(),
+        output = "{}, you're selected hit.. \n".format(ctx.message.author.mention)
+
+        cards = ""
+        for card in player['cards'] : cards += card.getStringSymbol() + card.getStringValue()
+        output += "{}, you've these cards: {}. That's a total score of {}\n" \
+            .format(player['user'].mention, cards,
                     self.blackjack_calculate_card_values(player['cards']))
         await self.bot.say(output)
 
     @bj.command(name="stand", pass_context=True)
-    async def blackjack_hit(self, ctx):
+    async def blackjack_stand(self, ctx):
         player = self.player_in_blackjack_table(ctx.message.author)
         if player == None:
             await self.bot.say("{}, you're currently not in a game..".format(ctx.message.author.mention))
@@ -121,6 +123,63 @@ class Gamble:
             return None
         pass
 
+        player['status'] = 1
+        await self.bot.say("{}, you're standing..".format(ctx.message.author.mention))
+        cards = ""
+        for card in player['cards']: cards += card.getStringSymbol() + card.getStringValue()
+        output = ""
+        output += "{}, you've these cards: {}. That's a total score of {}\n" \
+            .format(player['user'].mention, cards,
+                    self.blackjack_calculate_card_values(player['cards']))
+        await self.bot.say(output)
+
+        if self.blackjack_is_every_one_standing():
+            await self.blackjack_calculate_winner()
+
+    async def blackjack_calculate_winner(self):
+
+        while self.blackjack_calculate_card_values(self.dealerCards) <= 17:
+            self.dealerCards.append(self.drawCard())
+
+        dealer_score = self.blackjack_calculate_card_values(self.dealerCards)
+        dealer_cards = ""
+        for card in self.dealerCards: dealer_cards += card.getStringSymbol() + card.getStringValue()
+        output = "~~~~~~~~~~~~~~~~~~~~~ \n"
+        output += "             ~WINNERS AND LOSERS~\n"
+        output += "Dealer got these cards: {}, that's a total score of {}\n".format(dealer_cards, dealer_score)
+        output += "~~~~~~~~~~~~~~~~~~~~~ \n"
+        for player in self.blackjack_players :
+            player_score = self.blackjack_calculate_card_values(player['cards'])
+            player_cards = ""
+            for card in player['cards']: player_cards += card.getStringSymbol() + card.getStringValue()
+
+            if dealer_score > 21 and player_score <= 21 or \
+                dealer_score < 21 and player_score > dealer_score and player_score <= 21:
+                output += "{} won over dealer with a score of {} with cards {} \n".format(
+                    player['user'].mention, player_score, player_cards)
+
+                self.database.insert_coins(player['user'].id, player['bet'] * 2, player['user'].mention)
+
+            elif dealer_score == player_score and dealer_score <= 21 :
+                output += "{} draw with dealer with a score of {} with cards {} \n".format(
+                    player['user'].mention, player_score, player_cards)
+
+                self.database.insert_coins(player['user'].id, player['bet'], player['user'].mention)
+
+            else :
+                output += "{} lost against dealer with a score of {} with cards {} \n".format(
+                    player['user'].mention, player_score, player_cards)
+
+        self.blacjack_players = []
+        self.dealerCards = []
+
+        await self.bot.say(output)
+
+
+    def blackjack_is_every_one_standing(self):
+        for player in self.blackjack_players :
+            if player['status'] == 0: return False
+        return True
 
     def player_in_blackjack_table(self, user):
         for player in self.blackjack_players :
