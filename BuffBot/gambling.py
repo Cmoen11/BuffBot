@@ -4,6 +4,7 @@ import discord
 import database
 from coins import Coin
 import time
+import botconfig
 
 class Gamble:
     def __init__(self, bot):
@@ -14,6 +15,7 @@ class Gamble:
         self.deck = []
         self.coins = Coin(bot)
         self.dealerCards = []
+        self.owners = botconfig.owners
 
 
     @commands.group(name="bj", pass_context=True)
@@ -22,7 +24,9 @@ class Gamble:
             await self.bot.say('Invalid rungame command passed...')
 
     @bj.command(name="new", pass_context=True)
-    async def new_blackjack_game(self):
+    async def new_blackjack_game(self, ctx):
+        if ctx.message.author.id not in self.owners:
+            return None
         if self.blackjack_game_status != 0:
             self.bot.say("A game is already in place.. wait until it is finished.")
             return None,
@@ -55,7 +59,8 @@ class Gamble:
 
     @bj.command(name="start", pass_context=True)
     async def start_blackjack_table(self, ctx):
-
+        if ctx.message.author.id not in self.owners:
+            return None
         self.blackjack_game_status = 3;
         self.dealerCards = [self.drawCard(), self.drawCard()]
         output = "Welcome to the blackjack room!!! \n"
@@ -123,6 +128,15 @@ class Gamble:
         if self.blackjack_is_every_one_standing():
             await self.blackjack_calculate_winner()
 
+    @bj.command(name="forceStand", pass_context=True)
+    async def blackjack_force_stand(self, ctx) :
+        if ctx.message.author.id not in self.owners:
+            return None
+        for player in self.blackjack_players :
+            player['status'] = 1
+
+        await self.blackjack_calculate_winner()
+
     async def blackjack_calculate_winner(self):
 
         while self.blackjack_calculate_card_values(self.dealerCards) <= 17:
@@ -159,8 +173,10 @@ class Gamble:
 
         self.blacjack_players = []
         self.dealerCards = []
+        self.blackjack_game_status = 0
 
         await self.bot.say(output)
+
 
 
     def blackjack_is_every_one_standing(self):
