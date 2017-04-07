@@ -43,6 +43,11 @@ class Gamble:
             await self.bot.say("No table is open for the moment..")
             return None
 
+        if self.player_in_blackjack_table(ctx.message.author) :
+            await self.bot.say(
+                "{}, You're in here, buddy!.".format(user.mention))
+            return None
+
         if float(bet) <= 0 and not self.coins.check_balance(bet):
             await self.bot.say(
                 "{}, please make sure your bet is higher than 0 and you've enough coins.".format(user.mention))
@@ -171,7 +176,7 @@ class Gamble:
                 output += "{} lost against dealer with a score of {} with cards {} \n".format(
                     player['user'].mention, player_score, player_cards)
 
-        self.blacjack_players = []
+        self.blackjack_players = []
         self.dealerCards = []
         self.blackjack_game_status = 0
 
