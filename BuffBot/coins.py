@@ -57,17 +57,16 @@ class Coin:
             else: await self.bot.say("{}, not enough coins.".format(ctx.message.author.mention))
         else: await self.bot.say("Did not find member {}".format(toUser))
 
-    @commands.command(name="toplist", pass_context=True)
-    async def get_toplist(self, ctx):
+    @commands.command(name="toplist", pass_context=False)
+    async def get_toplist(self):
         output = "On the coin top we got: \n \n"
         count = 1
         for user in self.database.get_top_coin_holders() :
-            member = discord.utils.find(lambda m: m.id == user['userid'], ctx.message.server.members)
             if user["mention"] == None :    # if for some reason mention is not in the db.. Then get it..
                 user["mention"] = await self.bot.get_user_info(user["userid"])
                 user["mention"] = user["mention"].mention
 
-            output += "#{} {} with {} coins \n".format(count, member.name, user["coins"])
+            output += "#{} {} with {} coins \n".format(count, user["mention"], user["coins"])
             count += 1
         await self.bot.say(output)
 
