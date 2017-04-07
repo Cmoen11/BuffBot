@@ -2,7 +2,8 @@ import sqlite3
 import discord
 
 class Database():
-    def __init__(self):
+    def __init__(self, bot=None):
+        self.bot = bot
         self.conn = None
         self.DB_NAME = "test123.db"
         print("Opened database successfully")
@@ -86,28 +87,43 @@ class Database():
     def insert_coins(self, userid, coins, mention=None):
         self.conn = sqlite3.connect(self.DB_NAME)
 
-        if mention == None : mention = discord.Client.get_user_info(userid)
-        sql = "INSERT OR IGNORE INTO members (userid, coins, user_mention) VALUES(?,0,?);"
-        self.conn.execute(sql, (userid,mention,))
+        if mention == None and self.bot != None: mention = self.bot.Client.get_user_info(userid)
 
-        params = (coins, mention, userid,)
-        sql = "UPDATE members SET coins = coins + ?, user_mention = ? WHERE userid = ?;"
+        if mention != None:
+            sql = "INSERT OR IGNORE INTO members (userid, coins, user_mention) VALUES(?,0,?);"
+            self.conn.execute(sql, (userid, mention,))
+            params = (coins, mention, userid,)
+            sql = "UPDATE members SET coins = coins + ?, user_mention = ? WHERE userid = ?;"
+
+        elif mention == None:
+            sql = "INSERT OR IGNORE INTO members (userid, coins) VALUES(?,0,?);"
+            self.conn.execute(sql, (userid,))
+            params = (coins, userid,)
+            sql = "UPDATE members SET coins = coins + ? WHERE userid = ?;"
+
         self.conn.execute(sql, params)
-
         self.conn.commit()
         self.conn.close()
 
     def remove_coins(self, userid, coins, mention=None):
         self.conn = sqlite3.connect(self.DB_NAME)
 
-        if mention == None : mention = discord.Client.get_user_info(userid)
-        sql = "INSERT OR IGNORE INTO members (userid, coins, user_mention) VALUES(?,0,?);"
-        self.conn.execute(sql, (userid,mention,))
+        if mention == None and self.bot != None: mention = self.bot.Client.get_user_info(userid)
 
-        params = (coins, mention, userid,)
-        sql = "UPDATE members SET coins = coins - ?, user_mention = ? WHERE userid = ?;"
+        if mention != None :
+            sql = "INSERT OR IGNORE INTO members (userid, coins, user_mention) VALUES(?,0,?);"
+            self.conn.execute(sql, (userid,mention,))
+            params = (coins, mention, userid,)
+            sql = "UPDATE members SET coins = coins - ?, user_mention = ? WHERE userid = ?;"
+
+        elif mention == None :
+            sql = "INSERT OR IGNORE INTO members (userid, coins) VALUES(?,0,?);"
+            self.conn.execute(sql, (userid,))
+            params = (coins, userid,)
+            sql = "UPDATE members SET coins = coins - ? WHERE userid = ?;"
+
+
         self.conn.execute(sql, params)
-
         self.conn.commit()
         self.conn.close()
 
