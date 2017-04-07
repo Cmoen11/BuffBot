@@ -15,14 +15,13 @@ class Gamble:
         self.coins = Coin(bot)
         self.dealerCards = []
 
-    @commands.group(name="newgame", pass_context=True)
-    async def newgame(self,ctx) :
+
+    @commands.group(name="bj", pass_context=True)
+    async def bj (self, ctx) :
         if ctx.invoked_subcommand is None:
-            await self.bot.say('Invalid newgame command passed...')
+            await self.bot.say('Invalid rungame command passed...')
 
-
-
-    @newgame.command(name="blackjack", pass_context=True)
+    @bj.command(name="new", pass_context=True)
     async def new_blackjack_game(self):
         if self.blackjack_game_status != 0:
             self.bot.say("A game is already in place.. wait until it is finished.")
@@ -31,64 +30,48 @@ class Gamble:
         self.deck = self.generateCards()
         self.blackjack_game_status = 1
         await self.bot.say("A blackjack table have now opened.. "
-                           "please do ``` !joingame blackjack <bet> ``` to join the table.")
+                           "please do ``` !bj join <bet> ``` to join the table.")
 
-
-    @commands.group(name="joingame", pass_context=True, )
-    async def joingame(self, ctx):
-        if ctx.invoked_subcommand is None:
-            await self.bot.say('Invalid joingame command passed...')
-
-    @joingame.command(name ="test")
-    async def test(self):
-        print("test")
-
-    @joingame.command(name = "blackjack", pass_context=True)
+    @bj.command(name="join", pass_context=True)
     async def join_blackjack_game(self, ctx, bet):
         user = ctx.message.author
-        if self.blackjack_game_status != 1 :
+        if self.blackjack_game_status != 1:
             await self.bot.say("No table is open for the moment..")
             return None
 
         if float(bet) <= 0 and not self.coins.check_balance(bet):
-            await self.bot.say("{}, please make sure your bet is higher than 0 and you've enough coins.".format(user.mention))
+            await self.bot.say(
+                "{}, please make sure your bet is higher than 0 and you've enough coins.".format(user.mention))
             return None
 
         self.database.remove_coins(userid=user.id, coins=float(bet), mention=user.mention)
 
         self.blackjack_players.append({
-            "user" : user, "cards": [self.drawCard(), self.drawCard()], "bet" : float(bet), "status" : 0
+            "user": user, "cards": [self.drawCard(), self.drawCard()], "bet": float(bet), "status": 0
         })
 
-        await self.bot.say("{}, you've joined the table.. please wait for a host to start the round".format(user.mention))
+        await self.bot.say(
+            "{}, you've joined the table.. please wait for a host to start the round".format(user.mention))
 
-    @commands.group(name="rungame", pass_context=True)
-    async def rungame(self, ctx):
-        if ctx.invoked_subcommand is None:
-            await self.bot.say('Invalid rungame command passed...')
-
-    @rungame.command(name ="blackjack", pass_context= True)
+    @bj.command(name="start", pass_context=True)
     async def start_blackjack_table(self, ctx):
-
 
         self.blackjack_game_status = 3;
         self.dealerCards = [self.drawCard(), self.drawCard()]
         output = "Welcome to the blackjack room!!! \n"
-        output += "Dealers card shown to you fellows is {}\n".format(self.dealerCards[0].getStringSymbol() + self.dealerCards[0].getStringValue())
+        output += "Dealers card shown to you fellows is {}\n".format(
+            self.dealerCards[0].getStringSymbol() + self.dealerCards[0].getStringValue())
         output += "====================================================\n"
         for player in self.blackjack_players:
-            output += "{} has these cards: {}. That's a total score of {}\n"\
-                .format(player['user'].mention, player['cards'][0].getStringSymbol() +  player['cards'][0].getStringValue()
-                        + " " +  player['cards'][1].getStringSymbol() + player['cards'][1].getStringValue(), self.blackjack_calculate_card_values(player['cards']))
+            output += "{} has these cards: {}. That's a total score of {}\n" \
+                .format(player['user'].mention,
+                        player['cards'][0].getStringSymbol() + player['cards'][0].getStringValue()
+                        + " " + player['cards'][1].getStringSymbol() + player['cards'][1].getStringValue(),
+                        self.blackjack_calculate_card_values(player['cards']))
             pass
 
         await self.bot.say(output)
         pass
-
-    @commands.group(name="bj", pass_context=True)
-    async def bj (self, ctx) :
-        if ctx.invoked_subcommand is None:
-            await self.bot.say('Invalid rungame command passed...')
 
     @bj.command(name = "hit", pass_context=True)
     async def blackjack_hit(self, ctx):
