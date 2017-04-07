@@ -109,6 +109,10 @@ class Gamble:
         output += "{}, you've these cards: {}. That's a total score of {}\n" \
             .format(player['user'].mention, cards,
                     self.blackjack_calculate_card_values(player['cards']))
+
+        if self.blackjack_calculate_card_values(player['cards']) >= 21:
+            player['status'] = 1
+
         await self.bot.say(output)
 
     @bj.command(name="stand", pass_context=True)
