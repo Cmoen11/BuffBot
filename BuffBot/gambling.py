@@ -105,6 +105,8 @@ class Gamble:
 
         if self.blackjack_calculate_card_values(player['cards']) >= 21:
             player['status'] = 1
+            if self.blackjack_is_every_one_standing():
+                await self.blackjack_calculate_winner()
 
         await self.bot.say(output)
 

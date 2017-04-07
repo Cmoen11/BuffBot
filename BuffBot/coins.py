@@ -67,7 +67,7 @@ class Coin:
                 user["mention"] = await self.bot.get_user_info(user["userid"])
                 user["mention"] = user["mention"].mention
 
-            output += "#{} {} with {} coins \n".format(count, member.display_name, user["coins"])
+            output += "#{} {} with {} coins \n".format(count, member.name, user["coins"])
             count += 1
         await self.bot.say(output)
 
