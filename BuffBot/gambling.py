@@ -152,7 +152,7 @@ class Gamble:
         dealer_score = self.blackjack_calculate_card_values(self.dealerCards)
         dealer_cards = ""
         for card in self.dealerCards: dealer_cards += card.getStringSymbol() + card.getStringValue()
-        output += "====================================================\n"
+        output = "====================================================\n"
         output += "             ~WINNERS AND LOSERS~\n"
         output += "Dealer got these cards: {}, that's a total score of {}\n".format(dealer_cards, dealer_score)
         output += "====================================================\n"
