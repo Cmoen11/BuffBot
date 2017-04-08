@@ -153,9 +153,9 @@ class Gamble:
         dealer_cards = ""
         for card in self.dealerCards: dealer_cards += card.getStringSymbol() + card.getStringValue()
         output = "====================================================\n"
-        output += "             ~WINNERS AND LOSERS~\n"
+        output += "                                        ~WINNERS AND LOSERS~ \n"
         output += "Dealer got these cards: {}, that's a total score of {}\n".format(dealer_cards, dealer_score)
-        output += "====================================================\n"
+
         for player in self.blackjack_players :
             player_score = self.blackjack_calculate_card_values(player['cards'])
             player_cards = ""
@@ -165,8 +165,10 @@ class Gamble:
                 dealer_score < 21 and player_score > dealer_score and player_score <= 21:
                 output += "{} won over dealer with a score of {} with cards {} \n".format(
                     player['user'].mention, player_score, player_cards)
-
-                self.database.insert_coins(player['user'].id, player['bet'] * 2, player['user'].mention)
+                if len(player['cards'] == 2) :
+                    self.database.insert_coins(player['user'].id, player['bet'] * 3, player['user'].mention)
+                else :
+                    self.database.insert_coins(player['user'].id, player['bet'] * 2, player['user'].mention)
 
             elif dealer_score == player_score and dealer_score <= 21 :
                 output += "{} draw with dealer with a score of {} with cards {} \n".format(
@@ -181,7 +183,7 @@ class Gamble:
         self.blackjack_players = []
         self.dealerCards = []
         self.blackjack_game_status = 0
-
+        output += "====================================================\n"
         await self.bot.say(output)
 
 
