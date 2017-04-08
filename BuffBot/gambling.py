@@ -124,13 +124,6 @@ class Gamble:
 
         player['status'] = 1
         await self.bot.say("{}, you're standing..".format(ctx.message.author.mention))
-        cards = ""
-        for card in player['cards']: cards += card.getStringSymbol() + card.getStringValue()
-        output = ""
-        output += "{}, you've these cards: {}. That's a total score of {}\n" \
-            .format(player['user'].mention, cards,
-                    self.blackjack_calculate_card_values(player['cards']))
-        await self.bot.say(output)
 
         if self.blackjack_is_every_one_standing():
             await self.blackjack_calculate_winner()
