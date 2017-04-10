@@ -158,7 +158,7 @@ class Gamble:
                 dealer_score < 21 and player_score > dealer_score and player_score <= 21:
                 output += "{} won over dealer with a score of {} with cards {} \n".format(
                     player['user'].mention, player_score, player_cards)
-                if len(player['cards'] == 2) and player_score == 21 :
+                if len(player['cards']) == 2 and player_score == 21 :
                     self.database.insert_coins(player['user'].id, player['bet'] * 3, player['user'].mention)
                 else :
                     self.database.insert_coins(player['user'].id, player['bet'] * 2, player['user'].mention)
