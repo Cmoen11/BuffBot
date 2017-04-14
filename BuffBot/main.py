@@ -9,7 +9,7 @@ client = discord.Client()
 bot = commands.Bot(command_prefix='!')
 currency = Currency()
 
-startup_extensions = ['commands', 'voice', 'coins', 'gambling']
+startup_extensions = ['commands', 'voice', 'coins', 'blackjack', "channel_mangement"]
 
 
 @bot.event
