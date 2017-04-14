@@ -162,6 +162,7 @@ class Voice:
         # if there is an item at the front of the queue, play it and get the next item
         if self.playlist.current:
             await self.play_music(ctx, self.playlist.pop())
+            await asyncio.sleep(5)
 
 def setup(bot):
     bot.add_cog(Voice(bot))
