@@ -152,7 +152,7 @@ class Voice:
         self.player.volume = self.volume
         self.player.start()
         await self.bot.change_presence(game=discord.Game(name=self.player.title))
-        await self.bot.say("Now playing: ```" + self.player.title + "``` And will queue next in: ```" + str(self.player.duration) + "```")
+        await self.bot.say("Now playing: ```" + self.player.title + "``` And will queue next in: ```" + str(self.player.duration / 60) + " minutes```")
         self.secounds_to_next = self.player.duration
         await self.queue_is_alive(ctx)
 
