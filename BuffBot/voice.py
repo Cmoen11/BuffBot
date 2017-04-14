@@ -108,8 +108,7 @@ class Voice:
         if self.playlist.current:
             self.secounds_to_next = 0
         # nothing in queue
-        elif self.playlist.current is None:
-            await self.respond("Queue is empty", ctx.message.author.mention)
+
 
     @commands.command(name="start", pass_context=True, help="Start the music queue")
     async def start_queue(self, ctx):
@@ -123,6 +122,9 @@ class Voice:
     async def peter(self, ctx):
         await self.play_music(ctx, self.playlist.peter())
 
+    @commands.command(name="timeleft", pass_context=True)
+    async def time_left(self, ctx):
+        await self.respond(str(self.secounds_to_next), ctx.message.author.mention)
     async def play_music(self, ctx, link):
         if ctx.message.author.id not in self.owners:
             return None
@@ -163,6 +165,9 @@ class Voice:
         if self.playlist.current:
             await self.play_music(ctx, self.playlist.pop())
             await asyncio.sleep(5)
+            
+        elif self.playlist.current is None:
+            await self.respond("Queue is empty", ctx.message.author.mention)
 
 def setup(bot):
     bot.add_cog(Voice(bot))
