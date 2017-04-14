@@ -128,7 +128,6 @@ class Voice:
         if ctx.message.author.id not in self.owners:
             return None
 
-        await self.queue_is_alive(ctx)
         # Get the voice channel the commanding user is in
         trigger_channel = ctx.message.author.voice.voice_channel
         # Return with a message if the user is not in a voice channel
@@ -151,6 +150,7 @@ class Voice:
         self.player.volume = self.volume
         self.player.start()
         await self.bot.say("Now playing: ```" + self.player.title + "``` And will queue next in ```" + str(self.player.duration) + "```")
+        await self.queue_is_alive(ctx)
 
 
     async def queue_is_alive(self, ctx):
