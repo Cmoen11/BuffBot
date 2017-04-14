@@ -42,9 +42,14 @@ class Voice:
 
     @commands.command(name="play", pass_context=True, help="Play some music!")
     async def play_audio(self, ctx, link):
+        if ctx.message.author.id not in self.owners:
+            return None
+        await self.bot.say("Please use !queue instead..")
+        song = link
+        # link added to next field in current song
+        self.playlist.add_song(song)
         self.secounds_to_next = 0
-        await self.bot.say("Please queue instead..")
-        await self.play_music(ctx, link)
+
 
     @commands.command(name="votenext", pass_context=True)
     async def vote_next_song(self, ctx):
