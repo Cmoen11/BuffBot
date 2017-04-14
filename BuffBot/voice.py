@@ -155,6 +155,7 @@ class Voice:
 
     async def queue_is_alive(self, ctx):
         while self.secounds_to_next > 0:
+            self.secounds_to_next -= 1
             await asyncio.sleep(1)
 
         self.people_voted.clear()
