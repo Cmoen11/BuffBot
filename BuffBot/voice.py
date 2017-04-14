@@ -9,7 +9,7 @@ import database
 import playlist
 import botconfig
 import asyncio
-
+import discord
 
 
 class Voice:
@@ -125,6 +125,7 @@ class Voice:
     @commands.command(name="timeleft", pass_context=True)
     async def time_left(self, ctx):
         await self.respond(str(self.secounds_to_next), ctx.message.author.mention)
+
     async def play_music(self, ctx, link):
         if ctx.message.author.id not in self.owners:
             return None
@@ -150,6 +151,7 @@ class Voice:
         # Set the volume to the bot's volume value
         self.player.volume = self.volume
         self.player.start()
+        await self.bot.change_presence(game=discord.Game(name=self.player.title))
         await self.bot.say("Now playing: ```" + self.player.title + "``` And will queue next in: ```" + str(self.player.duration) + "```")
         self.secounds_to_next = self.player.duration
         await self.queue_is_alive(ctx)
@@ -165,8 +167,9 @@ class Voice:
         if self.playlist.current:
             await self.play_music(ctx, self.playlist.pop())
             await asyncio.sleep(5)
-            
+
         elif self.playlist.current is None:
+            await self.bot.change_presence(game=discord.Game(name='Queue is empty'))
             await self.respond("Queue is empty", ctx.message.author.mention)
 
 def setup(bot):
