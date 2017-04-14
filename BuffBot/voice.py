@@ -22,6 +22,7 @@ class Voice:
         self.database = database.Database()
         self.playlist = playlist.Queue()
         self.people_voted = []
+        self.secounds_to_next = 0
         
 
     @commands.command(name="summon", pass_context=True)
@@ -104,10 +105,8 @@ class Voice:
 
     @commands.command(name="next", pass_context=True, help="Skip to next song in music queue")
     async def play_next(self, ctx):
-        self.people_voted.clear()
-        # if there is an item at the front of the queue, play it and get the next item
         if self.playlist.current:
-            await self.play_music(ctx, self.playlist.pop())
+            self.secounds_to_next = 0
         # nothing in queue
         elif self.playlist.current is None:
             await self.respond("Queue is empty", ctx.message.author.mention)
@@ -149,14 +148,17 @@ class Voice:
         # Set the volume to the bot's volume value
         self.player.volume = self.volume
         self.player.start()
-        await self.bot.say("Now playing: ```" + self.player.title + "``` And will queue next in ```" + str(self.player.duration) + "```")
+        await self.bot.say("Now playing: ```" + self.player.title + "``` And will queue next in: ```" + str(self.player.duration) + "```")
+        self.secounds_to_next = self.player.duration
         await self.queue_is_alive(ctx)
 
 
     async def queue_is_alive(self, ctx):
-        while self.player.player.is_live :
+        while self.secounds_to_next > 0:
             await asyncio.sleep(1)
+
         self.people_voted.clear()
+        # if there is an item at the front of the queue, play it and get the next item
         if self.playlist.current:
             await self.play_music(ctx, self.playlist.pop())
 
