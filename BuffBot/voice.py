@@ -42,6 +42,8 @@ class Voice:
 
     @commands.command(name="play", pass_context=True, help="Play some music!")
     async def play_audio(self, ctx, link):
+        self.secounds_to_next = 0
+        await self.bot.say("Please queue instead..")
         await self.play_music(ctx, link)
 
     @commands.command(name="votenext", pass_context=True)
