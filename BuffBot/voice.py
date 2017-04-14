@@ -22,7 +22,7 @@ class Voice:
         self.database = database.Database()
         self.playlist = playlist.Queue()
         self.people_voted = []
-        self.secounds_to_next = 0
+        self.seconds_to_next = 0
         
 
     @commands.command(name="summon", pass_context=True)
@@ -48,7 +48,7 @@ class Voice:
         song = link
         # link added to next field in current song
         self.playlist.add_song(song)
-        self.secounds_to_next = 0
+        self.seconds_to_next = 0
 
 
     @commands.command(name="votenext", pass_context=True)
@@ -69,7 +69,7 @@ class Voice:
                     await self.play_music(ctx, self.playlist.pop())
                 # nothing in queue
                 elif self.playlist.current is None:
-                    self.secounds_to_next = 0
+                    self.seconds_to_next = 0
             else:
                 number = (len(self.voice.channel.voice_members) // 2) + 1 - len(self.people_voted)
                 await self.bot.say(str(number) + " more votes needed")
@@ -113,7 +113,7 @@ class Voice:
     @commands.command(name="next", pass_context=True, help="Skip to next song in music queue")
     async def play_next(self, ctx):
         if self.playlist.current:
-            self.secounds_to_next = 0
+            self.seconds_to_next = 0
         # nothing in queue
 
 
@@ -131,7 +131,7 @@ class Voice:
 
     @commands.command(name="timeleft", pass_context=True)
     async def time_left(self, ctx):
-        await self.respond(str(self.secounds_to_next), ctx.message.author.mention)
+        await self.respond(str(self.seconds_to_next), ctx.message.author.mention)
 
     async def play_music(self, ctx, link):
         if ctx.message.author.id not in self.owners:
@@ -159,14 +159,14 @@ class Voice:
         self.player.volume = self.volume
         self.player.start()
         await self.bot.change_presence(game=discord.Game(name=self.player.title))
-        await self.bot.say("Now playing: ```" + self.player.title + "``` And will queue next in: ```" + str(self.player.duration / 60) + " minutes```")
-        self.secounds_to_next = self.player.duration
+        await self.bot.say(":musical_note: Now playing: :musical_note: ```" + self.player.title + "``` And will queue next in: ```" + str(self.player.duration / 60) + " minutes```")
+        self.seconds_to_next = self.player.duration
         await self.queue_is_alive(ctx)
 
 
     async def queue_is_alive(self, ctx):
-        while self.secounds_to_next > 0:
-            self.secounds_to_next -= 1
+        while self.seconds_to_next > 0:
+            self.seconds_to_next -= 1
             await asyncio.sleep(1)
 
         self.people_voted.clear()
