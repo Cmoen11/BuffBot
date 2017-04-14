@@ -148,7 +148,7 @@ class Voice:
         # Set the volume to the bot's volume value
         self.player.volume = self.volume
         self.player.start()
-        self.bot.say("Now playig: " + self.player.title + " And will queue next in " + str(self.player.duration))
+        await self.bot.say("Now playig: " + self.player.title + " And will queue next in " + str(self.player.duration))
         await asyncio.sleep(self.player.duration)
         self.people_voted.clear()
         # if there is an item at the front of the queue, play it and get the next item
