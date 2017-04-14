@@ -127,6 +127,8 @@ class Voice:
     async def play_music(self, ctx, link):
         if ctx.message.author.id not in self.owners:
             return None
+
+        await self.queue_is_alive(ctx)
         # Get the voice channel the commanding user is in
         trigger_channel = ctx.message.author.voice.voice_channel
         # Return with a message if the user is not in a voice channel
@@ -148,30 +150,15 @@ class Voice:
         # Set the volume to the bot's volume value
         self.player.volume = self.volume
         self.player.start()
-        await self.bot.say("Now playig: " + self.player.title + " And will queue next in " + str(self.player.duration))
-        await asyncio.sleep(self.player.duration)
+        await self.bot.say("Now playing: ```" + self.player.title + "``` And will queue next in ```" + str(self.player.duration) + "```")
+
+
+    async def queue_is_alive(self, ctx):
+        while self.player.player.is_live :
+            await asyncio.sleep(1)
         self.people_voted.clear()
-        # if there is an item at the front of the queue, play it and get the next item
         if self.playlist.current:
             await self.play_music(ctx, self.playlist.pop())
-
-    # To check if the channel got a jail, return the channel. If channel do not have a jail voice channel.. create one.
-    def get_jail (self, ctx) :
-        #########
-        # Collect the jail channel, if no channel found -> create one.
-        #########
-        jail = None
-        for channel in ctx.message.server.channels:
-            if channel.name == "Jail":
-                jail = channel
-                break
-        if jail is None:  # if no jail exists
-            self.bot.create_channel(name="Jail", server=ctx.message.server, type='voice')  # create jail
-            for channel in ctx.message.server.channels:  # find the new channel
-                if channel.name == "Jail":
-                    jail = channel
-                    break
-        return jail
 
 def setup(bot):
     bot.add_cog(Voice(bot))
