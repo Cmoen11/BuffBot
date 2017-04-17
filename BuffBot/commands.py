@@ -72,14 +72,10 @@ class Command:
         # Send the image to the channel where the smug command was triggered
         await self.bot.send_file(ctx.message.channel, face)
 
-    @commands.command(name="coin", pass_context=True)
-    async def coin(self, ctx):
-        # return coin status of the one who executes the command
-        await self.bot.say("You have $" + str(self.database.get_coin_count(ctx.message.author.id)) + " BuffCoins")
-
 
     async def respond(self, msg, author):
         await self.bot.say("{}, {}".format(msg, author))
+
 
 
 def get_random_line(file):
