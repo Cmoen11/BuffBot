@@ -1,4 +1,5 @@
 import random
+import math
 from discord.ext import commands
 import discord
 import database
@@ -10,11 +11,11 @@ class Lottery:
         self.database = database.Database(self.bot)
         self.coins = Coin(bot)
         # self.lotteryTickets = {} // Different implementation
-        self.ticketCost = 1
+        self.ticketCost = 100
         self.winningTicket = 0
         self.ticketCounter = 0
         self.prizePool = 0
-        self.generate_winning_number(10)
+        self.generate_winning_number(2)
 
 
 
@@ -26,7 +27,7 @@ class Lottery:
         else:
             self.database.remove_coins(ctx.message.author.id, self.ticketCost)
             if self.ticketCounter == self.winningTicket:
-                self.generate_winning_number(10)
+                self.generate_winning_number(2)
                 self.database.insert_coins(user.id, self.prizePool, user.mention)
                 await self.bot.say("Congratulation, you won the lottery with a prizepool of " + str(self.prizePool),
                                    user.mention)
