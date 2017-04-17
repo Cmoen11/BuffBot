@@ -15,13 +15,7 @@ class Command:
         self.voice = None
         self.player = None
         self.volume = 1.0
-<<<<<<< HEAD
-        self.lotteryTickets = []
-        self.ticketCounter = 0
-        self.generate_lotto_numbers(5)
-=======
         self.database = database.Database()
->>>>>>> master
 
     @commands.command(name="bye", pass_context=True)
     async def bye(self, ctx):
@@ -78,36 +72,10 @@ class Command:
         # Send the image to the channel where the smug command was triggered
         await self.bot.send_file(ctx.message.channel, face)
 
-<<<<<<< HEAD
     @commands.command(name="coin", pass_context=True)
     async def coin(self, ctx):
         # return coin status of the one who executes the command
         await self.bot.say("You have $" + str(self.database.get_coin_count(ctx.message.author.id)) + " BuffCoins")
-
-    @commands.command(name="buyticket", pass_context=True)
-    async def buy_ticket(self, ctx):
-        if self.lotteryTickets[self.ticketCounter] == 1:
-            self.ticketCounter = 0
-            await self.respond("You won the lottery!", ctx.message.author.mention)
-            await self.generate_lotto_numbers(5)
-            #Needs to add buffcoins to the winners
-        else:
-            self.ticketCounter += 1
-            await self.respond("No luck this time around", ctx.message.author.mention)
-            # Needs to display the odds for winning.
-
-    def generate_lotto_numbers(self, nr_of_tickets):
-        self.lotteryTickets.clear()
-        for ticket in range(random.randrange(nr_of_tickets)):
-            self.lotteryTickets.append(0)
-        self.lotteryTickets.append(1)
-=======
->>>>>>> master
-
-    async def respond(self, msg, author):
-        await self.bot.say("{}, {}".format(msg, author))
-
-
 
 def get_random_line(file):
     with open(file, 'r') as f:
