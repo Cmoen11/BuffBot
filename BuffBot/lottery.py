@@ -33,7 +33,7 @@ class Lottery:
             else:
                 self.ticketCounter += 1
                 await self.bot.say("Better luck next time", user.mention)
-                
+
     # Creates a new winning number, while resetting the counter, were the nr_of_tickets represents the odds of winning
     def generate_winning_number(self, nr_of_tickets):
         self.ticketCounter = 0
