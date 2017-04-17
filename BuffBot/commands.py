@@ -75,6 +75,7 @@ class Command:
     async def respond(self, msg, author):
         await self.bot.say("{}, {}".format(msg, author))
 
+
 def get_random_line(file):
     with open(file, 'r') as f:
         line = next(f)
