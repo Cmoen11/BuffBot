@@ -5,6 +5,7 @@ import os
 import random
 import aiohttp
 import hashlib
+import database
 import botconfig
 
 class Command:
@@ -14,9 +15,13 @@ class Command:
         self.voice = None
         self.player = None
         self.volume = 1.0
+<<<<<<< HEAD
         self.lotteryTickets = []
         self.ticketCounter = 0
         self.generate_lotto_numbers(5)
+=======
+        self.database = database.Database()
+>>>>>>> master
 
     @commands.command(name="bye", pass_context=True)
     async def bye(self, ctx):
@@ -73,6 +78,7 @@ class Command:
         # Send the image to the channel where the smug command was triggered
         await self.bot.send_file(ctx.message.channel, face)
 
+<<<<<<< HEAD
     @commands.command(name="coin", pass_context=True)
     async def coin(self, ctx):
         # return coin status of the one who executes the command
@@ -95,9 +101,12 @@ class Command:
         for ticket in range(random.randrange(nr_of_tickets)):
             self.lotteryTickets.append(0)
         self.lotteryTickets.append(1)
+=======
+>>>>>>> master
 
     async def respond(self, msg, author):
         await self.bot.say("{}, {}".format(msg, author))
+
 
 
 def get_random_line(file):

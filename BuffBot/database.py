@@ -1,8 +1,9 @@
 import sqlite3
-
+import discord
 
 class Database():
-    def __init__(self):
+    def __init__(self, bot=None):
+        self.bot = bot
         self.conn = None
         self.DB_NAME = "test123.db"
         print("Opened database successfully")
@@ -47,44 +48,72 @@ class Database():
         self.conn.close()
         return channels
 
-    @classmethod
-    def set_coin_count_session_start(self, user_id, start_time, end_time, session_active):
+
+    def insert_coins(self, userid, coins, mention=None):
         self.conn = sqlite3.connect(self.DB_NAME)
-        params = (user_id, start_time, end_time, session_active)
-        sql = "INSERT INTO coins VALUES (?, ?, ?, ?)"
+
+        if mention == None and self.bot != None: mention = self.bot.Client.get_user_info(userid)
+
+        if mention != None:
+            sql = "INSERT OR IGNORE INTO members (userid, coins, user_mention) VALUES(?,0,?);"
+            self.conn.execute(sql, (userid, mention,))
+            params = (coins, mention, userid,)
+            sql = "UPDATE members SET coins = coins + ?, user_mention = ? WHERE userid = ?;"
+
+        elif mention == None:
+            sql = "INSERT OR IGNORE INTO members (userid, coins) VALUES(?,0,?);"
+            self.conn.execute(sql, (userid,))
+            params = (coins, userid,)
+            sql = "UPDATE members SET coins = coins + ? WHERE userid = ?;"
 
         self.conn.execute(sql, params)
         self.conn.commit()
         self.conn.close()
 
-    @classmethod
-    def set_coin_count_session_end(self, user_id, end_time, session_active):
+    def remove_coins(self, userid, coins, mention=None):
         self.conn = sqlite3.connect(self.DB_NAME)
-        params = (user_id, end_time, session_active)
-        sql = "UPDATE coins SET user_id = ?, end_time = ?, session_active = ?" \
-              "WHERE start_time = (SELECT MAX(start_time)  FROM coins);"
+
+        if mention == None and self.bot != None: mention = self.bot.Client.get_user_info(userid)
+
+        if mention != None :
+            sql = "INSERT OR IGNORE INTO members (userid, coins, user_mention) VALUES(?,0,?);"
+            self.conn.execute(sql, (userid,mention,))
+            params = (coins, mention, userid,)
+            sql = "UPDATE members SET coins = coins - ?, user_mention = ? WHERE userid = ?;"
+
+        elif mention == None :
+            sql = "INSERT OR IGNORE INTO members (userid, coins) VALUES(?,0,?);"
+            self.conn.execute(sql, (userid,))
+            params = (coins, userid,)
+            sql = "UPDATE members SET coins = coins - ? WHERE userid = ?;"
+
 
         self.conn.execute(sql, params)
         self.conn.commit()
         self.conn.close()
 
-    @classmethod
-    def get_coin_count(self, user_id):
-        # TODO: Implement total coin value in DB as separate row
+    def get_coins(self, userid):
         self.conn = sqlite3.connect(self.DB_NAME)
-        params = (user_id, 0)
-        sql = "SELECT start_time, end_time FROM coins WHERE user_id =? and session_active = ?"
+        sql = "INSERT OR IGNORE INTO members (userid, coins) VALUES(?,0);"
+        self.conn.execute(sql, (userid,))
+        sql = "SELECT coins, userid FROM members WHERE userid = ?"
+        params = (userid,)
+        result = self.conn.execute(sql, params)
+        output = 0
+        for i in result :
+            output = output + i[0]
 
-        sessions = self.conn.execute(sql, params)
-
-        def format_2_dec(val):
-            return "{:.2f}".format(val)
-
-        total_coins = 0
-        for session in sessions:
-            # Gives 0.5 points for every minute
-            total_coins += (session[1] - session[0]) / 60 % 60 * 0.5
-
+        self.conn.commit()
         self.conn.close()
-        return format_2_dec(total_coins)
 
+        return output
+
+    def get_top_coin_holders(self):
+        toplist = []
+        self.conn = sqlite3.connect(self.DB_NAME)
+        sql = "SELECT userid, coins, user_mention FROM members ORDER BY coins DESC LIMIT 5;"
+        result = self.conn.execute(sql)
+        for user in result:
+            toplist.append({"userid" : user[0], "coins" : user[1], "mention" : user[2]})
+        self.conn.close()
+        return toplist
