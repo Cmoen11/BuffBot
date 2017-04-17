@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
 import botconfig
-from currency import Currency
 from coins import Coin
 import asyncio
 
@@ -22,11 +21,6 @@ async def on_ready():
 
     coins = Coin(bot)
     await coins.give_coin()
-
-
-@bot.event
-async def on_voice_state_update(before, after):
-    currency.register_activity(before, after)
 
 
 

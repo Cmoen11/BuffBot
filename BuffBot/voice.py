@@ -116,6 +116,9 @@ class Voice:
             self.seconds_to_next = 0
         # nothing in queue
 
+    def get_requested_server(self, ctx):
+        trigger_channel = ctx.message.author.voice.voice_channel
+        return trigger_channel
 
     @commands.command(name="start", pass_context=True, help="Start the music queue")
     async def start_queue(self, ctx):
