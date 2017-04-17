@@ -1,9 +1,13 @@
 import random
+import youtube_dl.YoutubeDL
 class Node:
 
     def __init__(self, link):
         self.song = link
         self.next = None
+        self.title = None
+        self.duration = None
+        self.get_info()
 
     def __str__(self):
         return str(self.song)
@@ -32,6 +36,10 @@ class Node:
         else:
             return True
 
+    def get_info(self):
+        info = youtube_dl.YoutubeDL().extract_info(self.song, False)
+        self.title, self.duration = info['title'], info['duration']
+
     @staticmethod
     def is_youtubelink(link):
         valid = "https://www.youtube.com/"
@@ -44,23 +52,25 @@ class Node:
 class Queue:
     def __init__(self):
         self.current = None
-        self.playlist = []
+        self.playlist = ''
 
     def add_song(self, link):
         if self.current is None:
             self.current = Node(link)
-            print(self.current.song)
         else:
             self.current.queue_next(self.current, link)
 
     def make_playlist(self, node: Node):
         if node.has_next() is True:
-            self.playlist.append(node.get_song())
+            self.playlist += ('Title: {} Duration: {}:{}\n'.format(node.title, str(node.duration/60).split('.')[0],
+                                                               str(node.duration%60)))
             n = node.get_next()
             self.make_playlist(n)
         else:
             # end of the queue
-            self.playlist.append(node.get_song())
+            self.playlist += ('Title: {} Duration: {}:{}\n'.format(node.title, str(node.duration / 60).split('.')[0],
+                                                             str(node.duration % 60)))
+            return self.playlist
 
     def pop(self):
         if self.current is not None:
