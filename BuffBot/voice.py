@@ -21,6 +21,8 @@ class Voice:
         self.volume = 1.0
         self.database = database.Database()
         self.playlist = playlist.Queue()
+        self.people_voted = []
+        
 
     @commands.command(name="summon", pass_context=True)
     async def summon(self, ctx):
@@ -40,6 +42,30 @@ class Voice:
     @commands.command(name="play", pass_context=True, help="Play some music!")
     async def play_audio(self, ctx, link):
         await self.play_music(ctx, link)
+
+    @commands.command(name="votenext", pass_context=True)
+    async def vote_next_song(self, ctx):
+        if self.voice.channel.id != ctx.message.author.voice.voice_channel.id:
+            await self.bot.say("You're not in the required voice channel to request to skip song, lil boy " + ctx.message.author.mention)
+            return None
+        
+        if ctx.message.author.id in self.people_voted:
+            await self.bot.say("You've already voted to skip this song, " + ctx.message.author.mention)
+        else:
+            self.people_voted.append(ctx.message.author.id)
+            
+            if len(self.people_voted) == (len(self.voice.channel.voice_members) // 2) + 1:
+                self.people_voted.clear()
+                # if there is an item at the front of the queue, play it and get the next item
+                if self.playlist.current:
+                    await self.play_music(ctx, self.playlist.pop())
+                # nothing in queue
+                elif self.playlist.current is None:
+                    await self.respond("Queue is empty", ctx.message.author.mention)
+            else:
+                number = (len(self.voice.channel.voice_members) // 2) + 1 - len(self.people_voted)
+                await self.bot.say(str(number) + " more votes needed")
+
 
     @commands.command(name="stop", pass_context=True, help="Stop the audio player")
     async def stop_audio(self, ctx):
@@ -161,14 +187,15 @@ class Voice:
         await self.bot.say("{}, {}".format(msg, author))
 
     @commands.command(name="queue", pass_context=True, help="Add youtube link to music queue")
-    async def add_to_queue(self, link):
+    async def add_to_queue(self, ctx, link):
         # TODO: find better solution for extracting link from message
-        song = link.message.content[7:]
+        song = link
         # link added to next field in current song
         self.playlist.add_song(song)
 
     @commands.command(name="next", pass_context=True, help="Skip to next song in music queue")
     async def play_next(self, ctx):
+        self.people_voted.clear()
         # if there is an item at the front of the queue, play it and get the next item
         if self.playlist.current:
             await self.play_music(ctx, self.playlist.pop())
@@ -178,6 +205,7 @@ class Voice:
 
     @commands.command(name="start", pass_context=True, help="Start the music queue")
     async def start_queue(self, ctx):
+        self.people_voted.clear()
         if self.playlist.current is None:
             await self.respond("Queue is empty", ctx.message.author.mention)
         else:

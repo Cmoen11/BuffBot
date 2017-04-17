@@ -5,7 +5,8 @@ import os
 import random
 import aiohttp
 import hashlib
-from BuffBot import botconfig
+import database
+import botconfig
 
 class Command:
     def __init__(self, bot):
@@ -14,6 +15,7 @@ class Command:
         self.voice = None
         self.player = None
         self.volume = 1.0
+        self.database = database.Database()
 
     @commands.command(name="bye", pass_context=True)
     async def bye(self, ctx):

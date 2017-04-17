@@ -138,6 +138,9 @@ celerybeat-schedule
 # SageMath parsed files
 *.sage.py
 
+# Database
+
+
 # dotenv
 .env
 
@@ -156,4 +159,5 @@ ENV/
 key.txt
 *.pyc
 
-_config\.yml
+
+_config\.yml.idea

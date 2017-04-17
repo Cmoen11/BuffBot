@@ -2,11 +2,8 @@ import random
 class Node:
 
     def __init__(self, link):
-        if self.is_youtubelink(link):
-            self.song = link
-            self.next = None
-        else:
-            print("The link submited is not valid")
+        self.song = link
+        self.next = None
 
     def __str__(self):
         return str(self.song)
