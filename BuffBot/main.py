@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
-import botconfig
-from coins import Coin
+from BuffBot import botconfig
+from BuffBot.coins import Coin
 import asyncio
 
 client = discord.Client()

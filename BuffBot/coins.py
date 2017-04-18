@@ -36,6 +36,7 @@ class Coin:
                 ctx.message.author.mention, rolled, amount))
             pass
         else :
+
             self.database.insert_coins(ctx.message.author.id, amount, ctx.message.author.mention)
             await self.bot.say(
                 "{}, you won! you rolled {} and won {} coins".format(ctx.message.author.mention, rolled, amount))
@@ -85,14 +86,24 @@ class Coin:
     async def give_coin(self):
         '''
         this is used to give coins every interval set by object vars...
+        
         '''
         while self.coinActive:
             members = self.get_all_voice_members_except_in_afk()
 
-            for m in members :
-                self.database.insert_coins(m.id, self.COIN_AMOUNT, m.mention)
+            doneTaxedCoins = self.COIN_AMOUNT - (self.COIN_AMOUNT * 0.98)
+            totalTax = self.COIN_AMOUNT - (self.COIN_AMOUNT * 0.02)
+            #TODO: Do NOT iterate over the bot.
+            for m in members:
+                # The bot collects the totalTax for all members.
+                if m.id == self.bot.user.id:
+                    self.database.insert_coins(self.bot.user.id, totalTax,)
+
+                self.database.insert_coins(m.id, doneTaxedCoins, m.mention)
+
             await asyncio.sleep(30)
 
+    #Function for wealth tax.
 
     def get_all_voice_members_except_in_afk(self):
         '''
