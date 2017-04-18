@@ -10,8 +10,9 @@ class Coin:
         self.bot = bot                                  # The bot object.
         self.coinActive = True                          # If this is set to false, the coin interval is stopped.
         self.database = database.Database(self.bot)     # database object -> used to update and get coin amount
-        self.COIN_AMOUNT = 1                            # amount of coins to be given every interval
-        self.COIN_INTERVAL = 30                         # interval in seconds for sending out coins.
+        self.COIN_AMOUNT = 10                           # amount of coins to be given every interval
+        self.COIN_INTERVAL = 5                          # interval in seconds for sending out coins.
+        self.taxable = False                             # Will collect tax if bot in voice channel. # Disable this by setting taxable to false.
 
     @commands.command(name="coins", pass_context=True, help="Get your coin amount")
     async def get_coins(self, ctx):
@@ -85,23 +86,37 @@ class Coin:
 
     async def give_coin(self):
         '''
-        this is used to give coins every interval set by object vars...
-        
+        This is used to give coins every interval set by object vars...
+        The bot will take a tax fee for being in a voice channel if taxAble is true
         '''
         while self.coinActive:
             members = self.get_all_voice_members_except_in_afk()
+            # remove bot from members to avoid giving it coins if taxable is false.
 
-            doneTaxedCoins = self.COIN_AMOUNT - (self.COIN_AMOUNT * 0.98)
-            totalTax = self.COIN_AMOUNT - (self.COIN_AMOUNT * 0.02)
-            #TODO: Do NOT iterate over the bot.
+            totalTax = self.COIN_AMOUNT * 0.20
+            doneTaxedCoins = self.COIN_AMOUNT - totalTax
             for m in members:
                 # The bot collects the totalTax for all members.
-                if m.id == self.bot.user.id:
-                    self.database.insert_coins(self.bot.user.id, totalTax,)
+                if self.taxable and m.id == self.bot.user.id:
+                        self.database.insert_coins(m.id, totalTax, m.mention)
+                        print("mate, please", self.taxable)
+
+                if self.taxable is False and m.id == self.bot.user.id:
+                        members.remove(m)
+                        print('this works, maybe?')
 
                 self.database.insert_coins(m.id, doneTaxedCoins, m.mention)
 
-            await asyncio.sleep(30)
+                # give users coins
+
+
+            if self.taxable:
+                await self.bot.send_message(self.bot.get_channel(id='299582768864559124'), #spam this channel with current tax amount.
+                                        'Mmm, sweet taxes! Total tax amount is now: %d'
+                                        % self.database.get_coins(self.bot.user.id))
+            await asyncio.sleep(self.COIN_INTERVAL)
+
+
 
     #Function for wealth tax.
 
