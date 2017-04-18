@@ -11,11 +11,11 @@ class Lottery:
         self.database = database.Database(self.bot)
         self.coins = Coin(bot)
         # self.lotteryTickets = {} // Different implementation
-        self.ticketCost = 50
+        self.ticketCost = 100
         self.winningTicket = 0
         self.ticketCounter = 0
         self.prizePool = 0
-        self.generate_tickets(2)
+        self.generate_tickets(100)
 
 
 
@@ -28,7 +28,7 @@ class Lottery:
         else:
             self.database.remove_coins(user.id, self.ticketCost, user.mention)
             if self.ticketCounter == self.winningTicket:
-                self.generate_tickets(2)
+                self.generate_tickets(100)
                 self.database.insert_coins(user.id, self.prizePool, user.mention)
                 await self.bot.say(("{}, Congratulations, you won the lottery with a prizepool of " + str(self.prizePool)
                                     + "\n- Current balance: " + str(self.database.get_coins(user.id))).format(user.mention))
