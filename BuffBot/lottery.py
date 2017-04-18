@@ -19,7 +19,7 @@ class Lottery:
 
 
 
-    @commands.command(name="buyticket", pass_context=True)
+    @commands.command(name="buyticket", pass_context=True, help="Buy tickets for 100 coins for a chance to win loyal guns")
     async def buy_ticket(self, ctx):
         user = ctx.message.author
         if not self.coins.check_balance(user, self.ticketCost):
