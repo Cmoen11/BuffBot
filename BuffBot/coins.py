@@ -91,8 +91,6 @@ class Coin:
         '''
         while self.coinActive:
             members = self.get_all_voice_members_except_in_afk()
-            # remove bot from members to avoid giving it coins if taxable is false.
-
             totalTax = self.COIN_AMOUNT * 0.20
             doneTaxedCoins = self.COIN_AMOUNT - totalTax
             for m in members:
@@ -101,21 +99,19 @@ class Coin:
                         self.database.insert_coins(m.id, totalTax, m.mention)
                         print("mate, please", self.taxable)
 
-                if self.taxable is False and m.id == self.bot.user.id:
-                        members.remove(m)
-                        print('this works, maybe?')
+                # remove bot from members to avoid giving it coins if taxable is false.
+                if m.id == self.bot.user.id:
+                    continue
 
                 self.database.insert_coins(m.id, doneTaxedCoins, m.mention)
 
                 # give users coins
-
 
             if self.taxable:
                 await self.bot.send_message(self.bot.get_channel(id='299582768864559124'), #spam this channel with current tax amount.
                                         'Mmm, sweet taxes! Total tax amount is now: %d'
                                         % self.database.get_coins(self.bot.user.id))
             await asyncio.sleep(self.COIN_INTERVAL)
-
 
 
     #Function for wealth tax.
