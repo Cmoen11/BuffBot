@@ -12,7 +12,10 @@ class Coin:
         self.database = database.Database(self.bot)     # database object -> used to update and get coin amount
         self.COIN_AMOUNT = 10                           # amount of coins to be given every interval
         self.COIN_INTERVAL = 5                          # interval in seconds for sending out coins.
-        self.taxable = False                             # Will collect tax if bot in voice channel. # Disable this by setting taxable to false.
+        self.taxable = False                             # Will collect tax if bot in voice channel.
+                                                        #  Disable this by setting taxable to false.
+        self.wealthTaxPercentage = 0.10                 #wealth tax percentage
+        #TODO: Make command taxable, to allow users to live change the taxable value.
 
     @commands.command(name="coins", pass_context=True, help="Get your coin amount")
     async def get_coins(self, ctx):
@@ -115,6 +118,17 @@ class Coin:
 
 
     #Function for wealth tax.
+    async def wealth_tax(self):
+        '''
+        Get all users that have more than 2000 coins. 
+        Update the database with the new coin amount for these users.
+        :return: 
+        '''
+
+
+
+        await asyncio.sleep(self.COIN_INTERVAL)
+
 
     def get_all_voice_members_except_in_afk(self):
         '''
