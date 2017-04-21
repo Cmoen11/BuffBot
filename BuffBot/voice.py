@@ -10,7 +10,7 @@ import playlist
 import botconfig
 import asyncio
 import discord
-
+import global_methods
 
 class Voice:
     def __init__(self, bot):
@@ -37,12 +37,16 @@ class Voice:
 
     @commands.command(name="leaveChannel", pass_context=True)
     async def leaveChannel(self, ctx):
+        if not global_methods.is_admin(ctx.message.author):
+            await self.bot.say("You're not a big boy")
+            return None
         await self.voice.disconnect()
         self.voice = None
 
     @commands.command(name="play", pass_context=True, help="Play some music!")
     async def play_audio(self, ctx, link):
-        if ctx.message.author.id not in self.owners:
+        if not global_methods.is_admin(ctx.message.author):
+            await self.bot.say("You're not a big boy")
             return None
         await self.bot.say("Please use !queue instead..")
         song = link
@@ -77,7 +81,8 @@ class Voice:
 
     @commands.command(name="stop", pass_context=True, help="Stop the audio player")
     async def stop_audio(self, ctx):
-        if ctx.message.author.id not in self.owners:
+        if not global_methods.is_admin(ctx.message.author):
+            await self.bot.say("You're not a big boy")
             return None
         if self.player:
             self.player.stop()
@@ -86,7 +91,8 @@ class Voice:
 
     @commands.command(name="setvolume", pass_context=True, help="Set the bot's volume (in percent)")
     async def set_volume(self, ctx, volume: int):
-        if ctx.message.author.id not in self.owners:
+        if not global_methods.is_admin(ctx.message.author):
+            await self.bot.say("You're not a big boy")
             return None
         # Ensure the volume argument is between 0 and 100.
         if 0 > volume or volume > 100:
@@ -112,6 +118,9 @@ class Voice:
 
     @commands.command(name="next", pass_context=True, help="Skip to next song in music queue")
     async def play_next(self, ctx):
+        if not global_methods.is_admin(ctx.message.author):
+            await self.bot.say("You're not a big boy")
+            return None
         if self.playlist.current:
             self.seconds_to_next = 0
         # nothing in queue
@@ -122,6 +131,7 @@ class Voice:
 
     @commands.command(name="start", pass_context=True, help="Start the music queue")
     async def start_queue(self, ctx):
+
         self.people_voted.clear()
         if self.playlist.current is None:
             await self.respond("Queue is empty", ctx.message.author.mention)
@@ -130,6 +140,9 @@ class Voice:
 
     @commands.command(name="peter", pass_context=True)
     async def peter(self, ctx):
+        if not global_methods.is_admin(ctx.message.author):
+            await self.bot.say("You're not a big boy")
+            return None
         await self.play_music(ctx, self.playlist.peter())
 
     @commands.command(name="timeleft", pass_context=True)
