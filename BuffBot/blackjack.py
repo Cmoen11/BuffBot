@@ -5,6 +5,7 @@ import database
 from coins import Coin
 import time
 import botconfig
+import global_methods
 
 class Gamble:
     def __init__(self, bot):
@@ -25,7 +26,8 @@ class Gamble:
 
     @bj.command(name="new", pass_context=True)
     async def new_blackjack_game(self, ctx):
-        if ctx.message.author.id not in self.owners:
+        if not global_methods.is_admin(ctx.message.author):
+            await self.bot.say("You're not a big boy")
             return None
         if self.blackjack_game_status != 0:
             self.bot.say("A game is already in place.. wait until it is finished.")
@@ -64,7 +66,8 @@ class Gamble:
 
     @bj.command(name="start", pass_context=True)
     async def start_blackjack_table(self, ctx):
-        if ctx.message.author.id not in self.owners:
+        if not global_methods.is_admin(ctx.message.author):
+            await self.bot.say("You're not a big boy")
             return None
         self.blackjack_game_status = 3;
         self.dealerCards = [self.drawCard(), self.drawCard()]
@@ -130,7 +133,8 @@ class Gamble:
 
     @bj.command(name="forceStand", pass_context=True)
     async def blackjack_force_stand(self, ctx) :
-        if ctx.message.author.id not in self.owners:
+        if not global_methods.is_admin(ctx.message.author):
+            await self.bot.say("You're not a big boy")
             return None
         for player in self.blackjack_players :
             player['status'] = 1

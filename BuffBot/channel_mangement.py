@@ -2,7 +2,7 @@ import botconfig
 from discord.ext import commands
 import database
 import botconfig
-
+import global_methods
 '''
     This module is for handling for channel management. 
     
@@ -43,8 +43,8 @@ class Channel_manager:
                         -> if it is: Do nothing.
         '''
 
-        if ctx.message.author.id not in self.owners:  # Check if user is authorised to perform command.
-            self.bot.say("You're not a big guy. :thinking: ")
+        if not global_methods.is_admin(ctx.message.author):
+            await self.bot.say("You're not a big boy")
             return None
 
         # User is authorised to perform command.. -> now perform actions.
@@ -81,11 +81,17 @@ class Channel_manager:
 
     @channel_mangement.command(name="wipe", pass_context=True, help="Will wipe clean all flags from this channel")
     async def remove_channel_flags(self, ctx):
+        if not global_methods.is_admin(ctx.message.author):
+            await self.bot.say("You're not a big boy")
+            return None
         self.database.remove_flagged_games(ctx.message.author.voice.voice_channel.id)
 
     @channel_mangement.command(name="addgame", pass_context=True,
                       help="Flag channels for games only. If you enter free, there is no restriction on the selected channel")
     async def flag_channel(self, ctx, free=None):
+        if not global_methods.is_admin(ctx.message.author):
+            await self.bot.say("You're not a big boy")
+            return None
         if (free == "free"):
             # remove all restriction on selected channel and parse in free.
             self.database.remove_flagged_games(ctx.message.author.voice.voice_channel.id)
