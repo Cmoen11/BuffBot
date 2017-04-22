@@ -5,10 +5,10 @@ from BuffBot.coins import Coin
 from BuffBot.tax import Tax
 import asyncio
 
-client = discord.Client() #
+client = discord.Client()
 bot = commands.Bot(command_prefix='!')
 
-startup_extensions = ['commands', 'voice', 'coins', 'blackjack', "channel_mangement"]
+startup_extensions = ['commands', 'voice', 'coins', 'blackjack', "channel_mangement", 'lottery', 'tax']
 
 
 @bot.event

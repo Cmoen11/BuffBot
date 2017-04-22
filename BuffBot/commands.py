@@ -9,6 +9,7 @@ import database
 import botconfig
 import global_methods
 
+
 class Command:
     def __init__(self, bot):
         self.bot = bot
@@ -79,11 +80,8 @@ class Command:
         # Send the image to the channel where the smug command was triggered
         await self.bot.send_file(ctx.message.channel, face)
 
-
-
     async def respond(self, msg, author):
         await self.bot.say("{}, {}".format(msg, author))
-
 
 
 def get_random_line(file):

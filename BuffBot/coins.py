@@ -92,17 +92,18 @@ class Coin:
         '''
         while self.coinActive:
             members = self.get_all_voice_members_except_in_afk()
-            totalTax = self.COIN_AMOUNT * 0.20
-            doneTaxedCoins = self.COIN_AMOUNT - totalTax
+            total_tax = self.COIN_AMOUNT * self.tax.tax_amount_percentage
+            done_taxed_coins = self.COIN_AMOUNT - total_tax
             for m in members:
-                # The bot collects the totalTax for all members.
+                # The bot collects the total_tax for all members.
                 if self.tax.taxable and m.id == self.bot.user.id:
-                        self.database.insert_coins(m.id, totalTax, m.mention)
+                        self.database.insert_coins(m.id, total_tax, m.mention)
                 # if this user is the bot, continue to next iteration.
                 if m.id == self.bot.user.id:
                     continue
-                self.database.insert_coins(m.id, doneTaxedCoins, m.mention)
+                self.database.insert_coins(m.id, done_taxed_coins, m.mention)
             if self.tax.taxable:
+
                 # spam a channel with the current amount of tax
                 await self.bot.send_message(self.bot.get_channel(id='299582768864559124'),
                                             'Mmm, sweet taxes! Total tax amount is now: %d'
