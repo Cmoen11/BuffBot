@@ -258,5 +258,13 @@ class Voice:
                     break
         return jail
 
+    @commands.command(name='playlist', help='Output the current playlist')
+    async def print_playlist(self):
+        if len(self.playlist.playlist) == 0:
+            self.playlist.make_playlist(self.playlist.current)
+        await self.bot.say('Current playlist\n{}'.format(self.playlist.prepare_playlist()))
+
+
+
 def setup(bot):
     bot.add_cog(Voice(bot))

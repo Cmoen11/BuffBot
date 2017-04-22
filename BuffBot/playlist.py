@@ -52,7 +52,7 @@ class Node:
 class Queue:
     def __init__(self):
         self.current = None
-        self.playlist = ''
+        self.playlist = []
 
     def add_song(self, link):
         if self.current is None:
@@ -61,25 +61,30 @@ class Queue:
             self.current.queue_next(self.current, link)
 
     def make_playlist(self, node: Node):
-        if node.has_next() is True:
-            self.playlist += ('Title: {} Duration: {}:{}\n'.format(node.title, str(node.duration/60).split('.')[0],
+        #
+        try:
+            if node.has_next() is True:
+                self.playlist.append('Title: {} Duration: {}:{}\n'.format(node.title, str(node.duration/60).split('.')[0],
                                                                str(node.duration%60)))
-            n = node.get_next()
-            self.make_playlist(n)
-        else:
-            # end of the queue
-            self.playlist += ('Title: {} Duration: {}:{}\n'.format(node.title, str(node.duration / 60).split('.')[0],
-                                                             str(node.duration % 60)))
-            return self.playlist
+                n = node.get_next()
+                self.make_playlist(n)
+            else:
+                # end of the queue
+                self.playlist.append('Title: {} Duration: {}:{}\n'.format(node.title, str(node.duration / 60).split('.')[0],
+                                                      str(node.duration % 60)))
+        except AttributeError:
+            return
 
     def pop(self):
         if self.current is not None:
             s = self.current.get_song()
+            del self.playlist[0]
             if self.current.has_next():
                 self.current = self.current.get_next()
             else:
                 self.current = None
             return s
+
         else:
             # playlist empty
             self.current = None
@@ -92,3 +97,10 @@ class Queue:
         r = random.randint(0, 1)
         songs = ["https://www.youtube.com/watch?v=_r0n9Dv6XnY", "https://www.youtube.com/watch?v=3GwjfUFyY6M"]
         return songs[r]
+
+    def prepare_playlist(self):
+        pl_string = ''
+        for song in self.playlist:
+            pl_string += song
+
+        return pl_string
