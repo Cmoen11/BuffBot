@@ -3,6 +3,7 @@ import database
 import asyncio
 import random
 import discord
+import tax
 
 
 class Coin:
@@ -10,12 +11,9 @@ class Coin:
         self.bot = bot                                  # The bot object.
         self.coinActive = True                          # If this is set to false, the coin interval is stopped.
         self.database = database.Database(self.bot)     # database object -> used to update and get coin amount
+        self.tax = tax.Tax(self.bot)                    # Tax object used to get the value of taxable
         self.COIN_AMOUNT = 10                           # amount of coins to be given every interval
         self.COIN_INTERVAL = 5                          # interval in seconds for sending out coins.
-        self.taxable = False                             # Will collect tax if bot in voice channel.
-                                                        #  Disable this by setting taxable to false.
-        self.wealthTaxPercentage = 0.10                 #wealth tax percentage
-        #TODO: Make command taxable, to allow users to live change the taxable value.
 
     @commands.command(name="coins", pass_context=True, help="Get your coin amount")
     async def get_coins(self, ctx):
@@ -84,8 +82,8 @@ class Coin:
         :return: 
         '''
         if self.database.get_coins(user.id) < float(requestedBalance) :
-            return False;
-        return True;
+            return False
+        return True
 
     async def give_coin(self):
         '''
@@ -98,37 +96,18 @@ class Coin:
             doneTaxedCoins = self.COIN_AMOUNT - totalTax
             for m in members:
                 # The bot collects the totalTax for all members.
-                if self.taxable and m.id == self.bot.user.id:
+                if self.tax.taxable and m.id == self.bot.user.id:
                         self.database.insert_coins(m.id, totalTax, m.mention)
-                        print("mate, please", self.taxable)
-
-                # remove bot from members to avoid giving it coins if taxable is false.
+                # if this user is the bot, continue to next iteration.
                 if m.id == self.bot.user.id:
                     continue
-
                 self.database.insert_coins(m.id, doneTaxedCoins, m.mention)
-
-                # give users coins
-
-            if self.taxable:
-                await self.bot.send_message(self.bot.get_channel(id='299582768864559124'), #spam this channel with current tax amount.
-                                        'Mmm, sweet taxes! Total tax amount is now: %d'
-                                        % self.database.get_coins(self.bot.user.id))
+            if self.tax.taxable:
+                # spam a channel with the current amount of tax
+                await self.bot.send_message(self.bot.get_channel(id='299582768864559124'),
+                                            'Mmm, sweet taxes! Total tax amount is now: %d'
+                                            % self.database.get_coins(self.bot.user.id))
             await asyncio.sleep(self.COIN_INTERVAL)
-
-
-    #Function for wealth tax.
-    async def wealth_tax(self):
-        '''
-        Get all users that have more than 2000 coins. 
-        Update the database with the new coin amount for these users.
-        :return: 
-        '''
-
-
-
-        await asyncio.sleep(self.COIN_INTERVAL)
-
 
     def get_all_voice_members_except_in_afk(self):
         '''
@@ -151,3 +130,6 @@ class Coin:
 
 def setup(bot):
     bot.add_cog(Coin(bot))
+
+
+

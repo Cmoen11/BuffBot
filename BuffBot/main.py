@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 from BuffBot import botconfig
 from BuffBot.coins import Coin
+from BuffBot.tax import Tax
 import asyncio
 
 client = discord.Client() #
@@ -20,6 +21,10 @@ async def on_ready():
 
     coins = Coin(bot)
     await coins.give_coin()
+    tax = Tax(bot)
+    await tax.wealth_tax()
+
+
 
 
 

@@ -6,7 +6,6 @@ class Database():
         self.bot = bot
         self.conn = None
         self.DB_NAME = "test123.db"
-        self.wealthTaxPercentage = 0.1
         print("Opened database successfully")
 
     def flag_gaming_channel(self, channel_id, game_title, allowed):
@@ -114,25 +113,26 @@ class Database():
         sql = "SELECT userid, coins, user_mention FROM members ORDER BY coins DESC LIMIT 5;"
         result = self.conn.execute(sql)
         for user in result:
-            toplist.append({"userid" : user[0], "coins" : user[1], "mention" : user[2]})
+            toplist.append({"userid": user[0], "coins": user[1], "mention": user[2]})
         self.conn.close()
         return toplist
 
-    def get_2k_coin_values(self):
+    # Param: botid  the id of the bot.
+    def get_rich_users(self, botid):
         users = []
         self.conn = sqlite3.connect(self.DB_NAME)
-        sql = "SELECT userid, coins, user_mention FROM members WHERE MEMBERS.coins >= 2000;"
-        result = self.conn.execute(sql)
+
+        sql = "SELECT userid, coins, user_mention FROM members WHERE MEMBERS.userid != ? AND MEMBERS.coins >= 2000;"
+        params = (botid,)
+        result = self.conn.execute(sql, params)
         for user in result:
-            users.append({"userid" : user[0], "coins" : user[1], "mention" : user[2]})
-            print(self.get_coins(user[0]))
-
-
+            users.append({"userid": user[0], "coins": user[1], "mention": user[2]})
+        return users
 
 
 if __name__ == '__main__':
     db = Database()
-    db.get_2k_coin_values()
+
 
 
 
