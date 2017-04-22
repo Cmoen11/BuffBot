@@ -40,7 +40,7 @@ class Lottery:
     # Creates a new winning number, while resetting the counter, were the nr_of_tickets represents the odds of winning
     def generate_tickets(self, nr_of_tickets):
         self.ticketCounter = 1
-        self.prizePool = nr_of_tickets * int(self.ticketCost * 0.9)
+        self.prizePool = nr_of_tickets * int(self.ticketCost * 0.9) / 2
         self.winningTicket = random.randint(1, nr_of_tickets)
 
 
