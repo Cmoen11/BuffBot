@@ -49,6 +49,11 @@ stuff will be added
 Would you also like to contribute to BuffBot? Please follow our guidelines for reporting bugs and wanted features, in addition to
 how you can contribute through pull requests.
 These guidelines helps you communicate to us in an efficient way, that hopefully will improve the project.
+<br> <a href="http://discordpy.readthedocs.io/en/latest/api.html#user"> If you're hooked and will dive into Buffbot with us, you find alot of documentation on the API we're using</a>
+
+
+
+
 <br>
 ## Bugs and feature requests
 If you've got a bug or feature request, please respect these restrictions:
