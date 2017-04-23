@@ -91,8 +91,6 @@ class Tax:
                 totalTax = user["coins"] * self.wealth_tax_percentage
                 self.database.remove_coins(user["userid"], totalTax, user["mention"])
                 self.database.insert_coins(self.bot.user.id, totalTax, self.bot.user.mention)
-                print("works")
-            print("hei")
             await asyncio.sleep(self.WEALTH_TAX_INTERVAL)
 
 

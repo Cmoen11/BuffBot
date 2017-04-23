@@ -91,7 +91,6 @@ class Coin:
         The bot will take a tax fee for being in a voice channel if taxAble is true
         '''
         while self.coinActive:
-            print("top")
             members = self.get_all_voice_members_except_in_afk()
             total_tax = self.COIN_AMOUNT * self.tax.tax_amount_percentage
             done_taxed_coins = self.COIN_AMOUNT - total_tax
@@ -99,13 +98,11 @@ class Coin:
                 # The bot collects the total_tax for all members.
                 while self.tax.taxable and m.id == self.bot.user.id:
                         self.database.insert_coins(m.id, total_tax, m.mention)
-                        print("mmm, I like tax")
                 # if this user is the bot, continue to next iteration.
                 if m.id == self.bot.user.id:
                     continue
 
                 self.database.insert_coins(m.id, done_taxed_coins, m.mention)
-                print("moneypls")
             await asyncio.sleep(self.COIN_INTERVAL)
 
     def get_all_voice_members_except_in_afk(self):
