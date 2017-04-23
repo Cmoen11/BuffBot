@@ -81,7 +81,7 @@ class Coin:
         :param requestedBalance: 
         :return: 
         '''
-        if self.database.get_coins(user.id) < float(requestedBalance) :
+        if self.database.get_coins(user.id) < float(requestedBalance):
             return False
         return True
 

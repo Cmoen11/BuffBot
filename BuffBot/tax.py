@@ -84,6 +84,7 @@ class Tax:
     async def get_taxable(self):
         await self.bot.say(str(self.taxable))
 
+
     async def wealth_tax(self):
         while self.taxable:
             for user in self.database.get_rich_users(self.bot.user.id, self.is_wealthy):
