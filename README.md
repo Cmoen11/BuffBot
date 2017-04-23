@@ -84,17 +84,18 @@ Definition of a bug: A bug is an error, failure or fault in the program caused b
 <br>
 <i> OS, ptyhon version and more if neccesarily </i>
 
-## Feature requests
+<h2> Feature requests</h2>
 We're open for new features, but keep in mind the scope and relevance of the BuffBot. E.g. We will not implement changes in Discord's UI beyond what's already in the Discord API, as it neither is relevant nor in the scope of this project.
 <br>Details<br> is heavily encouraged when opening a feature request, they make it much easier for the developers to understand the scope of the request.
 
 <br>
-## Pull requests 
-* All code should be documentented
-* New features should be explained in detail in the wiki-page
-* All code, except command functions that does not have a return value, must have unittests. These must be implemented in the unitTests folder. 
-* All modules must declare the if__name__ == "__main__":. Sharing is caring!  
-
+<h2>Pull requests</h2> 
+<ul>
+<li> All code should be documentented </li>
+<li> New features should be explained in detail in the wiki-page</li>
+<li> All code, except command functions that does not have a return value, must have unittests. These must be implemented in the unitTests folder. </li>
+<li> All modules must declare the if__name__ == "__main__":. Sharing is caring!  </li>
+</ul>
 
 ## Licence
 [GPL3.0](https://github.com/Cmoen11/BuffBot/blob/master/LICENSE)
