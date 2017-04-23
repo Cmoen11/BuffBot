@@ -51,11 +51,8 @@ how you can contribute through pull requests.
 These guidelines helps you communicate to us in an efficient way, that hopefully will improve the project.
 <br> <a href="http://discordpy.readthedocs.io/en/latest/api.html#user"> If you're hooked and will dive into Buffbot with us, you find alot of documentation on the API we're using</a>
 
-
-
-
 <br>
-## Bugs and feature requests
+<h2>Bugs and feature requests</h2>
 If you've got a bug or feature request, please respect these restrictions:
 * Keep the discussion on topic.
 * Do not open issues if there are segment(s) of code you do not understand. This is <br> not </br> the purpose of these requests.
