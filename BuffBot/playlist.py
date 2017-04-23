@@ -1,7 +1,8 @@
 import random
 import youtube_dl.YoutubeDL
-class Node:
 
+
+class Node:
     def __init__(self, link):
         self.song = link
         self.next = None
@@ -59,30 +60,27 @@ class Queue:
             self.current = Node(link)
         else:
             self.current.queue_next(self.current, link)
+        self.update_playlist()
 
     def make_playlist(self, node: Node):
-        #
-        try:
-            if node.has_next() is True:
-                self.playlist.append('Title: {} Duration: {}:{}\n'.format(node.title, str(node.duration/60).split('.')[0],
-                                                               str(node.duration%60)))
-                n = node.get_next()
-                self.make_playlist(n)
-            else:
-                # end of the queue
-                self.playlist.append('Title: {} Duration: {}:{}\n'.format(node.title, str(node.duration / 60).split('.')[0],
-                                                      str(node.duration % 60)))
-        except AttributeError:
-            return
+        if node.has_next() is True:
+            self.playlist.append('Title: {} Duration: {}:{}\n'.format(node.title, str(node.duration / 60).split('.')[0],
+                                                                      str(node.duration % 60)))
+            n = node.get_next()
+            self.make_playlist(n)
+        else:
+            # end of the queue
+            self.playlist.append('Title: {} Duration: {}:{}\n'.format(node.title, str(node.duration / 60).split('.')[0],
+                                                                      str(node.duration % 60)))
 
     def pop(self):
         if self.current is not None:
             s = self.current.get_song()
-            del self.playlist[0]
             if self.current.has_next():
                 self.current = self.current.get_next()
             else:
                 self.current = None
+            self.update_playlist()
             return s
 
         else:
@@ -90,8 +88,9 @@ class Queue:
             self.current = None
 
     def update_playlist(self):
-        self.playlist.clear()
-        self.make_playlist(self.current)
+        self.playlist = []
+        if self.current is not None:
+            self.make_playlist(self.current)
 
     def peter(self):
         r = random.randint(0, 1)
@@ -99,8 +98,12 @@ class Queue:
         return songs[r]
 
     def prepare_playlist(self):
-        pl_string = ''
-        for song in self.playlist:
-            pl_string += song
-
+        if self.current is not None:
+            pl_string = 'playlist\n'
+            for song in self.playlist:
+                pl_string += song
+        elif self.current is None:
+            pl_string = 'Nothing in the playlist'
         return pl_string
+
+

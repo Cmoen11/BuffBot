@@ -260,9 +260,7 @@ class Voice:
 
     @commands.command(name='playlist', help='Output the current playlist')
     async def print_playlist(self):
-        if len(self.playlist.playlist) == 0:
-            self.playlist.make_playlist(self.playlist.current)
-        await self.bot.say('Current playlist\n{}'.format(self.playlist.prepare_playlist()))
+        await self.bot.say(self.playlist.prepare_playlist())
 
 
 
