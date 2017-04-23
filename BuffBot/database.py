@@ -1,7 +1,7 @@
 import sqlite3
-import discord
 
-class Database():
+
+class Database:
     def __init__(self, bot=None):
         self.bot = bot
         self.conn = None
@@ -103,7 +103,6 @@ class Database():
         for i in result :
             output = output + i[0]
 
-        self.conn.commit()
         self.conn.close()
 
         return output
@@ -114,6 +113,24 @@ class Database():
         sql = "SELECT userid, coins, user_mention FROM members ORDER BY coins DESC LIMIT 5;"
         result = self.conn.execute(sql)
         for user in result:
-            toplist.append({"userid" : user[0], "coins" : user[1], "mention" : user[2]})
+            toplist.append({"userid": user[0], "coins": user[1], "mention": user[2]})
         self.conn.close()
         return toplist
+
+    def get_rich_users(self, botid, wealthy_amount):
+        users = []
+        self.conn = sqlite3.connect(self.DB_NAME)
+        sql = "SELECT userid, coins, user_mention FROM members WHERE MEMBERS.userid != ? AND MEMBERS.coins >= ?;"
+        params = (botid, wealthy_amount,)
+        result = self.conn.execute(sql, params)
+        for user in result:
+            users.append({"userid": user[0], "coins": user[1], "mention": user[2]})
+        return users
+
+
+if __name__ == '__main__':
+    db = Database()
+
+
+
+

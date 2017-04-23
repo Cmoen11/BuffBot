@@ -9,6 +9,7 @@ import database
 import botconfig
 import global_methods
 
+
 class Command:
     def __init__(self, bot):
         self.bot = bot
