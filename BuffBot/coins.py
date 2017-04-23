@@ -107,6 +107,7 @@ class Coin:
                 await self.bot.send_message(self.bot.get_channel(id='299582768864559124'),
                                             'Mmm, sweet taxes! Total tax amount is now: %d'
                                             % self.database.get_coins(self.bot.user.id))
+            print("aaaaaaaaaaaaaaaaaaaa")
             await asyncio.sleep(self.COIN_INTERVAL)
 
     def get_all_voice_members_except_in_afk(self):

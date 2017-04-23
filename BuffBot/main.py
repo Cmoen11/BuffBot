@@ -19,10 +19,11 @@ async def on_ready():
     print(bot.user.id)
     print('------')
 
-    tax = Tax(bot)
-    await tax.wealth_tax()
     coins = Coin(bot)
     await coins.give_coin()
+    tax = Tax(bot)
+    await tax.wealth_tax()
+
 
 
 
@@ -37,5 +38,4 @@ if __name__ == '__main__':
             exc = '{}: {}'.format(type(e).__name__, e)
             print('Failed to load extension {}\n{}'.format(ext, exc))
     bot.run(botconfig.token)
-
 

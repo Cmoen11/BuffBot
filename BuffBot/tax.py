@@ -3,13 +3,13 @@ import database
 import asyncio
 import global_methods
 
-taxable = False  # Will collect tax if bot in voice channel. Disable this by setting taxable to false.
+
 
 
 class Tax:
     def __init__(self, bot):
-        global taxable
         self.bot = bot
+        self.taxable = True
         self.database = database.Database(self.bot)
         self.tax_amount_percentage = 0.20
         self.wealth_tax_percentage = 0.10
@@ -29,22 +29,21 @@ class Tax:
     async def set_tax_on(self, ctx):
         user = ctx.message.author
 
-        global taxable
-        if not taxable:
+
+        if not self.taxable:
             await self.bot.say("{} M8, the tax is already enabled!".format(user.mention))
             return None
-        taxable = True
+        self.taxable = True
         await self.bot.say("{} The tax is now enabled!".format(user.mention))
 
     @tax.command(name="taxoff", pass_context=True, help="Disable tax")
     async def set_tax_off(self, ctx):
         user = ctx.message.author
 
-        global taxable
-        if not taxable:
+        if not self.taxable:
             await self.bot.say("{} M8, the tax is already disabled!".format(user.mention))
             return None
-        taxable = False
+        self.taxable = False
         await self.bot.say("{} The tax is now disabled!".format(user.mention))
 
     @tax.command(name="settax", pass_context=True, help="Set the tax percantage - usage: !settax X%")
@@ -75,21 +74,20 @@ class Tax:
 
     @tax.command(name='taxstatus', pass_context=True, help="Status of tax")
     async def get_taxable(self):
-        await self.bot.say(str(taxable))
+        await self.bot.say(str(self.taxable))
 
     async def wealth_tax(self):
-            while True:
-                if self.taxable:
-                    for user in self.database.get_rich_users(self.bot.user.id, self.is_wealthy):
-                        # Calculate how much this user must tax.
-                        totalTax = user["coins"] * self.wealth_tax_percentage
-                        self.database.remove_coins(user["userid"], totalTax, user["mention"])
-                        self.database.insert_coins(self.bot.user.id, totalTax, self.bot.user.mention)
-                        await self.bot.send_message(self.bot.get_channel(id='298246065780555778'),
-                                                    'Rich people make me sick! I take your money! Total tax amount is now: %d'
-                                                    % self.database.get_coins(self.bot.user.id))
-                    print("hei")
-                await asyncio.sleep(5)
+        while self.taxable:
+            for user in self.database.get_rich_users(self.bot.user.id, self.is_wealthy):
+            # Calculate how much this user must tax.
+                totalTax = user["coins"] * self.wealth_tax_percentage
+                self.database.remove_coins(user["userid"], totalTax, user["mention"])
+                self.database.insert_coins(self.bot.user.id, totalTax, self.bot.user.mention)
+            await self.bot.send_message(self.bot.get_channel(id='298246065780555778'),
+                                        'Rich people make me sick! I take your money! Total tax amount is now: %d'
+                                        % self.database.get_coins(self.bot.user.id))
+            print("hei")
+            await asyncio.sleep(self.WEALTH_TAX_INTERVAL)
 
 
 def setup(bot):
