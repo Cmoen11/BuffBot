@@ -19,10 +19,11 @@ async def on_ready():
     print(bot.user.id)
     print('------')
 
-    coins = Coin(bot)
-    await coins.give_coin()
     tax = Tax(bot)
     await tax.wealth_tax()
+    coins = Coin(bot)
+    await coins.give_coin()
+
 
 
 

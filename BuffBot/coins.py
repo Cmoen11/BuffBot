@@ -103,7 +103,6 @@ class Coin:
                     continue
                 self.database.insert_coins(m.id, done_taxed_coins, m.mention)
             if self.tax.taxable:
-
                 # spam a channel with the current amount of tax
                 await self.bot.send_message(self.bot.get_channel(id='299582768864559124'),
                                             'Mmm, sweet taxes! Total tax amount is now: %d'
