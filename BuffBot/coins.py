@@ -13,7 +13,7 @@ class Coin:
         self.database = database.Database(self.bot)     # database object -> used to update and get coin amount
         self.tax = tax.Tax(self.bot)                    # Tax object used to get the value of taxable
         self.COIN_AMOUNT = 10                           # amount of coins to be given every interval
-        self.COIN_INTERVAL = 5                          # interval in seconds for sending out coins.
+        self.COIN_INTERVAL = 3                          # interval in seconds for sending out coins.
 
     @commands.command(name="coins", pass_context=True, help="Get your coin amount")
     async def get_coins(self, ctx):
@@ -91,23 +91,21 @@ class Coin:
         The bot will take a tax fee for being in a voice channel if taxAble is true
         '''
         while self.coinActive:
+            print("top")
             members = self.get_all_voice_members_except_in_afk()
             total_tax = self.COIN_AMOUNT * self.tax.tax_amount_percentage
             done_taxed_coins = self.COIN_AMOUNT - total_tax
             for m in members:
                 # The bot collects the total_tax for all members.
-                if self.tax.taxable and m.id == self.bot.user.id:
+                while self.tax.taxable and m.id == self.bot.user.id:
                         self.database.insert_coins(m.id, total_tax, m.mention)
+                        print("mmm, I like tax")
                 # if this user is the bot, continue to next iteration.
                 if m.id == self.bot.user.id:
                     continue
+
                 self.database.insert_coins(m.id, done_taxed_coins, m.mention)
-            if self.tax.taxable:
-                # spam a channel with the current amount of tax
-                await self.bot.send_message(self.bot.get_channel(id='299582768864559124'),
-                                            'Mmm, sweet taxes! Total tax amount is now: %d'
-                                            % self.database.get_coins(self.bot.user.id))
-            print("aaaaaaaaaaaaaaaaaaaa")
+                print("moneypls")
             await asyncio.sleep(self.COIN_INTERVAL)
 
     def get_all_voice_members_except_in_afk(self):

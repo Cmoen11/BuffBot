@@ -19,12 +19,13 @@ async def on_ready():
     print(bot.user.id)
     print('------')
 
+    tax = Tax(bot)
+    tax_task = asyncio.ensure_future(tax.wealth_tax())
+
     coins = Coin(bot)
     await coins.give_coin()
-    tax = Tax(bot)
-    await tax.wealth_tax()
 
-
+    await tax_task
 
 
 
