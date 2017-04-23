@@ -1,9 +1,14 @@
 import random
-class Node:
+import youtube_dl.YoutubeDL
 
+
+class Node:
     def __init__(self, link):
         self.song = link
         self.next = None
+        self.title = None
+        self.duration = None
+        self.get_info()
 
     def __str__(self):
         return str(self.song)
@@ -32,6 +37,10 @@ class Node:
         else:
             return True
 
+    def get_info(self):
+        info = youtube_dl.YoutubeDL().extract_info(self.song, False)
+        self.title, self.duration = info['title'], info['duration']
+
     @staticmethod
     def is_youtubelink(link):
         valid = "https://www.youtube.com/"
@@ -51,15 +60,18 @@ class Queue:
             self.current = Node(link)
         else:
             self.current.queue_next(self.current, link)
+        self.update_playlist()
 
     def make_playlist(self, node: Node):
         if node.has_next() is True:
-            self.playlist.append(node.get_song())
+            self.playlist.append('{} Duration: {}:{}\n'.format(node.title, str(node.duration / 60).split('.')[0],
+                                                                      str(node.duration % 60)))
             n = node.get_next()
             self.make_playlist(n)
         else:
             # end of the queue
-            self.playlist.append(node.get_song())
+            self.playlist.append('{} Duration: {}:{}\n'.format(node.title, str(node.duration / 60).split('.')[0],
+                                                                      str(node.duration % 60)))
 
     def pop(self):
         if self.current is not None:
@@ -68,16 +80,32 @@ class Queue:
                 self.current = self.current.get_next()
             else:
                 self.current = None
+            self.update_playlist()
             return s
+
         else:
             # playlist empty
             self.current = None
 
     def update_playlist(self):
-        self.playlist.clear()
-        self.make_playlist(self.current)
+        self.playlist = []
+        if self.current is not None:
+            self.make_playlist(self.current)
 
     def peter(self):
         r = random.randint(0, 1)
         songs = ["https://www.youtube.com/watch?v=_r0n9Dv6XnY", "https://www.youtube.com/watch?v=3GwjfUFyY6M"]
         return songs[r]
+
+    def prepare_playlist(self):
+        if self.current is not None:
+            pl_string = ':musical_note:Upcoming Songs:musical_note::\n'
+            num = 0
+            for song in self.playlist:
+                num += 1
+                pl_string += ('{}. {}'.format(str(num), song))
+        elif self.current is None:
+            pl_string = 'Nothing in the playlist'
+        return pl_string
+
+

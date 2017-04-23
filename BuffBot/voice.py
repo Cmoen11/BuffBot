@@ -195,5 +195,11 @@ class Voice:
             await self.bot.change_presence(game=discord.Game(name='Queue is empty'))
             await self.respond("Queue is empty", ctx.message.author.mention)
 
+    @commands.command(name='playlist', help='Output the current playlist')
+    async def print_playlist(self):
+        await self.bot.say(self.playlist.prepare_playlist())
+
+
+
 def setup(bot):
     bot.add_cog(Voice(bot))
