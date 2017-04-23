@@ -7,5 +7,8 @@ python:
   - "pypy-5.3.1"
 # command to install dependencies
 install:
-  - pip install .
-  - pip install -r requirements.txt
+  - pip install libffi-dev
+  - pip install discord.py[voice]
+  - pip install youtube-dl
+  - pip install dataset
+  - pip install simpleeval
