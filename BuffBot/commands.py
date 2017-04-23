@@ -7,6 +7,7 @@ import aiohttp
 import hashlib
 import database
 import botconfig
+import global_methods
 
 class Command:
     def __init__(self, bot):
@@ -19,9 +20,12 @@ class Command:
 
     @commands.command(name="bye", pass_context=True)
     async def bye(self, ctx):
-        if ctx.message.author.id in self.owners:
-            await self.bot.say("Bye bye!")
-            await self.bot.logout()
+        if not global_methods.is_admin(ctx.message.author):
+            await self.bot.say("You're not a big boy")
+            return None
+
+        await self.bot.say("Bye bye!")
+        await self.bot.logout()
 
     @commands.command(name="math", pass_context=True)
     async def math(self, ctx, *, params):
@@ -50,6 +54,9 @@ class Command:
     @commands.command(name="smugadd", pass_context=True)
     async def add_smug(self, ctx, path):
         allowed_content = {'image/jpeg': 'jpg', 'image/png': 'png', 'image/gif': 'gif'}
+        if not global_methods.is_admin(ctx.message.author):
+            await self.bot.say("You're not a big boy")
+
         async with aiohttp.get(path) as r:
             if r.status == 200:
                 file = await r.content.read()
@@ -71,12 +78,6 @@ class Command:
         face = os.path.join(path, random.choice(os.listdir(path))) # Generate path to a random face
         # Send the image to the channel where the smug command was triggered
         await self.bot.send_file(ctx.message.channel, face)
-
-    @commands.command(name="coin", pass_context=True)
-    async def coin(self, ctx):
-        # return coin status of the one who executes the command
-        await self.bot.say("You have $" + str(self.database.get_coin_count(ctx.message.author.id)) + " BuffCoins")
-
 
     async def respond(self, msg, author):
         await self.bot.say("{}, {}".format(msg, author))
