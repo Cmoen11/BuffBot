@@ -12,8 +12,8 @@ class Coin:
         self.coinActive = True                          # If this is set to false, the coin interval is stopped.
         self.database = database.Database(self.bot)     # database object -> used to update and get coin amount
         self.tax = tax.Tax(self.bot)                    # Tax object used to get the value of taxable
-        self.COIN_AMOUNT = 10                           # amount of coins to be given every interval
-        self.COIN_INTERVAL = 3                          # interval in seconds for sending out coins.
+        self.COIN_AMOUNT = 1                           # amount of coins to be given every interval
+        self.COIN_INTERVAL = 30                          # interval in seconds for sending out coins.
 
     @commands.command(name="coins", pass_context=True, help="Get your coin amount")
     async def get_coins(self, ctx):

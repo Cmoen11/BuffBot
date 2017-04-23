@@ -13,8 +13,8 @@ class Tax:
         self.database = database.Database(self.bot)
         self.tax_amount_percentage = 0.20
         self.wealth_tax_percentage = 0.10
-        self.is_wealthy = 200  # Users with this amount of coins or greater has to pay wealthTax
-        self.WEALTH_TAX_INTERVAL = 5  # Interval for wealth tax.
+        self.is_wealthy = 5000  # Users with this amount of coins or greater has to pay wealthTax
+        self.WEALTH_TAX_INTERVAL = 60  # Interval for wealth tax.
 
     @commands.group(name="tax", pass_context=True, help="Please check the {!help tax} in order to check the commands")
     async def tax(self, ctx):
