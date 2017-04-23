@@ -8,11 +8,10 @@ BuffBot is an open source bot for Discord written in Python 3.6. We'd love your 
 * [Quick start](#quick-start)
 * [Commands](#commands)
 * [Documentation](#documentation)
-* [Features](#features)
 * [Bugs and feature requests](#bugs-and-feature-requests)
 * [Contribution](#contribution)
 * [Licence](#licence)
-* [Credits](#credits-for-open-repositiories)
+* [Credits](#credits-for-open-repositories)
 
 
 ## Quick start
@@ -25,24 +24,15 @@ BuffBot is an open source bot for Discord written in Python 3.6. We'd love your 
 - pip install dataset
 - pip install simpleeval
 <br>
-Finally download the latest files from the project and open your terminal and write python main.py
-- Now add your bot token in the file located `botconfig/__init__.py`
+Finally, pull the latest version of the project, add your bot token in the file located `botconfig/__init__.py` and open your terminal and write python main.py
 
 
-
-<br><br>
 ## Commands
 Head over to the [documentation for commands](https://github.com/Cmoen11/BuffBot/wiki/Commands) to see an extensive list of available commands.
 
 
-
 ## Documentation
 https://github.com/Cmoen11/BuffBot/wiki 
-
-
-
-## Features 
-stuff will be added
 
 
 ## Contribution
@@ -81,9 +71,9 @@ Definition of a bug: A bug is an error, failure or fault in the program caused b
 <br>
 <i> ... </i>
 <br>
-<b> Your enviroment </b>
+<b> Your environment </b>
 <br>
-<i> OS, ptyhon version and more if neccesarily </i>
+<i> OS, Ptyhon version and more if necessarily </i>
 
 <h2> Feature requests</h2>
 We're open for new features, but keep in mind the scope and relevance of the BuffBot. E.g. We will not implement changes in Discord's UI beyond what's already in the Discord API, as it neither is relevant nor in the scope of this project.
@@ -96,11 +86,22 @@ We're open for new features, but keep in mind the scope and relevance of the Buf
 <li> New features should be explained in detail in the wiki-page</li>
 <li> All code, except command functions that does not have a return value, must have unittests. These must be implemented in the unitTests folder. </li>
 <li> All modules must declare the if__name__ == "__main__":. Sharing is caring!  </li>
+<li> Before creating a pull request, pull the latest master</li>
 </ul>
+<b>Requirements for creating a pull request:</b> <br>
+<ul>
+<li> Describe the feature(s) you've included in the pull request as detailed as possible. </li>
+<li> Tag the related issue(s). </li>
+<li> Request <b>two</b> known contributors for their reviews. </li>
+<li> Respond to reviewers. </li>
+</ul>
+
 
 ## Licence
 [GPL3.0](https://github.com/Cmoen11/BuffBot/blob/master/LICENSE)
 
 
-## Credits for open repositiories 
+## Credits for open repositories
 https://github.com/Rapptz/discord.py
+
+Structure of Github project, considering issues, pull requests and general documentations: https://github.com/twbs/bootstrap
