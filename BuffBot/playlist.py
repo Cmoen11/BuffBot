@@ -64,13 +64,13 @@ class Queue:
 
     def make_playlist(self, node: Node):
         if node.has_next() is True:
-            self.playlist.append('Title: {} Duration: {}:{}\n'.format(node.title, str(node.duration / 60).split('.')[0],
+            self.playlist.append('{} Duration: {}:{}\n'.format(node.title, str(node.duration / 60).split('.')[0],
                                                                       str(node.duration % 60)))
             n = node.get_next()
             self.make_playlist(n)
         else:
             # end of the queue
-            self.playlist.append('Title: {} Duration: {}:{}\n'.format(node.title, str(node.duration / 60).split('.')[0],
+            self.playlist.append('{} Duration: {}:{}\n'.format(node.title, str(node.duration / 60).split('.')[0],
                                                                       str(node.duration % 60)))
 
     def pop(self):
@@ -99,9 +99,11 @@ class Queue:
 
     def prepare_playlist(self):
         if self.current is not None:
-            pl_string = 'playlist\n'
+            pl_string = ':musical_note:Upcoming Songs:musical_note::\n'
+            num = 0
             for song in self.playlist:
-                pl_string += song
+                num += 1
+                pl_string += ('{}. {}'.format(str(num), song))
         elif self.current is None:
             pl_string = 'Nothing in the playlist'
         return pl_string
