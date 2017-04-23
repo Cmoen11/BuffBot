@@ -18,20 +18,20 @@ class Channel_manager:
     @commands.group(name="man", pass_context=True, help="Please check {!help man} in order to check the commands")
     async def channel_mangement(self, ctx):
         if ctx.invoked_subcommand is None:
-            await self.bot.say('Please lookup !help man for commands in this group')
+            await global_methods.say_other(ctx, 'Please lookup !help man for commands in this group', self.bot)
 
     @channel_mangement.group(name="flags", pass_context=True, help="Will give you a list of all flagged games for this channel")
     async def get_channel_flags(self, ctx):
         trigger_channel = ctx.message.author.voice.voice_channel
         if trigger_channel == None :
-            await self.respond("You're not in a voice channel", ctx.message.author.mention)
+            await global_methods.say_other(ctx, "You're not in a voice channel", self.bot)
             return None
         games = self.database.get_flagged_games(trigger_channel.id)
 
         output = "This channel is flagged for these games: \n"
         for game in games : output += game + "\n"
 
-        await self.bot.say(output)
+        await global_methods.say_other(ctx, output, self.bot)
         pass
 
     @channel_mangement.command(name="patrol", pass_context=True, help="Will start the patrolling")
