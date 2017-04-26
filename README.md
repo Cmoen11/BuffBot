@@ -6,7 +6,7 @@
 [![forthebadge](http://forthebadge.com/images/badges/gluten-free.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/made-with-python.svg)](http://forthebadge.com)
 # BuffBot
-[![https://gyazo.com/1794f1c9976d33bfca60abc1eb73b177](https://i.gyazo.com/1794f1c9976d33bfca60abc1eb73b177.png)](https://gyazo.com/1794f1c9976d33bfca60abc1eb73b177)<br>
+
 BuffBot is an open source bot for Discord written in Python 3.6. We'd love your help, wheter you've got a bug or a feature you'd  like fixed, or if you'd like to contribute through developing the BuffBot yourself. <b>However</b>, please read and respect the [Contribution](#contribution) first.
 
 ## Table of contents
