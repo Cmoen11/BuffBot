@@ -3,7 +3,8 @@
 [![Open Source Love](https://badges.frapsoft.com/os/gpl/gpl.svg?v=102)](https://github.com/Cmoen11/BuffBot/blob/master/LICENSE)
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/Cmoen11/BuffBot/)
 [![GitHub version](https://badge.fury.io/gh/cmoen11%2Fbuffbot.svg)](https://badge.fury.io/gh/cmoen11%2Fbuffbot)
-
+[![forthebadge](http://forthebadge.com/images/badges/gluten-free.svg)](http://forthebadge.com)
+[![forthebadge](http://forthebadge.com/images/badges/made-with-python.svg)](http://forthebadge.com)
 # BuffBot
 [![https://gyazo.com/1794f1c9976d33bfca60abc1eb73b177](https://i.gyazo.com/1794f1c9976d33bfca60abc1eb73b177.png)](https://gyazo.com/1794f1c9976d33bfca60abc1eb73b177)<br>
 BuffBot is an open source bot for Discord written in Python 3.6. We'd love your help, wheter you've got a bug or a feature you'd  like fixed, or if you'd like to contribute through developing the BuffBot yourself. <b>However</b>, please read and respect the [Contribution](#contribution) first.
