@@ -1,8 +1,6 @@
 [![Coverage Status](https://coveralls.io/repos/github/Cmoen11/BuffBot/badge.svg?branch=master)](https://coveralls.io/github/Cmoen11/BuffBot?branch=master)
 
-CHECK OUT THE BOT IN ACTION
-https://discord.gg/9xHNQPH
-
+<iframe src="https://discordapp.com/widget?id=306179844545445890&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0"></iframe>
 # BuffBot
 
 BuffBot is an open source bot for Discord written in Python 3.6. We'd love your help, wheter you've got a bug or a feature you'd  like fixed, or if you'd like to contribute through developing the BuffBot yourself. <b>However</b>, please read and respect the [Contribution](#contribution) first.
