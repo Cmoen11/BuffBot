@@ -2,7 +2,7 @@
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=102)](https://github.com/Cmoen11/BuffBot/)
 [![Open Source Love](https://badges.frapsoft.com/os/gpl/gpl.svg?v=102)](https://github.com/Cmoen11/BuffBot/blob/master/LICENSE)
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/Cmoen11/BuffBot/)
-[![PyPI version](https://badge.fury.io/py/discord.py.svg)](https://badge.fury.io/py/discord.py)
+[![GitHub version](https://badge.fury.io/gh/cmoen11%2Fbuffbot.svg)](https://badge.fury.io/gh/cmoen11%2Fbuffbot)
 # BuffBot
 
 BuffBot is an open source bot for Discord written in Python 3.6. We'd love your help, wheter you've got a bug or a feature you'd  like fixed, or if you'd like to contribute through developing the BuffBot yourself. <b>However</b>, please read and respect the [Contribution](#contribution) first.
