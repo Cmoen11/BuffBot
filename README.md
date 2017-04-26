@@ -1,4 +1,4 @@
-[![Coverage Status](https://coveralls.io/repos/github/Cmoen11/BuffBot/badge.svg?branch=master)](https://coveralls.io/github/Cmoen11/BuffBot?branch=master)
+<!-- [![Coverage Status](https://coveralls.io/repos/github/Cmoen11/BuffBot/badge.svg?branch=master)](https://coveralls.io/github/Cmoen11/BuffBot?branch=master) -->
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=102)](https://github.com/Cmoen11/BuffBot/)
 [![Open Source Love](https://badges.frapsoft.com/os/gpl/gpl.svg?v=102)](https://github.com/Cmoen11/BuffBot/blob/master/LICENSE)
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/Cmoen11/BuffBot/)
