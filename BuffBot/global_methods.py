@@ -1,5 +1,5 @@
 import asyncio
-
+import discord
 #### PERMISSION ####
 
 def is_admin(member) :
@@ -21,7 +21,8 @@ async def say_general(ctx, msg, bot):
 async def say_other(ctx, msg, bot):
     server = ctx.message.server
     channel = await find_or_create_text_channel('other', server, bot)
-    await bot.send_message(channel, msg)
+    await send_message(channel, msg, bot)
+    #await bot.send_message(channel, msg)
 
 async def say_music(ctx, msg, bot):
     server = ctx.message.server
@@ -31,13 +32,32 @@ async def say_music(ctx, msg, bot):
 async def say_tax(ctx, msg, bot):
     server = ctx.message.server
     channel = await find_or_create_text_channel('tax', server, bot)
-    await bot.send_message(channel, msg)
+    await bot.send_message(channel, msg, bot)
+
+
+async def send_message(channel, msg, bot):
+    embed = discord.Embed()
+    embed.title = "Buffbot"
+    embed.description = msg
+    embed.color = discord.Color.blue()
+    await bot.send_message(channel, "", embed=embed)
+
+
+async def music_playing(music_link, msg, bot) :
+    embed = discord.Embed()
+    embed.title = "Buffbot"
+    embed.description = msg
+    embed.color = discord.Color.blue()
+    embed.video = music_link
+
+    channel = await find_or_create_text_channel("music")
+
+    await bot.send_message(channel, "", embed=embed)
 
 
 async def find_or_create_text_channel(name, server, bot) :
-
     channels = server.channels
-    for channel in channels  :
+    for channel in channels:
         if str(channel.type) == 'text' and channel.name == name :
             return channel
     return await bot.create_channel(name=name, server=server, type='text')
