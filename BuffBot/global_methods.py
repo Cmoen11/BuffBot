@@ -43,12 +43,15 @@ async def send_message(channel, msg, bot):
     await bot.send_message(channel, "", embed=embed)
 
 
-async def music_playing(music_link, msg, bot) :
+async def music_playing(player, bot) :
     embed = discord.Embed()
-    embed.title = "Buffbot"
-    embed.description = msg
-    embed.color = discord.Color.blue()
-    embed.video = music_link
+    embed.title = "Music"
+    embed.add_field(name="Song name", value=player.title)
+    embed.add_field(name="Duration", value=player.duration/60)
+    embed.description = "Now playing.. "
+    embed.footer = "Please !queue <youtubelink> to get your song playing!"
+    embed.color = discord.Color.dark_green()
+    embed.video = player.url
 
     channel = await find_or_create_text_channel("music")
 
