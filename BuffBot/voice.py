@@ -172,7 +172,7 @@ class Voice:
             self.player.stop()
         # Create a StreamPlayer with the requested link
         self.player = await self.voice.create_ytdl_player(link)
-        await global_methods.music_playing(self.player, self.bot)
+        await global_methods.music_playing(self.player, self.bot, ctx.message.server)
         # Set the volume to the bot's volume value
         self.player.volume = self.volume
         self.player.start()

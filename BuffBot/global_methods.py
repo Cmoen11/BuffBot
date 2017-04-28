@@ -43,8 +43,9 @@ async def send_message(channel, msg, bot):
     await bot.send_message(channel, "", embed=embed)
 
 
-async def music_playing(player, bot) :
+async def music_playing(player, bot, server) :
     embed = discord.Embed()
+
     embed.title = "Music"
     embed.add_field(name="Song name", value=player.title, inline=True)
     embed.add_field(name="Duration", value=str(player.duration/60), inline=True)
@@ -54,7 +55,7 @@ async def music_playing(player, bot) :
     embed.add_field(name="Please add your own music", value="Do !queue <link to song> in order to queue up a song!")
     embed.color = discord.Color.dark_green()
 
-    channel = await find_or_create_text_channel("music")
+    channel = await find_or_create_text_channel("music", server, bot)
 
     await bot.send_message(channel, "", embed=embed)
 
