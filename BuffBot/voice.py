@@ -201,7 +201,7 @@ class Voice:
     async def print_playlist(self):
         await self.bot.say(self.playlist.prepare_playlist())
 
-    
+
 
 
 def setup(bot):
