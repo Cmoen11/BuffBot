@@ -51,7 +51,7 @@ async def music_playing(player, bot) :
     embed.add_field(name="Likes/dislike", value=str(player.likes)+"/"+str(player.dislikes), inline=True)
     embed.add_field(name="Views", value=str(player.views))
     embed.description = "Now playing.. "
-    embed.set_footer("Please !queue <youtubelink> to get your song playing!")
+    embed.add_field(name="Please add your own music", value="Do !queue <link to song> in order to queue up a song!")
     embed.color = discord.Color.dark_green()
 
     channel = await find_or_create_text_channel("music")
