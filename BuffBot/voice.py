@@ -201,6 +201,11 @@ class Voice:
     async def print_playlist(self):
         await self.bot.say(self.playlist.prepare_playlist())
 
+    @commands.command(name="music", pass_context=True)
+    async def test_test(self, ctx, link):
+        voice = ctx.message.
+        player = await self.voice.create_ytdl_player(link)
+        await global_methods.music_playing(player, self.bot)
 
 
 def setup(bot):
