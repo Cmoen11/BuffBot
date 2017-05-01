@@ -75,7 +75,7 @@ class Voice:
                 self.people_voted.clear()
                 # if there is an item at the front of the queue, play it and get the next item
                 if self.playlist.current:
-                    await self.play_music(self.get_or_take_member_channel(ctx), self.playlist.pop())
+                    self.seconds_to_next = 0
                 # nothing in queue
                 elif self.playlist.current is None:
                     self.seconds_to_next = 0
