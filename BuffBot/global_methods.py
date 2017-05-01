@@ -45,7 +45,7 @@ async def send_message(channel, msg, bot):
 
 async def music_playing(player, bot, server) :
     embed = discord.Embed()
-    m, s = divmod(player.durationd, 60)
+    m, s = divmod(player.duration, 60)
     embed.title = "Music"
     embed.add_field(name="Song name", value=player.title, inline=True)
     embed.add_field(name="Duration", value=str("{}:{}".format(m, s)), inline=True)
