@@ -116,6 +116,13 @@ class Voice:
         song = link
         # link added to next field in current song
         self.playlist.add_song(song)
+        self.database.add_music_to_db(song)
+        if self.seconds_to_next <= 0:
+            self.people_voted.clear()
+            if self.playlist.current is None:
+                pass
+            else:
+                await self.play_music(ctx, self.playlist.pop())
 
     @commands.command(name="next", pass_context=True, help="Skip to next song in music queue")
     async def play_next(self, ctx):
@@ -135,6 +142,7 @@ class Voice:
 
         self.people_voted.clear()
         if self.playlist.current is None:
+            await self.play_music(link=self.database.get_random_music(), ctx=ctx)
             await self.respond("Queue is empty", ctx.message.author.mention)
         else:
             await self.play_music(ctx, self.playlist.pop())
@@ -172,15 +180,15 @@ class Voice:
             self.player.stop()
         # Create a StreamPlayer with the requested link
         self.player = await self.voice.create_ytdl_player(link)
-        await global_methods.music_playing(self.player, self.bot, ctx.message.server)
-        # Set the volume to the bot's volume value
-        self.player.volume = self.volume
-        self.player.start()
-        await self.bot.change_presence(game=discord.Game(name=self.player.title))
-        await self.bot.say(":musical_note: Now playing: :musical_note: ```" + self.player.title + "``` And will queue next in: ```" + str(self.player.duration / 60) + " minutes```")
+
+        await global_methods.music_playing(self.player, self.bot, ctx.message.server)   # print out music information
+
+        self.player.volume = self.volume                                                # set the volume
+        self.player.start()                                                             # starts the song
+        await self.bot.change_presence(game=discord.Game(name=self.player.title))       # change bot presence
+
         self.seconds_to_next = self.player.duration
         await self.queue_is_alive(ctx)
-
 
     async def queue_is_alive(self, ctx):
         while self.seconds_to_next > 0:
@@ -194,7 +202,8 @@ class Voice:
             await asyncio.sleep(5)
 
         elif self.playlist.current is None:
-            await self.bot.change_presence(game=discord.Game(name='Queue is empty'))
+            await self.play_music(link=self.database.get_random_music(), ctx=ctx)
+            #await self.bot.change_presence(game=discord.Game(name='Queue is empty'))
             await self.respond("Queue is empty", ctx.message.author.mention)
 
     @commands.command(name='playlist', help='Output the current playlist')
