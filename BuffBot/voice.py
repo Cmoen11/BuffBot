@@ -135,8 +135,8 @@ class Voice:
         if not global_methods.is_admin(ctx.message.author):
             await self.bot.say("You're not a big boy")
             return None
-        if self.playlist.current:
-            self.seconds_to_next = 0
+
+        self.seconds_to_next = 0
         # nothing in queue
 
     def get_requested_server(self, ctx):
