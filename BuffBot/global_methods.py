@@ -67,3 +67,10 @@ async def find_or_create_text_channel(name, server, bot) :
             return channel
     return await bot.create_channel(name=name, server=server, type='text')
 
+
+async def find_or_create_voice_channel(name, server, bot):
+    channels = server.channels
+    for channel in channels:
+        if str(channel.type) == 'voice' and channel.name == name:
+            return channel
+    return await bot.create_channel(name=name, server=server, type='text')
