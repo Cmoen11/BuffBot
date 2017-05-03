@@ -4,6 +4,7 @@ from coins import Coin
 import time
 import botconfig
 import global_methods
+import discord
 
 class Holdem
     def __init__(self, bot):
@@ -30,20 +31,21 @@ class Holdem
                 return None,
             self.deck = self.generateDeck()
             self.game_status = 1
-            start_msg =   "  _______                   _    _       _     _\n" \
+            welcome_msg =   "  _______                   _    _       _     _\n" \
                           " |__   __|                 | |  | |     | |   | |               \n" \
                           "    | | _____  ____ _ ___  | |__| | ___ | | __| | ___ _ __ ___  \n" \
                           "    | |/ _ \ \/ / _` / __| |  __  |/ _ \| |/ _` |/ _ | '_ ` _ \ \n" \
                           "    | |  __/>  | (_| \__ \ | |  | | (_) | | (_| |  __| | | | | |\n" \
                           "    |_|\___/_/\_\__,_|___/ |_|  |_|\___/|_|\__,_|\___|_| |_| |_|\n"
-            await self.bot.say(start_msg, "A Texas Hold'em table has opened"
-                                          "Please use !holdem join <Blind> to join the table")
+            await self.bot.say(welcome_msg, "A Texas Hold'em table has opened"
+                                            "Please use !holdem join <Blind> to join the table")
 
         @holdem.command(name = "join", pass_context = True)
         async def join_game(self, ctx, bet):
             user = ctx.message.author
             if self.game_status != 1:
                 await self.bot.say("No tables are open, please open one to play")
+                return None
 
             if self.player_at_table(ctx.message.author):
                 await  self.bot.say(user.mention + "You're seated and ready to play")
@@ -66,6 +68,52 @@ class Holdem
 
         @holdem.command(name = "start", pass_context = True)
         async def start_game(self, ctx):
+
+            if len(self.holdem_players) < 2:
+                await self.bot.say("There needs to be at least 2 players at the table")
+                return None
+            # TODO: Solve this when you use the join command
+            elif len(self.holdem_players) > 9 :
+                await self.bot.say("There are too many people at the table")
+                return None
+
             self.game_status = 3
             self.dealersHand = [self.drawCard(), self.drawCard()]
+
+
+            start_msg = "Let's play Texas Hold'em!"
+            await self.bot.say(start_msg)
+
+            for player in self.holdem_players:
+                self.bot.send_message(player["user"], "This is your hand: " +
+                                      player['cards'][0].getStringSymbol() + player['cards'][0].getStringValue())
+                pass
+
+            community_cards_msg = "Here are the community cards: " + \
+                         self.dealerCards[0].getStringSymbol() + self.dealerCards[0].getStringValue()
+            await self.bot.say(community_cards_msg)
+
+        @holdem.command(name = "Call", pass_context = True)
+        async def holdem_call(self, ctx):
+            player = self.player_at_table(ctx.message.author)
+            if player is None:
+                await self.bot.say("You're not at this table, " + ctx.message.author.mention)
+                return None
+
+            if player["status"] != 0:
+                await self.bot.say(ctx.message.author.mention + " is calling the bet")
+                return None
+            pass
+
+
+        @holdem.command(name = "raise", pass_context = True)
+        async def holdem_stand(self, ctx):
+            player = self.player_at_table(ctx.message.author)
+            if player is None:
+                await self.bot.say("You're not at this table, " + ctx.message.author.mention)
+                return None
+
+            
+
+
 
