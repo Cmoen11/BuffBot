@@ -1,28 +1,34 @@
 import random
+from discord.ext import commands
+import discord
 import database
 from coins import Coin
 import time
 import botconfig
 import global_methods
-import discord
 
-class Holdem
+
+class Holdem:
     def __init__(self, bot):
         self.bot = bot
-        self.database = database.Database(self, bot)
+        self.database = database.Database(self.bot)
         self.holdem_players = []
         self.game_status = 0
         self.deck = []
         self.dealersHand = []
         self.coins = Coin(bot)
 
+        print("Test")
+
         # TODO: Command: holdem new, join, start, Call, raise, fold
         # TODO: Gather players
 
-        @commands.group(name = "holdem", pass_context = True)
-        async def holdem (self, ctx)
-            if ctx.invoked_suvcommand is None:
+        @commands.group(name="holdem", pass_context=True)
+        async def holdem(self, ctx):
+            if ctx.invoked_subcommand is None:
                 await self.bot.say("This is not a valid command, please add a subcommand")
+
+        print("Test2")
 
         @holdem.command(name = "new", pass_context = True)
         async def new_game(self, ctx):
@@ -31,7 +37,7 @@ class Holdem
                 return None,
             self.deck = self.generateDeck()
             self.game_status = 1
-            welcome_msg =   "  _______                   _    _       _     _\n" \
+            welcome_msg =   "_______                   _    _       _     _\n" \
                           " |__   __|                 | |  | |     | |   | |               \n" \
                           "    | | _____  ____ _ ___  | |__| | ___ | | __| | ___ _ __ ___  \n" \
                           "    | |/ _ \ \/ / _` / __| |  __  |/ _ \| |/ _` |/ _ | '_ ` _ \ \n" \
@@ -47,7 +53,7 @@ class Holdem
                 await self.bot.say("No tables are open, please open one to play")
                 return None
 
-            if self.player_at_table(ctx.message.author):
+            if self.players_at_table(ctx.message.author):
                 await  self.bot.say(user.mention + "You're seated and ready to play")
                 return None
 
@@ -95,7 +101,7 @@ class Holdem
 
         @holdem.command(name = "Call", pass_context = True)
         async def holdem_call(self, ctx):
-            player = self.player_at_table(ctx.message.author)
+            player = self.players_at_table(ctx.message.author)
             if player is None:
                 await self.bot.say("You're not at this table, " + ctx.message.author.mention)
                 return None
@@ -105,15 +111,26 @@ class Holdem
                 return None
             pass
 
-
         @holdem.command(name = "raise", pass_context = True)
-        async def holdem_stand(self, ctx):
-            player = self.player_at_table(ctx.message.author)
+        async def holdem_stand(self, ctx, bet_raise):
+            player = self.players_at_table(ctx.message.author)
             if player is None:
                 await self.bot.say("You're not at this table, " + ctx.message.author.mention)
                 return None
 
-            
+            if bet_raise <= 0 or None:
+                await self.bot.say(ctx.message.author.mention + "You need to specify a bet")
+                return None
+
+            for player in self.players_at_table:
+                if player["name"] == player:
+                    player["bet"] += bet_raise
+
+            await self.bot.say(ctx.message.author.mention + " Raised the bet")
+
+
+def setup(bot):
+    bot.add_cog(Holdem(bot))
 
 
 

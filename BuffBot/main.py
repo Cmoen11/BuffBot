@@ -8,7 +8,7 @@ import asyncio
 client = discord.Client()
 bot = commands.Bot(command_prefix='!')
 
-startup_extensions = ['commands', 'voice', 'coins', 'blackjack', "channel_mangement", 'lottery', 'tax']
+startup_extensions = ['commands', 'voice', 'coins', 'blackjack', 'channel_mangement', 'lottery', 'tax', 'holdem']
 
 
 @bot.event
