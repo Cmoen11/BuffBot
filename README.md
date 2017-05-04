@@ -6,7 +6,6 @@
 [![forthebadge](http://forthebadge.com/images/badges/for-you.svg)](http://forthebadge.com)
 [![forthebadge](http://forthebadge.com/images/badges/made-with-python.svg)](http://forthebadge.com)
 # BuffBot
-
 BuffBot is an open source bot for Discord written in Python 3.6. BuffBot can administrate your channels, <br>
 play songs into a voice channel, queue songs, create a server economy users can use to play gambling games, and much much more! <br>
 
@@ -40,17 +39,16 @@ For a more detailed guide of how to get our bot up and running, visit our [Compl
 ## Commands
 Head over to the [documentation for commands](https://github.com/Cmoen11/BuffBot/wiki/Commands) to see an extensive list of available commands.
 
-
 ## Documentation
 https://github.com/Cmoen11/BuffBot/wiki 
-
 
 ## Contribution
 Would you also like to contribute to BuffBot? Please follow our guidelines for reporting bugs and wanted features, in addition to
 how you can contribute through pull requests.
 These guidelines helps you communicate to us in an efficient way, that hopefully will improve the project.
-<br>
-### Bugs and feature requests
+<br> <a href="http://discordpy.readthedocs.io/en/latest/api.html#user"> If you're hooked and will dive into Buffbot with us, you find alot of documentation on the API we're using</a>
+
+<h2>Bugs and feature requests</h2>
 If you've got a bug or feature request, please respect these restrictions:
 * Keep the discussion on topic.
 * Please do not open issues if there are segment(s) of code you do not understand that you would like explained to you. <br> 

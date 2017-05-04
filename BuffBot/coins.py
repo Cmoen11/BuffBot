@@ -96,7 +96,7 @@ class Coin:
             done_taxed_coins = self.COIN_AMOUNT - total_tax
             for m in members:
                 # The bot collects the total_tax for all members.
-                while self.tax.taxable and m.id == self.bot.user.id:
+                if self.tax.taxable and m.id == self.bot.user.id:
                         self.database.insert_coins(m.id, total_tax, m.mention)
                 # if this user is the bot, continue to next iteration.
                 if m.id == self.bot.user.id:
