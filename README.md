@@ -1,8 +1,18 @@
-[![Coverage Status](https://coveralls.io/repos/github/Cmoen11/BuffBot/badge.svg?branch=master)](https://coveralls.io/github/Cmoen11/BuffBot?branch=master)
+<!-- [![Coverage Status](https://coveralls.io/repos/github/Cmoen11/BuffBot/badge.svg?branch=master)](https://coveralls.io/github/Cmoen11/BuffBot?branch=master) -->
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=102)](https://github.com/Cmoen11/BuffBot/)
+[![Open Source Love](https://badges.frapsoft.com/os/gpl/gpl.svg?v=102)](https://github.com/Cmoen11/BuffBot/blob/master/LICENSE)
+[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/Cmoen11/BuffBot/)
+[![GitHub version](https://badge.fury.io/gh/cmoen11%2Fbuffbot.svg)](https://badge.fury.io/gh/cmoen11%2Fbuffbot)
+[![forthebadge](http://forthebadge.com/images/badges/for-you.svg)](http://forthebadge.com)
+[![forthebadge](http://forthebadge.com/images/badges/made-with-python.svg)](http://forthebadge.com)
 # BuffBot
 
-BuffBot is an open source bot for Discord written in Python 3.6. We'd love your help, wheter you've got a bug or a feature you'd  like fixed, or if you'd like to contribute through developing the BuffBot yourself. <b>However</b>, please read and respect the [Contribution](#contribution) first.
+BuffBot is an open source bot for Discord written in Python 3.6. BuffBot can administrate your channels, <br>
+play songs into a voice channel, queue songs, create a server economy users can use to play gambling games, and much much more! <br>
 
+We have many great features we would like to implement to the bot in the future, such as an [online management tool UI](https://github.com/Cmoen11/BuffBot/issues/56).   
+We'd love your help, whether you've got a bug or a feature you'd like fixed, or if you'd like to contribute through developing the BuffBot yourself. <br>
+<b>However</b>, please read and respect the [Contribution](#contribution) first.
 ## Table of contents
 
 * [Quick start](#quick-start)
@@ -24,8 +34,8 @@ BuffBot is an open source bot for Discord written in Python 3.6. We'd love your 
 - pip install dataset
 - pip install simpleeval
 <br>
-Finally, pull the latest version of the project, add your bot token in the file located `botconfig/__init__.py` and open your terminal and write python main.py
-
+Finally, pull the latest version of the project, add your bot token in the file located `botconfig/__init__.py` and open your terminal and write python main.py<br>
+For a more detailed guide of how to get our bot up and running, visit our [Complete Guide](https://github.com/Cmoen11/BuffBot/wiki/Complete-guide-to-get-this-up-and-running)
 
 ## Commands
 Head over to the [documentation for commands](https://github.com/Cmoen11/BuffBot/wiki/Commands) to see an extensive list of available commands.
@@ -40,11 +50,11 @@ Would you also like to contribute to BuffBot? Please follow our guidelines for r
 how you can contribute through pull requests.
 These guidelines helps you communicate to us in an efficient way, that hopefully will improve the project.
 <br>
-## Bugs and feature requests
+### Bugs and feature requests
 If you've got a bug or feature request, please respect these restrictions:
 * Keep the discussion on topic.
-* Do not open issues if there are segment(s) of code you do not understand. This is <br> not </br> the purpose of these requests.
-More restrictions will be added as the project lifetime expands.
+* Please do not open issues if there are segment(s) of code you do not understand that you would like explained to you. <br> 
+This is <b>not</b> the purpose of these requests. 
 
 
 ### Bug reports
@@ -75,12 +85,12 @@ Definition of a bug: A bug is an error, failure or fault in the program caused b
 <br>
 <i> OS, Ptyhon version and more if necessarily </i>
 
-<h2> Feature requests</h2>
+### Feature requests
 We're open for new features, but keep in mind the scope and relevance of the BuffBot. E.g. We will not implement changes in Discord's UI beyond what's already in the Discord API, as it neither is relevant nor in the scope of this project.
 <br>Details<br> is heavily encouraged when opening a feature request, they make it much easier for the developers to understand the scope of the request.
 
-<br>
-<h2>Pull requests</h2> 
+
+### Pull requests
 <ul>
 <li> All code should be documentented </li>
 <li> New features should be explained in detail in the wiki-page</li>
@@ -95,6 +105,7 @@ We're open for new features, but keep in mind the scope and relevance of the Buf
 <li> Request <b>two</b> known contributors for their reviews. </li>
 <li> Respond to reviewers. </li>
 </ul>
+<br>
 
 
 ## Licence
