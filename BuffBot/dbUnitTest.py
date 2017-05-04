@@ -12,7 +12,17 @@ class DatabaseTest(unittest.TestCase):
         self.conn.commit()
         self.conn.close()
 
+    # Querry all the actual data in the relevant testing tables.
+    def real_db(self):
+        self.conn = sqlite3.connect("test123.db")
+        sql = 'select * from game_restriction, members'
+        self.conn.execute(sql)
+        self.conn.close()
+    #Return the querry
+
+
     def setUp(self):
+        self.actual_db = self.real_db
         self.emptyTable('game_restriction')
         self.emptyTable('members')
         # Create a Database object to call the relevant functions.
@@ -36,7 +46,9 @@ class DatabaseTest(unittest.TestCase):
         self.assertNotIn([{'userid': 278286021903515656, 'coins': 20000, 'mention': 'BuffBot#0334'}],
                          self.db.get_rich_users(278286021903515656, 24))
 
-
+    @classmethod
+    def tearDownClass(cls):
+        cls.actual_db
 
 
 
