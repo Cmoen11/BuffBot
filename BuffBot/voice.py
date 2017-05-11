@@ -12,6 +12,7 @@ import asyncio
 import discord
 import global_methods
 
+
 class Voice:
     def __init__(self, bot):
         self.bot = bot
@@ -23,6 +24,7 @@ class Voice:
         self.playlist = playlist.Queue()
         self.people_voted = []
         self.seconds_to_next = 0
+        self.music_server = None
         
 
     @commands.command(name="summon", pass_context=True)
@@ -32,8 +34,11 @@ class Voice:
                 await self.bot.say("I'm already here ya dingus")
             else:
                 await self.voice.move_to(ctx.message.author.voice.voice_channel)
+                self.music_server = self.voice.channel
         else:
             self.voice = await self.bot.join_voice_channel(ctx.message.author.voice.voice_channel)
+            self.music_server = self.voice.channel
+
 
     @commands.command(name="leaveChannel", pass_context=True)
     async def leaveChannel(self, ctx):
@@ -70,7 +75,7 @@ class Voice:
                 self.people_voted.clear()
                 # if there is an item at the front of the queue, play it and get the next item
                 if self.playlist.current:
-                    await self.play_music(ctx, self.playlist.pop())
+                    self.seconds_to_next = 0
                 # nothing in queue
                 elif self.playlist.current is None:
                     self.seconds_to_next = 0
@@ -115,14 +120,23 @@ class Voice:
         song = link
         # link added to next field in current song
         self.playlist.add_song(song)
+        self.database.add_music_to_db(song)
+        if not self.music_server :
+            self.music_server = self.get_or_take_member_channel(ctx)
+        if self.seconds_to_next <= 0:
+            self.people_voted.clear()
+            if self.playlist.current is None:
+                pass
+            else:
+                await self.play_music(self.playlist.pop())
 
     @commands.command(name="next", pass_context=True, help="Skip to next song in music queue")
     async def play_next(self, ctx):
         if not global_methods.is_admin(ctx.message.author):
             await self.bot.say("You're not a big boy")
             return None
-        if self.playlist.current:
-            self.seconds_to_next = 0
+
+        self.seconds_to_next = 0
         # nothing in queue
 
     def get_requested_server(self, ctx):
@@ -131,10 +145,10 @@ class Voice:
 
     @commands.command(name="start", pass_context=True, help="Start the music queue")
     async def start_queue(self, ctx):
-
+        self.music_server = self.get_or_take_member_channel(ctx)
         self.people_voted.clear()
         if self.playlist.current is None:
-            await self.respond("Queue is empty", ctx.message.author.mention)
+            await self.play_music(link=self.database.get_random_music(), ctx=self.music_server)
         else:
             await self.play_music(ctx, self.playlist.pop())
 
@@ -149,12 +163,9 @@ class Voice:
     async def time_left(self, ctx):
         await self.respond(str(self.seconds_to_next), ctx.message.author.mention)
 
-    async def play_music(self, ctx, link):
-        if ctx.message.author.id not in self.owners:
-            return None
-
+    async def play_music(self, link):
         # Get the voice channel the commanding user is in
-        trigger_channel = ctx.message.author.voice.voice_channel
+        trigger_channel = self.music_server
         # Return with a message if the user is not in a voice channel
         if trigger_channel is None:
             await self.bot.say("You're not in a voice channel right now")
@@ -171,16 +182,17 @@ class Voice:
             self.player.stop()
         # Create a StreamPlayer with the requested link
         self.player = await self.voice.create_ytdl_player(link)
-        # Set the volume to the bot's volume value
-        self.player.volume = self.volume
-        self.player.start()
-        await self.bot.change_presence(game=discord.Game(name=self.player.title))
-        await self.bot.say(":musical_note: Now playing: :musical_note: ```" + self.player.title + "``` And will queue next in: ```" + str(self.player.duration / 60) + " minutes```")
+
+        await global_methods.music_playing(self.player, self.bot, self.music_server.server)   # print out music information
+
+        self.player.volume = self.volume                                                # set the volume
+        self.player.start()                                                             # starts the song
+        await self.bot.change_presence(game=discord.Game(name=self.player.title))       # change bot presence
+
         self.seconds_to_next = self.player.duration
-        await self.queue_is_alive(ctx)
+        await self.queue_is_alive()
 
-
-    async def queue_is_alive(self, ctx):
+    async def queue_is_alive(self):
         while self.seconds_to_next > 0:
             self.seconds_to_next -= 1
             await asyncio.sleep(1)
@@ -188,16 +200,21 @@ class Voice:
         self.people_voted.clear()
         # if there is an item at the front of the queue, play it and get the next item
         if self.playlist.current:
-            await self.play_music(ctx, self.playlist.pop())
+            await self.play_music(self.playlist.pop())
             await asyncio.sleep(5)
 
         elif self.playlist.current is None:
-            await self.bot.change_presence(game=discord.Game(name='Queue is empty'))
-            await self.respond("Queue is empty", ctx.message.author.mention)
+            await self.play_music(link=self.database.get_random_music())
+            #await self.bot.change_presence(game=discord.Game(name='Queue is empty'))
+
+    def get_or_take_member_channel(self, ctx):
+        if ctx.message.author.voice.voice_channel.id == self.music_server: return self.music_server
+        else: return ctx.message.author.voice.voice_channel
 
     @commands.command(name='playlist', help='Output the current playlist')
     async def print_playlist(self):
         await self.bot.say(self.playlist.prepare_playlist())
+
 
 
 

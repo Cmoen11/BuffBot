@@ -128,6 +128,29 @@ class Database:
         return users
 
 
+    def add_music_to_db(self, link):
+        self.conn = sqlite3.connect(self.DB_NAME)
+        sql = "insert or ignore into music (link, countRequested) VALUES (?, ?)"
+        params = (link, 0)
+        self.conn.execute(sql, params)
+
+        sql = "UPDATE music SET countRequested = countRequested + 1 WHERE link = ?"
+        params = (link,)
+        self.conn.execute(sql, params)
+
+        self.conn.commit()
+        self.conn.close()
+
+    def get_random_music(self):
+        self.conn = sqlite3.connect(self.DB_NAME)
+        sql = "SELECT * FROM music ORDER BY RANDOM() LIMIT 1;"
+        result = self.conn.execute(sql)
+        self.conn.commit()
+        output = None
+        for x in result: output = x[0]
+        self.conn.close()
+        return output
+
 if __name__ == '__main__':
     db = Database()
 
