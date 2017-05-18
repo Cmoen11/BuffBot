@@ -1,5 +1,8 @@
 *.class
 
+# Key files
+__init__.py 
+test123.db
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
