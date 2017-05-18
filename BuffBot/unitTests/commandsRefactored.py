@@ -10,7 +10,7 @@ import random
 
 from simpleeval import simple_eval
 import math
-from BuffBot.commands import get_random_line
+from commands import get_random_line
 
 
 class Commands:
