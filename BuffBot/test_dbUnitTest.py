@@ -1,6 +1,6 @@
 import unittest
 import sqlite3
-from BuffBot.database import Database
+from database import Database
 
 
 class DatabaseTest(unittest.TestCase):
