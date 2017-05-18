@@ -1,5 +1,5 @@
 import unittest
-from BuffBot.unitTests.commandsRefactored import Commands
+from unitTests.commandsRefactored import Commands
 
 
 class CommandsTest(unittest.TestCase):
