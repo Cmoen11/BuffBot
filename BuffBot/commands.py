@@ -5,9 +5,9 @@ import os
 import random
 import aiohttp
 import hashlib
-from BuffBot import database
-from BuffBot import botconfig
-from BuffBot import global_methods
+import database
+import botconfig
+import global_methods
 
 
 class Command:
