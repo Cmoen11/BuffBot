@@ -116,6 +116,7 @@ class Voice:
         song = link
         # link added to next field in current song
         self.playlist.add_song(song)
+        if len(self.playlist) == 1 : await self.start_queue(ctx)
 
     @commands.command(name="next", pass_context=True, help="Skip to next song in music queue")
     async def play_next(self, ctx):
