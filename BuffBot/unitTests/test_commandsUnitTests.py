@@ -19,12 +19,14 @@ class CommandsTest(unittest.TestCase):
     def test_whoIsTheBuffest(self):
         self.assertEqual(self.commands.whoIsTheBuffest("!whoIsTheBuffest", "85431603408420864"), "Wiklem")
 
+    '''
     def test_eightBall(self):
         self.assertIn(self.commands.eightBall("!8ball", "85431603408420864"), self.commands.eightBallReader())
 
+    
     def test_smug(self):
         self.assertIn(self.commands.smug("!smug", "85431603408420864"), self.commands.smugList())
-
+    '''
 
 
 if __name__ == '__main__':
