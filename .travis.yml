@@ -8,6 +8,5 @@ install:
   - pip install youtube-dl
   - pip install dataset
   - pip install simpleeval
-  - pip install -r requirements.txt
 # command to run tests
 script: pytest
