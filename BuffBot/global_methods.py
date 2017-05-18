@@ -45,10 +45,10 @@ async def send_message(channel, msg, bot):
 
 async def music_playing(player, bot, server) :
     embed = discord.Embed()
-
+    m, s = divmod(player.duration, 60)
     embed.title = "Music"
     embed.add_field(name="Song name", value=player.title, inline=True)
-    embed.add_field(name="Duration", value=str(player.duration/60), inline=True)
+    embed.add_field(name="Duration", value=str("{}:{}".format(m, s)), inline=True)
     embed.add_field(name="Likes/dislike", value=str(player.likes)+"/"+str(player.dislikes), inline=True)
     embed.add_field(name="Views", value=str(player.views))
     embed.description = "Now playing.. "
@@ -67,3 +67,10 @@ async def find_or_create_text_channel(name, server, bot) :
             return channel
     return await bot.create_channel(name=name, server=server, type='text')
 
+
+async def find_or_create_voice_channel(name, server, bot):
+    channels = server.channels
+    for channel in channels:
+        if str(channel.type) == 'voice' and channel.name == name:
+            return channel
+    return await bot.create_channel(name=name, server=server, type='text')
