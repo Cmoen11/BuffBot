@@ -3,7 +3,7 @@ from unitTests.commandsRefactored import Commands
 
 
 class CommandsTest(unittest.TestCase):
-
+    ''' TO DO, rewrite these tests
     def setUp(self):
         self.commands = Commands()
         self.path = '../smug-anime-faces'
@@ -19,7 +19,7 @@ class CommandsTest(unittest.TestCase):
     def test_whoIsTheBuffest(self):
         self.assertEqual(self.commands.whoIsTheBuffest("!whoIsTheBuffest", "85431603408420864"), "Wiklem")
 
-    '''
+    
     def test_eightBall(self):
         self.assertIn(self.commands.eightBall("!8ball", "85431603408420864"), self.commands.eightBallReader())
 
