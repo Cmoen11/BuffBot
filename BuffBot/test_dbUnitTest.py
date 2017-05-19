@@ -46,10 +46,11 @@ class DatabaseTest(unittest.TestCase):
         self.assertNotIn([{'userid': 278286021903515656, 'coins': 20000, 'mention': 'BuffBot#0334'}],
                          self.db.get_rich_users(278286021903515656, 24))
 
+    '''
     @classmethod
     def tearDownClass(cls):
-        cls.actual_db
-
+        #cls.actual_db
+    '''
 
 
 if __name__ == '__main__':
