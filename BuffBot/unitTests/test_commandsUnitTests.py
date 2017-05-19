@@ -1,5 +1,5 @@
 import unittest
-from unitTests.commandsRefactored import Commands
+'''from unitTests.commandsRefactored import Commands'''
 
 
 class CommandsTest(unittest.TestCase):
