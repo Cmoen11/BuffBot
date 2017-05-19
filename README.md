@@ -4,7 +4,6 @@
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/Cmoen11/BuffBot/)
 [![GitHub version](https://badge.fury.io/gh/cmoen11%2Fbuffbot.svg)](https://badge.fury.io/gh/cmoen11%2Fbuffbot)
 [![Build Status](https://travis-ci.org/Cmoen11/BuffBot.svg?branch=master)](https://travis-ci.org/Cmoen11/BuffBot)
-[![forthebadge](http://forthebadge.com/images/badges/made-with-python.svg)](http://forthebadge.com)
 # BuffBot
 BuffBot is an open source bot for Discord written in Python 3.6. BuffBot can administrate your channels, <br>
 play songs into a voice channel, queue songs, create a server economy users can use to play gambling games, and much much more! <br>
