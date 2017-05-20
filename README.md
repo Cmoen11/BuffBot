@@ -1,6 +1,7 @@
 <!-- [![Coverage Status](https://coveralls.io/repos/github/Cmoen11/BuffBot/badge.svg?branch=master)](https://coveralls.io/github/Cmoen11/BuffBot?branch=master) -->
 [![GitHub version](https://badge.fury.io/gh/cmoen11%2Fbuffbot.svg)](https://badge.fury.io/gh/cmoen11%2Fbuffbot)
 [![Build Status](https://travis-ci.org/Cmoen11/BuffBot.svg?branch=master)](https://travis-ci.org/Cmoen11/BuffBot)
+[![PyPI](https://img.shields.io/pypi/pyversions/discord.py.svg)](https://pypi.python.org/pypi/BuffBot/)
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=102)](https://github.com/Cmoen11/BuffBot/)
 [![Open Source Love](https://badges.frapsoft.com/os/gpl/gpl.svg?v=102)](https://github.com/Cmoen11/BuffBot/blob/master/LICENSE)
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/Cmoen11/BuffBot/)
