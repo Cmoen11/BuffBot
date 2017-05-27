@@ -1,12 +1,12 @@
-import unittest
 import sqlite3
-from database import Database
+import unittest
 
+from db.database import Database
 
 class DatabaseTest(unittest.TestCase):
     # Prepare the relevant table for testing by deleting all rows in it.
     def emptyTable(self, table):
-        self.conn = sqlite3.connect("test123.db")
+        self.conn = sqlite3.connect("database.db")
         sql = 'delete from {} '.format(table)
         self.conn.execute(sql)
         self.conn.commit()
@@ -14,7 +14,7 @@ class DatabaseTest(unittest.TestCase):
 
     # Querry all the actual data in the relevant testing tables.
     def real_db(self):
-        self.conn = sqlite3.connect("test123.db")
+        self.conn = sqlite3.connect("database.db")
         sql = 'select * from game_restriction, members'
         self.conn.execute(sql)
         self.conn.close()

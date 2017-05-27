@@ -1,9 +1,11 @@
-from discord.ext import commands
-import database
 import asyncio
 import random
+
 import discord
+from discord.ext import commands
+
 import tax
+from db import database
 
 
 class Coin:

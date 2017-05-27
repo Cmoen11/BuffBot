@@ -1,19 +1,19 @@
-from discord.ext import commands
-from simpleeval import simple_eval
+import hashlib
 import math
 import os
 import random
+
 import aiohttp
-import hashlib
-import database
-import botconfig
+from discord.ext import commands
+from simpleeval import simple_eval
+
 import global_methods
+from db import database
 
 
 class Command:
     def __init__(self, bot):
         self.bot = bot
-        self.owners = botconfig.owners
         self.voice = None
         self.player = None
         self.volume = 1.0

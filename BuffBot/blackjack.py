@@ -1,11 +1,11 @@
 import random
+
 from discord.ext import commands
-import discord
-import database
-from coins import Coin
-import time
-import botconfig
+
 import global_methods
+from coins import Coin
+from db import database
+
 
 class Gamble:
     def __init__(self, bot):
@@ -16,7 +16,6 @@ class Gamble:
         self.deck = []
         self.coins = Coin(bot)
         self.dealerCards = []
-        self.owners = botconfig.owners
 
 
     @commands.group(name="bj", pass_context=True)

@@ -1,8 +1,8 @@
-import botconfig
 from discord.ext import commands
-import database
-import botconfig
+
 import global_methods
+from db import database
+
 '''
     This module is for handling for channel management. 
     
@@ -12,7 +12,6 @@ class Channel_manager:
     def __init__(self, bot):
         self.bot = bot  # The bot object.
         self.database = database.Database(self.bot)  # database object -> used to update and get coin amount
-        self.owners = botconfig.owners
     pass
 
     @commands.group(name="man", pass_context=True, help="Please check {!help man} in order to check the commands")

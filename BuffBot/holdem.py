@@ -1,11 +1,7 @@
-import random
 from discord.ext import commands
-import discord
-import database
+
 from coins import Coin
-import time
-import botconfig
-import global_methods
+from db import database
 
 
 class Holdem:
@@ -18,7 +14,6 @@ class Holdem:
         self.dealersHand = []
         self.coins = Coin(bot)
 
-        print("Test")
 
         # TODO: Command: holdem new, join, start, Call, raise, fold
         # TODO: Gather players
@@ -28,7 +23,6 @@ class Holdem:
             if ctx.invoked_subcommand is None:
                 await self.bot.say("This is not a valid command, please add a subcommand")
 
-        print("Test2")
 
         @holdem.command(name = "new", pass_context = True)
         async def new_game(self, ctx):

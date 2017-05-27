@@ -1,9 +1,9 @@
-from discord.ext import commands
-import database
 import asyncio
+
+from discord.ext import commands
+
 import global_methods
-
-
+from db import database
 
 
 class Tax:

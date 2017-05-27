@@ -1,9 +1,10 @@
 import random
-import math
+
 from discord.ext import commands
-import discord
-import database
+
 from coins import Coin
+from db import database
+
 
 class Lottery:
     def __init__(self, bot):

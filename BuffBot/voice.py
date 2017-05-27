@@ -1,22 +1,16 @@
-from discord.ext import commands
-from simpleeval import simple_eval
-import math
-import os
-import random
-import aiohttp
-import hashlib
-import database
-import playlist
-import botconfig
 import asyncio
+
 import discord
+from discord.ext import commands
+
 import global_methods
+import playlist
+from db import database
 
 
 class Voice:
     def __init__(self, bot):
         self.bot = bot
-        self.owners = botconfig.owners
         self.voice = None
         self.player = None
         self.volume = 1.0

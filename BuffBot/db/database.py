@@ -5,7 +5,7 @@ class Database:
     def __init__(self, bot=None):
         self.bot = bot
         self.conn = None
-        self.DB_NAME = "test123.db"
+        self.DB_NAME = "database.db"
         print("Opened database successfully")
 
     def flag_gaming_channel(self, channel_id, game_title, allowed):
