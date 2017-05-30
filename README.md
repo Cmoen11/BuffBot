@@ -8,8 +8,12 @@
 Live demo can be found on: https://discord.gg/9xHNQPH
 
 # BuffBot 🤖
-BuffBot is an open source bot for Discord written in Python 3.6. BuffBot can administrate your channels, <br>
-play songs into a voice channel, queue songs, create a server economy users can use to play gambling games, and much much more!💪 <br>
+Discord is a great communication software itself, however, it does not provide some much wanted features. Some Discord servers may have several hundred members, if all of these users were to join the same voice channel, there would likely be several conversations taking place at the same time. On the other hand, some voice channels may have as little as one, two or three participants, opening the possibility for awkward silent moments.
+ 
+Would it not be great if users could share their music with their fellow gamers, especially during awkward silent moments? Would it not be great if players were automatically sorted into voice channels allocated the game they are playing, instead of everyone manually creating and changing voice channels? 
+ 
+BuffBot is the solution to these lacking features. BuffBot provides features like streaming music into voice channels, queuing songs to a playlist, administrate users into voice channels based on what they do, a global server economy, interacting with the bot through mini games that can earn you an advantage in the global server economy.
+!💪 <br>
 
 <img src="https://i.gyazo.com/a11b08dbc9b4cc8ee13b6a8dc1adba58.png"/>
 
