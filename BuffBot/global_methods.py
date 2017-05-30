@@ -2,7 +2,10 @@ import asyncio
 import discord
 #### PERMISSION ####
 
+demo_enabled = False
+
 def is_admin(member) :
+    if demo_enabled : return "Admin"
     return member.server_permissions.administrator
 
 

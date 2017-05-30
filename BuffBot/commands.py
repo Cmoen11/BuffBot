@@ -19,6 +19,19 @@ class Command:
         self.volume = 1.0
         self.database = database.Database()
 
+    @commands.command(name="demoEnable", pass_context=True)
+    async def enable_demo(self, ctx):
+        print("test")
+        if not global_methods.is_admin(ctx.message.author):
+            await self.bot.say("You're not a big boy")
+            return None
+        print("test")
+        global_methods.demo_enabled = True
+        self.bot.say("Demo enabled!")
+
+
+        pass
+
     @commands.command(name="bye", pass_context=True)
     async def bye(self, ctx):
         if not global_methods.is_admin(ctx.message.author):
