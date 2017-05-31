@@ -22,12 +22,12 @@ We'd love your help, whether you've got a bug or a feature you'd like fixed, or 
 <b>However</b>, please read and respect the [Contribution](#contribution) first.
 ## Table of contents 📍
 
-* [Quick start](#quick-start)
+* [Quick start](#quick-start-)
 * [Commands](#commands)
-* [Documentation](#documentation)
+* [Documentation](#documentation-)
 * [Bugs and feature requests](#bugs-and-feature-requests)
 * [Contribution](#contribution)
-* [Licence](#licence)
+* [Licence](#licence-)
 * [Credits](#credits-for-open-repositories)
 
 
