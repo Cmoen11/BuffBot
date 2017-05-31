@@ -32,17 +32,28 @@ We'd love your help, whether you've got a bug or a feature you'd like fixed, or 
 
 
 ## Quick start 💡
-- You need to have ffmpeg installed on your machine.. [Tutorial for FFmpeg(Windows)](http://www.hongkiat.com/blog/ffmpeg-guide/). <br> And for ubuntu and mac users.. [Tutorial for mac and ubuntu for FFmpeg ](https://medium.com/portfolio-of-bilash/install-ffmpeg-on-ubuntu-mac-os-98588f3251d7)
+- You need to have ffmpeg installed on your machine.. [Tutorial for FFmpeg(Windows)](http://www.hongkiat.com/blog/ffmpeg-guide/). <br> And for ubuntu and mac users.. [Tutorial for ubuntu FFmpeg ](https://medium.com/portfolio-of-bilash/install-ffmpeg-on-ubuntu-mac-os-98588f3251d7)
 - [You also need python 3.x.](https://www.python.org/downloads/)
 - Open terminal.. you have some pip install(s) to do!
 - pip install libffi-dev
 - pip install discord.py[voice]
 - pip install youtube-dl
-- pip install dataset
 - pip install simpleeval
 <br>
-Finally, pull the latest version of the project, add your bot token in the file located `botconfig/__init__.py` and open your terminal and write python main.py<br>
-For a more detailed guide of how to get our bot up and running, visit our [Complete Guide](https://github.com/Cmoen11/BuffBot/wiki/Complete-guide-to-get-this-up-and-running)
+
+For mac people!<br>
+`pip install discord.py[voice]`<br>
+`pip install youtube-dl`<br>
+`pip install simpleeval`<br>
+`brew install ffmpeg`<br>
+`brew install opus`<br>
+`brew install libffi`<br>
+`brew install libsodium`<br>
+`And then open up python3.6 package and run Install Certificates.command`<br>
+
+Finally download the latest files from the project and open your terminal and write python main.py
+
+- Now add your bot token in the file located `botconfig/__init__.py`
 
 ## Commands 
 Head over to the [documentation for commands](https://github.com/Cmoen11/BuffBot/wiki/Commands) to see an extensive list of available commands.
