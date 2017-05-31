@@ -22,12 +22,12 @@ We'd love your help, whether you've got a bug or a feature you'd like fixed, or 
 <b>However</b>, please read and respect the [Contribution](#contribution) first.
 ## Table of contents 📍
 
-* [Quick start](#quick-start)
+* [Quick start](#quick-start-)
 * [Commands](#commands)
-* [Documentation](#documentation)
-* [Bugs and feature requests](#bugs-and-feature-requests)
+* [Folder structure](#folder-structure)
+* [Documentation](#documentation-)
 * [Contribution](#contribution)
-* [Licence](#licence)
+* [Licence](#licence-)
 * [Credits](#credits-for-open-repositories)
 
 
@@ -47,10 +47,15 @@ For a more detailed guide of how to get our bot up and running, visit our [Compl
 ## Commands 
 Head over to the [documentation for commands](https://github.com/Cmoen11/BuffBot/wiki/Commands) to see an extensive list of available commands.
 
-## Documentation 📝
+## Folder structure 
+The folder structure is based on having all of the command modules in the root directory, while assisting modules
+and files are separated in different directories, such as db and unittest. <br> 
+<img src ="http://i.imgur.com/5shUrVr.png"/>
+
+## Documentation 📝 
 https://github.com/Cmoen11/BuffBot/wiki 
 
-## Contribution
+## Contribution 
 Would you also like to contribute to BuffBot? Please follow our guidelines for reporting bugs and wanted features, in addition to
 how you can contribute through pull requests.
 These guidelines helps you communicate to us in an efficient way, that hopefully will improve the project.
@@ -97,9 +102,13 @@ We're open for new features, but keep in mind the scope and relevance of the Buf
 
 
 ### Pull requests 📥
+If the issue you would like to implement does not exist, you must follow the model below. If the issue on the other does
+exist, you can ignore the first process in the model.
+<img src ="http://i.imgur.com/qTpg9Hf.png"/>
 <ul>
-<li> All code should be documentented </li>
-<li> New features should be explained in detail in the wiki-page</li>
+<li> Create feature branch</li>
+<li> Documentent all code </li>
+<li> Follow standards and conventions </li>
 <li> All code, except command functions that does not have a return value, must have unittests. These must be implemented in the unitTests folder. </li>
 <li> All modules must declare the if__name__ == "__main__":. Sharing is caring!  </li>
 <li> Before creating a pull request, pull the latest master</li>
@@ -110,6 +119,7 @@ We're open for new features, but keep in mind the scope and relevance of the Buf
 <li> Tag the related issue(s). </li>
 <li> Request <b>two</b> known contributors for their reviews. </li>
 <li> Respond to reviewers. </li>
+<li> Did your pull request get approved? Awesome, now please document the feature in our wiki</li>
 </ul>
 <br>
 
