@@ -24,8 +24,8 @@ We'd love your help, whether you've got a bug or a feature you'd like fixed, or 
 
 * [Quick start](#quick-start-)
 * [Commands](#commands)
-* [Folder structure](#folder-structure)
 * [Documentation](#documentation-)
+* [Folder structure](#folder-structure)
 * [Contribution](#contribution)
 * [Licence](#licence-)
 * [Credits](#credits-for-open-repositories)
@@ -47,13 +47,14 @@ For a more detailed guide of how to get our bot up and running, visit our [Compl
 ## Commands 
 Head over to the [documentation for commands](https://github.com/Cmoen11/BuffBot/wiki/Commands) to see an extensive list of available commands.
 
+
+## Documentation 📝 
+https://github.com/Cmoen11/BuffBot/wiki 
+
 ## Folder structure 
 The folder structure is based on having all of the command modules in the root directory, while assisting modules
 and files are separated in different directories, such as db and unittest. <br> 
 <img src ="http://i.imgur.com/5shUrVr.png"/>
-
-## Documentation 📝 
-https://github.com/Cmoen11/BuffBot/wiki 
 
 ## Contribution 
 Would you also like to contribute to BuffBot? Please follow our guidelines for reporting bugs and wanted features, in addition to
