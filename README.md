@@ -35,10 +35,12 @@ We'd love your help, whether you've got a bug or a feature you'd like fixed, or 
 - You need to have ffmpeg installed on your machine.. [Tutorial for FFmpeg(Windows)](http://www.hongkiat.com/blog/ffmpeg-guide/). <br> And for ubuntu and mac users.. [Tutorial for ubuntu FFmpeg ](https://medium.com/portfolio-of-bilash/install-ffmpeg-on-ubuntu-mac-os-98588f3251d7)
 - [You also need python 3.x.](https://www.python.org/downloads/)
 - Open terminal.. you have some pip install(s) to do!
-- pip install libffi-dev
-- pip install discord.py[voice]
-- pip install youtube-dl
-- pip install simpleeval
+
+For windows/ubuntu people<br>
+`pip install libffi-dev`<br>
+`pip install discord.py[voice]`<br>
+`pip install youtube-dl`<br>
+`pip install simpleeval`<br>
 <br>
 
 For mac people!<br>
@@ -54,6 +56,10 @@ For mac people!<br>
 Finally download the latest files from the project and open your terminal and write python main.py
 
 - Now add your bot token in the file located `botconfig/__init__.py`
+
+### Docker install
+If you're not going to develop any new feature to BuffBot and just want to enjoy the features of BuffBot. Please download the zip from the newest release(or whatever version you prefer). Then build your project, edit `BuffBot/botconfig/__init__.py` and add your Bot token.
+Then run `docker build -t buffbot_docker .` from your command prompt.  
 
 ## Commands 
 Head over to the [documentation for commands](https://github.com/Cmoen11/BuffBot/wiki/Commands) to see an extensive list of available commands.
