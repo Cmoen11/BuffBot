@@ -1,6 +1,9 @@
 <!-- [![Coverage Status](https://coveralls.io/repos/github/Cmoen11/BuffBot/badge.svg?branch=master)](https://coveralls.io/github/Cmoen11/BuffBot?branch=master) -->
 [![GitHub version](https://badge.fury.io/gh/cmoen11%2Fbuffbot.svg)](https://badge.fury.io/gh/cmoen11%2Fbuffbot)
 [![Build Status](https://travis-ci.org/Cmoen11/BuffBot.svg?branch=master)](https://travis-ci.org/Cmoen11/BuffBot)
+[![label](https://img.shields.io/github/issues-raw/badges/shields/website.svg)](https://github.com/Cmoen11/BuffBot)
+[![](https://img.shields.io/github/issues-closed-raw/badges/shields.svg)]()
+[![NetflixOSS Lifecycle](https://img.shields.io/osslifecycle/Netflix/osstracker.svg)]()
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=102)](https://github.com/Cmoen11/BuffBot/)
 [![Open Source Love](https://badges.frapsoft.com/os/gpl/gpl.svg?v=102)](https://github.com/Cmoen11/BuffBot/blob/master/LICENSE)
 
