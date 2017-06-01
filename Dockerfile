@@ -14,17 +14,14 @@ RUN mkdir -p /discord_bot
 COPY . /discord_bot
 
 # Sets the root for upcoming commands // where the main.py is located
-WORKDIR /discord_bot/buffbot/buffbot
+WORKDIR /discord_bot/BuffBot
 
 # Fetches dependencies
-RUN pip install libffi-dev
+#RUN pip install libffi-dev
 RUN pip install discord.py[voice]
 RUN pip install youtube-dl
-RUN pip install dataset
 RUN pip install simpleeval
 
 # Builds the binary on docker build
 RUN python main.py
 
-# Exposes port 8080
-EXPOSE 8080
