@@ -7,8 +7,6 @@
 [![Open Source Love](https://badges.frapsoft.com/os/gpl/gpl.svg?v=102)](https://github.com/Cmoen11/BuffBot/blob/master/LICENSE)
 
 
-Live demo can be found on: https://discord.gg/9xHNQPH
-
 # BuffBot 🐍🤖
 Discord is a great communication software itself, however, it does not provide some much wanted features. Some Discord servers may have several hundred members, if all of these users were to join the same voice channel, there would likely be several conversations taking place at the same time. On the other hand, some voice channels may have as little as one, two or three participants, opening the possibility for awkward silent moments.
  
